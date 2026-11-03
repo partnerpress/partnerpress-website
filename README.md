@@ -1,6 +1,6 @@
 # PartnerPress website
 
-The partnerpress.net site, built with [Astro](https://astro.build) as a static site and hosted on Netlify.
+The partnerpress.net site, built with [Astro](https://astro.build) as a static site and hosted on Cloudflare Workers (static assets).
 
 ## Run it locally
 
@@ -50,21 +50,35 @@ Post body in Markdown.
 
 Set `draft: true` to keep a post off the live site. Drafts still show in `npm run dev` so you can preview them. Remove the line (or set it to `false`) to publish. Posts appear on `/blog/`, in the sitemap and in the RSS feed at `/rss.xml`.
 
-## Environment variables (Netlify)
+## Environment variables (Cloudflare Worker build variables)
 
 | Variable | Purpose |
 | --- | --- |
 | `PUBLIC_GA4_ID` | GA4 measurement ID (for example `G-XXXXXXX`). Analytics only load when this is set. |
-| `PUBLIC_FORMSPREE_ID` | Optional. Overrides the Formspree form ID in `src/config/site.ts` (`xjyyobjq`). Set it to an empty value to use Netlify Forms instead. |
-| `SITE_INDEXABLE` | Optional override. `true` forces indexing, `false` forces noindex. |
+| `PUBLIC_TURNSTILE_SITE_KEY` | Optional. Cloudflare Turnstile site key; shows the spam check on the contact form. |
+| `SITE_INDEXABLE` | Set to `true` once partnerpress.net points at the Worker. Only `main` builds are then indexable. |
+
+## Contact form
+
+The form posts to `/api/contact`. `worker/index.js` checks it (honeypot, optional Turnstile) and emails it through Cloudflare Email Service (Email Sending) with the `send_email` binding, with Reply-To set to the visitor. Everything else is served straight from `dist/`.
+
+Set these on the Worker (Settings > Variables and secrets, Production):
+
+| Name | Type | Purpose |
+| --- | --- | --- |
+| `MAIL_TO` | Secret | Where submissions go. Must be a verified destination address (Email Service > Email Routing > Destination addresses). |
+| `MAIL_FROM` | Secret | Sender address on the onboarded Email Sending domain, for example `website@partnerpress.net`. |
+| `TURNSTILE_SECRET` | Secret | Optional. Turns on the Turnstile check (pair with `PUBLIC_TURNSTILE_SITE_KEY`). |
+
+partnerpress.net mail runs on Google Workspace. Email Sending only adds records on `cf-bounce.partnerpress.net`, so it leaves the Google MX records alone. Do not onboard the domain to Email Routing (that needs Cloudflare MX on the apex), and keep the existing `_dmarc` record rather than adding a second one.
 
 ## Search engine visibility
 
-Only the live production deploy on partnerpress.net can be indexed. Every other build (deploy previews, branch deploys, the netlify.app address, local builds) gets a `noindex` robots tag on every page and an `X-Robots-Tag: noindex, nofollow` header. The build log says which mode it used.
+Builds are noindex unless `SITE_INDEXABLE=true` and the branch is `main`. Every other build (preview branches, local builds) gets a `noindex` robots tag on every page and an `X-Robots-Tag: noindex, nofollow` header. The build log says which mode it used. The workers.dev address always sends `X-Robots-Tag: noindex` (see `public/_headers`).
 
 ## Deploying
 
-Netlify reads `netlify.toml`: it runs `npm run build` on Node 24 and publishes `dist/`. The contact form posts to Formspree (form `xjyyobjq`). Old WordPress URLs are redirected in `public/_redirects`.
+Cloudflare Workers Builds is connected to GitHub and deploys `main`. It runs `npm run build` (Node 24, from `.node-version`), then `npx wrangler deploy`, which serves `dist/` as static assets (see `wrangler.jsonc`). Response headers live in `public/_headers`. Old WordPress URLs are redirected in `public/_redirects`.
 
 ## Before launch
 
@@ -72,6 +86,6 @@ Netlify reads `netlify.toml`: it runs `npm run build` on Node 24 and publishes `
 - Paste the Termageddon embed code into each file in `src/content/legal/`.
 - Add real photos and client screenshots where the placeholder boxes are.
 - Review the blog post in `src/content/blog/`.
-- Set `PUBLIC_GA4_ID` in Netlify.
-- Point partnerpress.net at Netlify and confirm the build log says "search engines: allowed".
+- Set `PUBLIC_GA4_ID` in the Worker's build variables.
+- Add partnerpress.net as a custom domain on the Worker, set `SITE_INDEXABLE=true`, redeploy and confirm the build log says "search engines: allowed".
 - Submit `https://partnerpress.net/sitemap-index.xml` in Google Search Console.

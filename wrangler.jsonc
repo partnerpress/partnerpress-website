@@ -1,0 +1,23 @@
+// Cloudflare Workers config. Workers Builds runs `npm run build`, then
+// `npx wrangler deploy`. dist/ is served as static assets; only /api/* runs the
+// Worker in worker/index.js (the contact form). public/_headers and
+// public/_redirects are copied into dist/ and applied by Cloudflare.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "partnerpress",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"]
+  },
+  // Sends the contact form through Cloudflare Email Service (Email Sending). The
+  // recipient is the MAIL_TO secret, which must be a verified destination address.
+  "send_email": [{ "name": "CONTACT_EMAIL" }],
+  "observability": { "enabled": true },
+  // Lets Workers Builds run `wrangler preview` for pull request branches.
+  "previews": {}
+}

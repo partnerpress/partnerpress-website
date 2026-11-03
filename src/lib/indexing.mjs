@@ -1,19 +1,18 @@
 // Decides whether search engines may index this build.
 //
-// Netlify sets CONTEXT (production, deploy-preview, branch-deploy) and URL (the
-// site's primary address). Until partnerpress.net is the primary domain, URL is
-// the netlify.app address, so every build stays out of search results while
-// remaining public for Huddlekit and reviewers.
-//
-// SITE_INDEXABLE=true|false overrides the check (handy for local builds).
+// Builds are noindex unless SITE_INDEXABLE=true. Set it in the Cloudflare Worker's
+// build variables once partnerpress.net points at the Worker. Cloudflare Workers
+// Builds sets WORKERS_CI_BRANCH, so preview builds of other branches always stay
+// noindex, even with the variable set. The workers.dev address gets its own
+// noindex header in public/_headers.
 
 export const LIVE_HOST = 'partnerpress.net';
+export const PRODUCTION_BRANCH = 'main';
 
 export function isIndexable(env = process.env) {
   const override = (env.SITE_INDEXABLE ?? '').trim().toLowerCase();
-  if (['true', '1', 'yes'].includes(override)) return true;
-  if (['false', '0', 'no'].includes(override)) return false;
+  if (!['true', '1', 'yes'].includes(override)) return false;
 
-  const url = env.URL ?? '';
-  return env.CONTEXT === 'production' && url.includes(LIVE_HOST) && !url.includes('netlify.app');
+  const branch = env.WORKERS_CI_BRANCH;
+  return !branch || branch === PRODUCTION_BRANCH;
 }
