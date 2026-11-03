@@ -1,4 +1,5 @@
 ---
+heroImage: './images/fix-error-establishing-database-connection/featured.png'
 title: 'How to Fix "Error Establishing a Database Connection" in WordPress'
 description: 'What the WordPress database connection error means, the five most common causes, and how to fix each one, in plain English.'
 pubDate: 2026-10-28
