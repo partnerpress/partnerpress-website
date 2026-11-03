@@ -5,7 +5,7 @@ import Section from '@/components/Section.astro';
 import SectionIntro from '@/components/SectionIntro.astro';
 import Grid from '@/components/Grid.astro';
 import Button from '@/components/Button.astro';
-import Placeholder from '@/components/Placeholder.astro';
+import organMountains from '@/assets/img/locations/las-cruces-organ-mountains.jpg';
 import ServiceCard from '@/components/ServiceCard.astro';
 import AreaList from '@/components/AreaList.astro';
 import CaseStudyCard from '@/components/CaseStudyCard.astro';
@@ -45,7 +45,7 @@ const services = order.map((key) => SERVICES.find((s) => s.key === key)!);
   <PageHero
     eyebrow="Las Cruces, NM · Doña Ana County"
     title="WordPress, Local SEO and Google Ads for Las Cruces businesses"
-    tone="navy"
+    bg={organMountains}
   >
     <Fragment slot="lead">
       I live and work in Las Cruces. Your website, your Google Business Profile and your ads, handled by one local expert who
@@ -55,7 +55,6 @@ const services = order.map((key) => SERVICES.find((s) => s.key === key)!);
       <Button href="/contact/" size="lg">Book a free call</Button>
       <span class="call">or call <Phone office="nm" strong /></span>
     </Fragment>
-    <Placeholder slot="aside" tone="dark" label="Local photo: Organ Mountains, Mesilla Plaza, or Shane with a Las Cruces client" />
   </PageHero>
 
   <Section>

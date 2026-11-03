@@ -15,7 +15,7 @@ export const SERVICES: Service[] = [
   {
     key: 'web-design',
     title: 'WordPress design and development',
-    shortTitle: 'WordPress design',
+    shortTitle: 'WordPress Design',
     summary: 'Fast, accessible sites built to turn visitors into calls. Redesigns, rebuilds and migrations.',
     price: 'From [PRICE]',
     href: '/wordpress-web-design/',
@@ -24,7 +24,7 @@ export const SERVICES: Service[] = [
   {
     key: 'care',
     title: 'WordPress care plans',
-    shortTitle: 'WordPress care plans',
+    shortTitle: 'WordPress Care Plans',
     summary: 'Weekly updates, daily security scans, backups, uptime monitoring and unlimited quick fixes.',
     price: 'From $249/month',
     href: '/wordpress-care-plans/',

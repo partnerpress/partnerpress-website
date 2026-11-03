@@ -6,7 +6,7 @@ import SectionIntro from '@/components/SectionIntro.astro';
 import Grid from '@/components/Grid.astro';
 import Button from '@/components/Button.astro';
 import Rating from '@/components/Rating.astro';
-import Placeholder from '@/components/Placeholder.astro';
+import mountTam from '@/assets/img/locations/marin-mount-tam.jpg';
 import ServiceCard from '@/components/ServiceCard.astro';
 import AreaList from '@/components/AreaList.astro';
 import NameStrip from '@/components/NameStrip.astro';
@@ -44,7 +44,11 @@ const local: Record<string, { title: string; summary: string }> = {
   office="marin"
   schema={['marin']}
 >
-  <PageHero eyebrow="Marin County, CA · Based in Novato" title="WordPress, Local SEO and Google Ads for Marin County businesses">
+  <PageHero
+    eyebrow="Marin County, CA · Based in Novato"
+    title="WordPress, Local SEO and Google Ads for Marin County businesses"
+    bg={mountTam}
+  >
     <Fragment slot="lead">
       Marin businesses have trusted me with their websites since 2010. One local expert for your site, your Google rankings
       and your ads, from Novato to Sausalito.
@@ -54,7 +58,6 @@ const local: Record<string, { title: string; summary: string }> = {
       <span class="call">or call <Phone office="marin" strong /></span>
     </Fragment>
     <Rating slot="meta" />
-    <Placeholder slot="aside" label="Local photo: Mount Tam, downtown Novato, or Shane with a Marin client" />
   </PageHero>
 
   <Section>
