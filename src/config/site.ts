@@ -84,8 +84,8 @@ export const LEGAL_NAV = [
 /** Google Analytics 4 measurement ID. Set PUBLIC_GA4_ID in the Cloudflare Worker's build variables to turn tracking on. */
 export const GA4_ID = import.meta.env.PUBLIC_GA4_ID ?? '';
 
-/** Formspree form ID (the part after /f/ in the endpoint). PUBLIC_FORMSPREE_ID overrides it; an empty value is ignored. */
-export const FORMSPREE_ID = import.meta.env.PUBLIC_FORMSPREE_ID || 'xjyyobjq';
+/** Cloudflare Turnstile site key for the contact form. Set PUBLIC_TURNSTILE_SITE_KEY in the Worker's build variables to show the widget. */
+export const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
 
 /** Trustindex widget that shows live Google reviews. */
 export const TRUSTINDEX_SRC = 'https://cdn.trustindex.io/loader.js?6f1c3fd8962b091656596eaf64';

@@ -55,8 +55,22 @@ Set `draft: true` to keep a post off the live site. Drafts still show in `npm ru
 | Variable | Purpose |
 | --- | --- |
 | `PUBLIC_GA4_ID` | GA4 measurement ID (for example `G-XXXXXXX`). Analytics only load when this is set. |
-| `PUBLIC_FORMSPREE_ID` | Optional. Overrides the Formspree form ID in `src/config/site.ts` (`xjyyobjq`). An empty value is ignored. |
+| `PUBLIC_TURNSTILE_SITE_KEY` | Optional. Cloudflare Turnstile site key; shows the spam check on the contact form. |
 | `SITE_INDEXABLE` | Set to `true` once partnerpress.net points at the Worker. Only `main` builds are then indexable. |
+
+## Contact form
+
+The form posts to `/api/contact`. `worker/index.js` checks it (honeypot, optional Turnstile) and emails it through Cloudflare Email Routing with the `send_email` binding, with Reply-To set to the visitor. Everything else is served straight from `dist/`.
+
+Set these on the Worker (Settings > Variables and secrets, Production):
+
+| Name | Type | Purpose |
+| --- | --- | --- |
+| `MAIL_TO` | Secret | Where submissions go. Must be a verified Email Routing destination address. |
+| `MAIL_FROM` | Secret | Sender address on the Email Routing domain, for example `website@forms.partnerpress.net`. |
+| `TURNSTILE_SECRET` | Secret | Optional. Turns on the Turnstile check (pair with `PUBLIC_TURNSTILE_SITE_KEY`). |
+
+partnerpress.net mail runs on Google Workspace, so Email Routing is enabled on the `forms.partnerpress.net` subdomain only. Never enable it on the apex domain: that replaces the Google MX records.
 
 ## Search engine visibility
 
@@ -64,7 +78,7 @@ Builds are noindex unless `SITE_INDEXABLE=true` and the branch is `main`. Every 
 
 ## Deploying
 
-Cloudflare Workers Builds is connected to GitHub and deploys `main`. It runs `npm run build` (Node 24, from `.node-version`), then `npx wrangler deploy`, which serves `dist/` as static assets (see `wrangler.jsonc`). Response headers live in `public/_headers`. The contact form posts to Formspree (form `xjyyobjq`). Old WordPress URLs are redirected in `public/_redirects`.
+Cloudflare Workers Builds is connected to GitHub and deploys `main`. It runs `npm run build` (Node 24, from `.node-version`), then `npx wrangler deploy`, which serves `dist/` as static assets (see `wrangler.jsonc`). Response headers live in `public/_headers`. Old WordPress URLs are redirected in `public/_redirects`.
 
 ## Before launch
 

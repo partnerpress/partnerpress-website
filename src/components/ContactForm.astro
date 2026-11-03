@@ -1,18 +1,18 @@
 ---
-// "Book a call" form. Sent to Formspree (FORMSPREE_ID in config/site.ts).
+// "Book a call" form. Posts to /api/contact, which the Worker (worker/index.js)
+// emails to Shane through Cloudflare Email Routing. Works without JavaScript too.
 // "Choose plan" buttons link to /contact/?plan=Name and the script below pre-fills it.
 import Button from './Button.astro';
-import { FORMSPREE_ID, OFFICES } from '@/config/site';
+import { OFFICES, TURNSTILE_SITE_KEY } from '@/config/site';
 
 const services = ['New website or redesign', 'WordPress care plan', 'Local SEO', 'Google Ads', 'Not sure yet'];
 const areas = ['Marin County, CA', 'Las Cruces, NM', 'Somewhere else'];
 
 ---
 
-<form method="POST" class="form" data-contact-form action={`https://formspree.io/f/${FORMSPREE_ID}`} data-formspree>
-  <input type="hidden" name="_subject" value="New call request from partnerpress.net" />
+<form method="POST" class="form" data-contact-form action="/api/contact">
   <p class="visually-hidden">
-    <label>Leave this empty <input name="_gotcha" tabindex="-1" autocomplete="off" /></label>
+    <label>Leave this empty <input name="company-website" tabindex="-1" autocomplete="off" /></label>
   </p>
 
   <div class="form__row">
@@ -63,6 +63,8 @@ const areas = ['Marin County, CA', 'Las Cruces, NM', 'Somewhere else'];
     <textarea id="f-message" name="message" rows="4" placeholder="Goals, deadlines, what isn't working today"></textarea>
   </div>
 
+  {TURNSTILE_SITE_KEY && <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY}></div>}
+
   <p class="form__error" role="alert" hidden data-form-error>
     Sorry, that didn't send. Please try again, or call <a href={`tel:${OFFICES.marin.tel}`}>{OFFICES.marin.phone}</a>.
   </p>
@@ -71,6 +73,8 @@ const areas = ['Marin County, CA', 'Las Cruces, NM', 'Somewhere else'];
     I'll never share your details. Prefer to talk now? Call <a href={`tel:${OFFICES.marin.tel}`}>{OFFICES.marin.phone}</a>.
   </p>
 </form>
+
+{TURNSTILE_SITE_KEY && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
 
 <script>
   const PLAN_SERVICE: Record<string, string> = {
@@ -91,9 +95,11 @@ const areas = ['Marin County, CA', 'Las Cruces, NM', 'Somewhere else'];
     if (message && !message.value) message.value = `I'm interested in the ${plan} plan.`;
   }
 
-  // Formspree: send in the background and show our own thank-you page instead of Formspree's.
-  if (form?.hasAttribute('data-formspree')) {
+  // Send in the background so a failure keeps what the visitor typed. Without
+  // JavaScript the form posts normally and the Worker redirects.
+  if (form) {
     const error = form.querySelector<HTMLElement>('[data-form-error]');
+    if (error && new URLSearchParams(window.location.search).has('error')) error.hidden = false;
     const submit = form.querySelector<HTMLButtonElement>('[type="submit"]');
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
@@ -105,11 +111,13 @@ const areas = ['Marin County, CA', 'Las Cruces, NM', 'Somewhere else'];
           body: new FormData(form),
           headers: { Accept: 'application/json' },
         });
-        if (!res.ok) throw new Error(`Formspree returned ${res.status}`);
+        if (!res.ok) throw new Error(`Contact form returned ${res.status}`);
         window.location.href = '/thank-you/';
       } catch {
         if (error) error.hidden = false;
         if (submit) submit.disabled = false;
+        // A Turnstile token works once, so get a fresh one for the retry.
+        (window as { turnstile?: { reset: () => void } }).turnstile?.reset();
       }
     });
   }
