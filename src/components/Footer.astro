@@ -1,5 +1,5 @@
 ---
-import logo from '@/assets/img/logo-white-only.svg';
+import logo from '@/assets/img/logo-color.svg';
 import { SITE, OFFICES, SERVICE_NAV, LEGAL_NAV } from '@/config/site';
 
 const year = new Date().getFullYear();
@@ -45,8 +45,9 @@ const offices = Object.values(OFFICES);
 
 <style>
   .footer {
-    background: var(--footer);
-    color: var(--line-strong);
+    background: var(--white);
+    border-top: 1px solid var(--line);
+    color: var(--text);
     font-size: 15px;
   }
 
@@ -77,19 +78,19 @@ const offices = Object.values(OFFICES);
   }
 
   .footer a {
-    color: var(--line-strong);
+    color: var(--text);
     text-decoration: none;
   }
 
   .footer a:hover {
-    color: var(--white);
+    color: var(--blue);
     text-decoration: underline;
   }
 
   .footer .footer__heading {
     font-family: var(--font-heading);
     font-weight: 600;
-    color: var(--white);
+    color: var(--ink);
   }
 
   .footer__bottom {
@@ -98,9 +99,9 @@ const offices = Object.values(OFFICES);
     gap: 8px 24px;
     justify-content: space-between;
     padding-top: 24px;
-    border-top: 1px solid var(--text);
+    border-top: 1px solid var(--line);
     font-size: 14px;
-    color: #9aa1b0;
+    color: var(--muted);
   }
 
   .footer__legal {
@@ -110,7 +111,11 @@ const offices = Object.values(OFFICES);
   }
 
   .footer .footer__legal a {
-    color: #9aa1b0;
+    color: var(--muted);
+  }
+
+  .footer .footer__legal a:hover {
+    color: var(--blue);
   }
 
   @media (max-width: 720px) {
