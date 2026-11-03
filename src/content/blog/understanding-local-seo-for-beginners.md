@@ -1,4 +1,5 @@
 ---
+heroImage: './images/understanding-local-seo-for-beginners/featured.png'
 title: 'A Beginners Guide to Local SEO'
 description: 'Have you ever searched for a local service online, but your business did not show up in the search results? It can feel frustrating to watch other companies…'
 pubDate: 2025-06-06

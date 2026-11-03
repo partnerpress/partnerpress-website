@@ -1,4 +1,5 @@
 ---
+heroImage: './images/wordpress-help/featured.png'
 title: '10 Ways To Get WordPress Help Today'
 description: 'Figuring out where to get WordPress help can be overwhelming. In this post, I outline the best places to go to get the WordPress help you need today.'
 pubDate: 2024-12-21

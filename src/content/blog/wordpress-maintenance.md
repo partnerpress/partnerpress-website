@@ -1,4 +1,5 @@
 ---
+heroImage: './images/wordpress-maintenance/featured.png'
 title: 'Why You Need to Perform Regular WordPress Maintenance'
 description: 'There''s no denying the importance of regular WordPress maintenance. Having worked on hundreds of websites over the years, I''m extremely well acquainted with...'
 pubDate: 2024-12-21

@@ -1,4 +1,5 @@
 ---
+heroImage: './images/whats-the-difference-between-categories-and-tags-in-wordpress/featured.png'
 title: 'What''s The Difference Between Categories and Tags In WordPress?'
 description: 'Discover the key differences between categories and tags in WordPress to enhance your website''s organization and user experience.'
 pubDate: 2024-12-21

@@ -1,4 +1,5 @@
 ---
+heroImage: './images/master-google-business-profile-management-local-success/featured.png'
 title: 'Mastering Google Business Profile Management for Local Search Success'
 description: 'Boost your online presence with effective Google Business Profile management tips tailored for local business owners.'
 pubDate: 2024-12-21

@@ -1,4 +1,5 @@
 ---
+heroImage: './images/wordpress-slow-how-to-fix/featured.png'
 title: '10 Ways to Speed Up Your Slow WordPress Website'
 description: 'In this post, we''ll take a look at several different reasons why your WordPress installation is so slow, and discuss what you can do to fix these issues.'
 pubDate: 2024-12-21

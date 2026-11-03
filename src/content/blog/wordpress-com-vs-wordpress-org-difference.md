@@ -1,4 +1,5 @@
 ---
+heroImage: './images/wordpress-com-vs-wordpress-org-difference/featured.png'
 title: 'WordPress.com vs WordPress.org: The Differences Explained'
 description: 'Discover the differences between WordPress.com vs WordPress.org to choose the best option for your enterprise website.'
 pubDate: 2024-12-21

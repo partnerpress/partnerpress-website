@@ -4,16 +4,19 @@ import { z } from 'astro/zod';
 
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    pubDate: z.coerce.date(),
-    updatedDate: z.coerce.date().optional(),
-    author: z.string().default('Shane Barnes'),
-    tags: z.array(z.string()).default([]),
-    /** Drafts build in local dev only and never appear on the live site. */
-    draft: z.boolean().default(false),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      pubDate: z.coerce.date(),
+      updatedDate: z.coerce.date().optional(),
+      author: z.string().default('Shane Barnes'),
+      tags: z.array(z.string()).default([]),
+      /** Featured image, shown full width at the top of the post's card on /blog/. */
+      heroImage: image().optional(),
+      /** Drafts build in local dev only and never appear on the live site. */
+      draft: z.boolean().default(false),
+    }),
 });
 
 const legal = defineCollection({

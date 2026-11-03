@@ -1,4 +1,5 @@
 ---
+heroImage: './images/how-to-clear-your-browser-cache/featured.png'
 title: 'How to Clear Your Browser Cache on All Major Browsers'
 description: 'Ever had trouble with a website that doesn''t seem to load as it should? Perhaps the visuals appear out of fashion, or it incessantly prompts you to sign in…'
 pubDate: 2024-12-21

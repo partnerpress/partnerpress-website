@@ -1,4 +1,5 @@
 ---
+heroImage: './images/reclaim-lost-time-get-kick-ass-marketing-results/featured.png'
 title: 'How to Reclaim Lost Time & Deliver Kick A** Results'
 description: 'If you find yourself wrestling with WordPress problems and flaky developers, it''s time to take a step back and refocus on delivering kick a** marketing results.'
 pubDate: 2024-12-21

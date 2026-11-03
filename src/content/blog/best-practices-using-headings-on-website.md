@@ -1,4 +1,5 @@
 ---
+heroImage: './images/best-practices-using-headings-on-website/featured.png'
 title: 'Optimizing Website Headings: A Guide to Best Practices'
 description: 'Analyzing your website and questioning why it doesn''t achieve a top position in Google''s search results can be puzzling. It’s a regular obstacle that many…'
 pubDate: 2024-12-21

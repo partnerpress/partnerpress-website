@@ -1,4 +1,5 @@
 ---
+heroImage: './images/find-files-media-library-more-easily/featured.png'
 title: 'How to Find Files in Your Media Library More Easily'
 description: 'Among the common issues I see are Media Libraries filled with files that make use of default file-naming conventions, making them super hard to find in huge libraries...'
 pubDate: 2024-12-21

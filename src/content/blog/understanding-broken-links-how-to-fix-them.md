@@ -1,4 +1,5 @@
 ---
+heroImage: './images/understanding-broken-links-how-to-fix-them/featured.png'
 title: 'Understanding Broken Links & How to Fix Them'
 description: 'Broken links, also referred to as dead links, are hyperlinks found on a website that are no longer functional. Broken links are a common problem that arises when a link directs users to a web page that has either been relocated or deleted...'
 pubDate: 2024-12-21

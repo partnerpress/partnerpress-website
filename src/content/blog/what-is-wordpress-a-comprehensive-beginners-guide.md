@@ -1,4 +1,5 @@
 ---
+heroImage: './images/what-is-wordpress-a-comprehensive-beginners-guide/featured.png'
 title: 'What Is WordPress: A Comprehensive Beginner''s Guide'
 description: 'Discover what is WordPress and how it simplifies website building for business owners. Start your online journey today!'
 pubDate: 2024-12-21

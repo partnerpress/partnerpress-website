@@ -1,4 +1,5 @@
 ---
+heroImage: './images/how-increase-visibility-local-search-results/featured.png'
 title: 'How To Increase Your Visibility In Local Search Results'
 description: 'Discover friendly tips to enhance your local search visibility and attract more customers to your small business.'
 pubDate: 2024-12-21

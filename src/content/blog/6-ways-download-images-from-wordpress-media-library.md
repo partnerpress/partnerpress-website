@@ -1,4 +1,5 @@
 ---
+heroImage: './images/6-ways-download-images-from-wordpress-media-library/featured.png'
 title: '6 Ways to Download Images From The WordPress Media Library'
 description: 'You can download images from WordPress Media Library in different ways, based on your needs and available tools. Here are several ways to download images from...'
 pubDate: 2024-12-21
