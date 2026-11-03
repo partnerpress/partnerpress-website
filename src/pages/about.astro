@@ -1,24 +1,26 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Section from '@/components/Section.astro';
 import SectionIntro from '@/components/SectionIntro.astro';
 import Split from '@/components/Split.astro';
 import Grid from '@/components/Grid.astro';
 import Feature from '@/components/Feature.astro';
-import Placeholder from '@/components/Placeholder.astro';
+import ValueIcon, { type ValueIconName } from '@/components/ValueIcon.astro';
 import ReviewQuote from '@/components/ReviewQuote.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import Phone from '@/components/Phone.astro';
 import { SITE } from '@/config/site';
 import { REVIEWS } from '@/data/reviews';
+import shane from '@/assets/img/home/shane-barnes.png';
 
-const values = [
-  { title: 'Empathy', text: "I start by understanding what you're dealing with, then solve the problem that matters most." },
-  { title: 'Transparency', text: 'You see what I did, what it cost and why. Every month, in writing.' },
-  { title: 'Generosity', text: "I share what I know and recommend what's best for you, even when it means spending less." },
-  { title: 'Simplicity', text: 'Plain English, simple plans, and no more moving parts than your site needs.' },
-  { title: 'Accountability', text: 'If something goes wrong, I own it and make it right.' },
-  { title: 'Humility', text: "If I don't know something, I'll say so, and I'll find someone who does." },
+const values: { icon: ValueIconName; title: string; text: string }[] = [
+  { icon: 'empathy', title: 'Empathy', text: "I start by understanding what you're dealing with, then solve the problem that matters most." },
+  { icon: 'transparency', title: 'Transparency', text: 'You see what I did, what it cost and why. Every month, in writing.' },
+  { icon: 'generosity', title: 'Generosity', text: "I share what I know and recommend what's best for you, even when it means spending less." },
+  { icon: 'simplicity', title: 'Simplicity', text: 'Plain English, simple plans, and no more moving parts than your site needs.' },
+  { icon: 'accountability', title: 'Accountability', text: 'If something goes wrong, I own it and make it right.' },
+  { icon: 'humility', title: 'Humility', text: "If I don't know something, I'll say so, and I'll find someone who does." },
 ];
 
 const facts = [
@@ -35,7 +37,16 @@ const facts = [
 >
   <section class="about-hero">
     <div class="container about-hero__inner">
-      <Placeholder label="Portrait: Shane, friendly and professional" ratio="4 / 5" class="about-hero__photo" />
+      <div class="about-hero__photo">
+        <Image
+          src={shane}
+          alt="Shane Barnes, founder of PartnerPress"
+          widths={[364, 480, 630]}
+          sizes="(max-width: 860px) 90vw, 440px"
+          quality={70}
+          loading="eager"
+        />
+      </div>
       <div class="about-hero__copy">
         <span class="eyebrow about-hero__eyebrow">About PartnerPress</span>
         <h1 class="title-lg">Hi, I'm Shane. Your business is my business.</h1>
@@ -81,7 +92,14 @@ const facts = [
   <Section tone="subtle">
     <SectionIntro eyebrow="How I work" title="Six things you can count on" />
     <Grid min={260} gap="32px 28px">
-      {values.map((v) => <Feature title={v.title}>{v.text}</Feature>)}
+      {
+        values.map((v) => (
+          <Feature title={v.title}>
+            <ValueIcon slot="icon" name={v.icon} />
+            {v.text}
+          </Feature>
+        ))
+      }
     </Grid>
   </Section>
 
@@ -117,9 +135,24 @@ const facts = [
     align-items: center;
   }
 
-  :global(.about-hero__photo) {
+  /* Transparent cut-out on a soft blue panel, anchored to the bottom edge */
+  .about-hero__photo {
     flex: 1 1 300px;
     max-width: 440px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    aspect-ratio: 4 / 5;
+    padding-top: 32px;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(180deg, var(--blue-100), var(--blue-300));
+  }
+
+  .about-hero__photo :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
   }
 
   .about-hero__copy {
