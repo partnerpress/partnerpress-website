@@ -153,7 +153,7 @@ summary::-webkit-details-marker {
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--orange-700);
+  color: var(--blue);
 }
 
 .title-xl {
