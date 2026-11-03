@@ -1,6 +1,5 @@
 ---
-// "Book a call" form. Sent to Formspree (FORMSPREE_ID in config/site.ts); falls back to
-// Netlify Forms (form name: book-a-call) when the ID is empty.
+// "Book a call" form. Sent to Formspree (FORMSPREE_ID in config/site.ts).
 // "Choose plan" buttons link to /contact/?plan=Name and the script below pre-fills it.
 import Button from './Button.astro';
 import { FORMSPREE_ID, OFFICES } from '@/config/site';
@@ -8,22 +7,12 @@ import { FORMSPREE_ID, OFFICES } from '@/config/site';
 const services = ['New website or redesign', 'WordPress care plan', 'Local SEO', 'Google Ads', 'Not sure yet'];
 const areas = ['Marin County, CA', 'Las Cruces, NM', 'Somewhere else'];
 
-const formAttrs = FORMSPREE_ID
-  ? { action: `https://formspree.io/f/${FORMSPREE_ID}`, 'data-formspree': true }
-  : { name: 'book-a-call', action: '/thank-you/', 'data-netlify': 'true', 'netlify-honeypot': 'company-website' };
-const honeypot = FORMSPREE_ID ? '_gotcha' : 'company-website';
 ---
 
-<form method="POST" class="form" data-contact-form {...formAttrs}>
-  {
-    FORMSPREE_ID ? (
-      <input type="hidden" name="_subject" value="New call request from partnerpress.net" />
-    ) : (
-      <input type="hidden" name="form-name" value="book-a-call" />
-    )
-  }
+<form method="POST" class="form" data-contact-form action={`https://formspree.io/f/${FORMSPREE_ID}`} data-formspree>
+  <input type="hidden" name="_subject" value="New call request from partnerpress.net" />
   <p class="visually-hidden">
-    <label>Leave this empty <input name={honeypot} tabindex="-1" autocomplete="off" /></label>
+    <label>Leave this empty <input name="_gotcha" tabindex="-1" autocomplete="off" /></label>
   </p>
 
   <div class="form__row">

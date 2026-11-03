@@ -1,0 +1,20 @@
+# Response headers for Cloudflare Workers static assets (copied to dist/ on build).
+# The build appends a noindex rule here for any build that is not the live site.
+
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+# Astro fingerprints these file names, so they can be cached for a year.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/*
+  Cache-Control: public, max-age=604800
+
+# The workers.dev address must never be indexed, even once the live site is.
+https://partnerpress.partnerpress-llc.workers.dev/*
+  X-Robots-Tag: noindex, nofollow

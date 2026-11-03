@@ -1,0 +1,13 @@
+// Cloudflare Workers config. The site is fully static: Workers Builds runs
+// `npm run build`, then `npx wrangler deploy` serves dist/ as static assets.
+// public/_headers and public/_redirects are copied into dist/ and applied by Cloudflare.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "partnerpress",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}

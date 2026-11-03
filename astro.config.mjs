@@ -1,5 +1,5 @@
 // @ts-check
-import { writeFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
@@ -21,8 +21,11 @@ function searchVisibility() {
           logger.info('search engines: allowed (live site)');
           return;
         }
-        const headers = '/*\n  X-Robots-Tag: noindex, nofollow\n';
-        await writeFile(fileURLToPath(new URL('_headers', dir)), headers);
+        // Goes inside the existing /* rule from public/_headers: Cloudflare lets a
+        // second /* rule replace the first, which would drop the security headers.
+        const file = fileURLToPath(new URL('_headers', dir));
+        const headers = await readFile(file, 'utf8');
+        await writeFile(file, headers.replace(/^\/\*\n/m, '/*\n  X-Robots-Tag: noindex, nofollow\n'));
         logger.info('search engines: blocked with noindex (not the live site)');
       },
     },

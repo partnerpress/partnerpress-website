@@ -1,43 +1,70 @@
 # 301 redirects from the old WordPress site to the new static pages.
-# Netlify matches with or without the trailing slash. Real pages win over these
-# rules, so /blog/ and live posts are never redirected.
+# Cloudflare Workers reads this file from dist/. It does not match with and without
+# a trailing slash, so each old URL is listed both ways. Redirects run before
+# static files, so never add a rule that matches a real page (that loops).
 
 # Service pages
 /services                                        /                            301
+/services/                                       /                            301
 /services/wordpress-success-plans                /wordpress-care-plans/       301
+/services/wordpress-success-plans/               /wordpress-care-plans/       301
 /services/search-engine-optimization             /local-seo/                  301
+/services/search-engine-optimization/            /local-seo/                  301
 /services/marin-seo-consultant                   /local-seo/                  301
+/services/marin-seo-consultant/                  /local-seo/                  301
 /services/google-business-profile-management     /local-seo/                  301
+/services/google-business-profile-management/    /local-seo/                  301
 /services/google-ads-agency                      /google-ads/                 301
+/services/google-ads-agency/                     /google-ads/                 301
 /services/santa-rosa-web-design                  /wordpress-web-design/       301
+/services/santa-rosa-web-design/                 /wordpress-web-design/       301
 
 # Marin County town and service pages
 /services/marin-web-design                       /marin-county/               301
+/services/marin-web-design/                      /marin-county/               301
 /services/marin-wordpress                        /marin-county/               301
+/services/marin-wordpress/                       /marin-county/               301
 /services/novato-wordpress                       /marin-county/               301
+/services/novato-wordpress/                      /marin-county/               301
 /services/san-rafael-wordpress-agency            /marin-county/               301
+/services/san-rafael-wordpress-agency/           /marin-county/               301
 /services/mill-valley-wordpress-agency           /marin-county/               301
+/services/mill-valley-wordpress-agency/          /marin-county/               301
 /services/sausalito-wordpress-agency             /marin-county/               301
+/services/sausalito-wordpress-agency/            /marin-county/               301
 /services/larkspur-wordpress-agency              /marin-county/               301
+/services/larkspur-wordpress-agency/             /marin-county/               301
 /services/tiburon-wordpress-agency               /marin-county/               301
+/services/tiburon-wordpress-agency/              /marin-county/               301
 /services/belvedere-wordpress-agency             /marin-county/               301
+/services/belvedere-wordpress-agency/            /marin-county/               301
 /services/ross-wordpress-agency                  /marin-county/               301
+/services/ross-wordpress-agency/                 /marin-county/               301
 /services/san-anselmo-wordpress-agency           /marin-county/               301
+/services/san-anselmo-wordpress-agency/          /marin-county/               301
 /services/fairfax-wordpress-agency               /marin-county/               301
+/services/fairfax-wordpress-agency/              /marin-county/               301
 
 # Las Cruces
 /services/las-cruces-wordpress                   /las-cruces/                 301
+/services/las-cruces-wordpress/                  /las-cruces/                 301
 /services/las-cruces-web-design                  /las-cruces/                 301
+/services/las-cruces-web-design/                 /las-cruces/                 301
 
 # Contact and consultation
 /complimentary-consultation                      /contact/                    301
+/complimentary-consultation/                     /contact/                    301
 /services/complimentary-consultation             /contact/                    301
+/services/complimentary-consultation/            /contact/                    301
 /service-line-questionnaire                      /contact/                    301
+/service-line-questionnaire/                     /contact/                    301
 /contact-us                                      /contact/                    301
+/contact-us/                                     /contact/                    301
 
 # Content that no longer exists
 /clients                                         /                            301
-/blog/*                                          /blog/                       301
+/clients/                                        /                            301
 /author/*                                        /about/                      301
 /sitemap                                         /sitemap-index.xml           301
+/sitemap/                                        /sitemap-index.xml           301
 /sitemap.xml                                     /sitemap-index.xml           301
