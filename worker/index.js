@@ -70,7 +70,7 @@ async function handleContact(request, env) {
     from: env.MAIL_FROM,
     to: env.MAIL_TO,
     replyTo: email,
-    subject: `New Call Request From ${name}`,
+    subject: 'New Contact Form Inquiry from PartnerPress',
     body: `${body}\n\nSent from ${request.headers.get('Referer') ?? 'partnerpress.net'}\n`,
   });
 
