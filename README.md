@@ -60,17 +60,17 @@ Set `draft: true` to keep a post off the live site. Drafts still show in `npm ru
 
 ## Contact form
 
-The form posts to `/api/contact`. `worker/index.js` checks it (honeypot, optional Turnstile) and emails it through Cloudflare Email Routing with the `send_email` binding, with Reply-To set to the visitor. Everything else is served straight from `dist/`.
+The form posts to `/api/contact`. `worker/index.js` checks it (honeypot, optional Turnstile) and emails it through Cloudflare Email Service (Email Sending) with the `send_email` binding, with Reply-To set to the visitor. Everything else is served straight from `dist/`.
 
 Set these on the Worker (Settings > Variables and secrets, Production):
 
 | Name | Type | Purpose |
 | --- | --- | --- |
-| `MAIL_TO` | Secret | Where submissions go. Must be a verified Email Routing destination address. |
-| `MAIL_FROM` | Secret | Sender address on the Email Routing domain, for example `website@forms.partnerpress.net`. |
+| `MAIL_TO` | Secret | Where submissions go. Must be a verified destination address (Email Service > Email Routing > Destination addresses). |
+| `MAIL_FROM` | Secret | Sender address on the onboarded Email Sending domain, for example `website@partnerpress.net`. |
 | `TURNSTILE_SECRET` | Secret | Optional. Turns on the Turnstile check (pair with `PUBLIC_TURNSTILE_SITE_KEY`). |
 
-partnerpress.net mail runs on Google Workspace, so Email Routing is enabled on the `forms.partnerpress.net` subdomain only. Never enable it on the apex domain: that replaces the Google MX records.
+partnerpress.net mail runs on Google Workspace. Email Sending only adds records on `cf-bounce.partnerpress.net`, so it leaves the Google MX records alone. Do not onboard the domain to Email Routing (that needs Cloudflare MX on the apex), and keep the existing `_dmarc` record rather than adding a second one.
 
 ## Search engine visibility
 

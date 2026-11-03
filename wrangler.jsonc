@@ -14,8 +14,8 @@
     "not_found_handling": "404-page",
     "run_worker_first": ["/api/*"]
   },
-  // Sends the contact form through Cloudflare Email Routing. The recipient is the
-  // MAIL_TO secret, which must be a verified Email Routing destination address.
+  // Sends the contact form through Cloudflare Email Service (Email Sending). The
+  // recipient is the MAIL_TO secret, which must be a verified destination address.
   "send_email": [{ "name": "CONTACT_EMAIL" }],
   "observability": { "enabled": true },
   // Lets Workers Builds run `wrangler preview` for pull request branches.

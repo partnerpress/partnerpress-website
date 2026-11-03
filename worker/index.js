@@ -2,11 +2,11 @@
 //
 // Every request is served from the static Astro build (dist/) except POST
 // /api/contact, which emails the "Book a call" form to Shane through Cloudflare
-// Email Routing (send_email binding). See README "Contact form".
+// Email Service, Email Sending (send_email binding). See README "Contact form".
 //
 // Worker settings (Cloudflare dashboard, Settings > Variables and secrets):
-//   MAIL_TO           secret: where submissions go (a verified Email Routing destination)
-//   MAIL_FROM         secret or var: sender on the Email Routing domain, e.g. website@forms.partnerpress.net
+//   MAIL_TO           secret: where submissions go (a verified destination address)
+//   MAIL_FROM         secret: sender on the onboarded Email Sending domain, e.g. website@partnerpress.net
 //   TURNSTILE_SECRET  secret, optional: turns on the Turnstile spam check
 
 import { EmailMessage } from 'cloudflare:email';
