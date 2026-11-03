@@ -8,10 +8,20 @@ interface Props {
 
 const { title, boxed = false, href } = Astro.props;
 const Tag = href ? 'a' : 'div';
+const hasIcon = Astro.slots.has('icon');
 ---
 
 <Tag class:list={['feature', boxed && 'feature--boxed', href && 'feature--link']} href={href}>
-  <h3>{title}</h3>
+  {
+    hasIcon ? (
+      <div class="feature__head">
+        <slot name="icon" />
+        <h3>{title}</h3>
+      </div>
+    ) : (
+      <h3>{title}</h3>
+    )
+  }
   <p><slot /></p>
 </Tag>
 
@@ -34,6 +44,12 @@ const Tag = href ? 'a' : 'div';
   .feature--link:hover {
     color: var(--text);
     border-color: var(--blue-300);
+  }
+
+  .feature__head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
   }
 
   h3 {
