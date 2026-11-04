@@ -50,10 +50,6 @@ export const OFFICES: Record<OfficeKey, Office> = {
     areaServed: 'Marin County, CA',
     geo: { lat: 38.127063, lng: -122.566977 },
     mapUrl: 'https://www.google.com/maps/place/?q=place_id:ChIJr5sXvB-lhYARY6mBSCp7h4M',
-    links: [
-      { label: 'Marin web design', href: '/marin-county/web-design/' },
-      { label: 'Marin SEO', href: '/marin-county/seo/' },
-    ],
   },
   nm: {
     key: 'nm',
