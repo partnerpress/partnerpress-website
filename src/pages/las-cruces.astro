@@ -11,6 +11,7 @@ import AreaBand from '@/components/local/AreaBand.astro';
 import ServiceShowcase from '@/components/local/ServiceShowcase.astro';
 import ReviewPanel from '@/components/local/ReviewPanel.astro';
 import FaqSplit from '@/components/local/FaqSplit.astro';
+import LinkPills from '@/components/local/LinkPills.astro';
 import type { Faq } from '@/data/faqs';
 import { SITE, OFFICES } from '@/config/site';
 
@@ -128,6 +129,16 @@ const faqs: Faq[] = [
   </section>
 
   <FaqSplit title="Las Cruces questions" faqs={faqs} flush />
+
+  <LinkPills
+    title="More in the region"
+    links={[
+      { label: 'El Paso', href: '/el-paso/' },
+      { label: 'Web design', href: '/wordpress-web-design/' },
+      { label: 'Local SEO', href: '/local-seo/' },
+      { label: 'Google Ads', href: '/google-ads/' },
+    ]}
+  />
 
   <CtaBand title="Talk to a local WordPress expert">
     <address>
