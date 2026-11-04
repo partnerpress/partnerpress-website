@@ -391,3 +391,10 @@ summary::-webkit-details-marker {
     grid-template-columns: 1fr;
   }
 }
+
+/* Help line under a pricing grid */
+.plans-help {
+  margin-top: 24px;
+  text-align: center;
+  color: var(--muted);
+}

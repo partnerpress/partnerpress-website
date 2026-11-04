@@ -12,6 +12,14 @@ const offices = Object.values(OFFICES);
       <div class="footer__col">
         <img src={logo.src} alt="PartnerPress" width="180" height="28" loading="lazy" />
         <p>{SITE.tagline}</p>
+        <p class="footer__meet">Home offices, no walk-ins. We meet by phone or Google Meet.</p>
+        {
+          OFFICES.marin.mapUrl && (
+            <a class="footer__reviews" href={OFFICES.marin.mapUrl} target="_blank" rel="noopener">
+              ★★★★★ {SITE.reviews.rating} from {SITE.reviews.count} Google reviews
+            </a>
+          )
+        }
       </div>
       <div class="footer__col">
         <span class="footer__heading">Services</span>
@@ -81,6 +89,16 @@ const offices = Object.values(OFFICES);
   .footer a {
     color: var(--text);
     text-decoration: none;
+  }
+
+  .footer__meet {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .footer .footer__reviews {
+    font-weight: 600;
+    color: var(--text-strong);
   }
 
   .footer a:hover {

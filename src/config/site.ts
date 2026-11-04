@@ -104,6 +104,9 @@ export const LEGAL_NAV = [
   { label: 'Accessibility', href: '/accessibility-statement/' },
 ];
 
+/** Google Calendar appointment page for booking a Google Meet. Leave empty to hide the booking links. */
+export const BOOKING_URL = '';
+
 /** Google Analytics 4 measurement ID. Set PUBLIC_GA4_ID in the Cloudflare Worker's build variables to turn tracking on. */
 export const GA4_ID = import.meta.env.PUBLIC_GA4_ID ?? '';
 
