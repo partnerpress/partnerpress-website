@@ -25,12 +25,14 @@ import { CARE_FAQS } from '@/data/faqs';
   </PageHero>
 
   <Section id="plans" label="Plans">
+    <h2 class="visually-hidden">Care plans</h2>
     <Grid min={300} class="plans">
       {CARE_PLANS.map((plan) => <PricingCard plan={plan} showPerDay />)}
     </Grid>
   </Section>
 
   <Section tone="subtle" compact label="Plan details">
+    <h2 class="visually-hidden">Plan details</h2>
     <Grid min={240}>
       <Feature title="No contract">Month to month. Cancel at the end of any term.</Feature>
       <Feature title="Unlimited quick fixes">Any task that takes 30 minutes or less, at no extra charge.</Feature>

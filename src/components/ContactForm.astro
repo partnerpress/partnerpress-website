@@ -1,6 +1,6 @@
 ---
 // "Book a call" form. Posts to /api/contact, which the Worker (worker/index.js)
-// emails to Shane through Cloudflare Email Routing. Works without JavaScript too.
+// emails to Shane through Cloudflare Email Sending. Works without JavaScript too.
 // "Choose plan" buttons link to /contact/?plan=Name and the script below pre-fills it.
 import Button from './Button.astro';
 import { OFFICES, TURNSTILE_SITE_KEY } from '@/config/site';
@@ -11,7 +11,7 @@ const areas = ['Marin County, CA', 'Las Cruces, NM', 'Somewhere else'];
 ---
 
 <form method="POST" class="form" data-contact-form action="/api/contact">
-  <p class="visually-hidden">
+  <p class="visually-hidden" aria-hidden="true">
     <label>Leave this empty <input name="company-website" tabindex="-1" autocomplete="off" /></label>
   </p>
 

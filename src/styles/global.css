@@ -263,7 +263,8 @@ summary::-webkit-details-marker {
   color: var(--muted);
 }
 
-.prose img {
+.prose img,
+.prose video {
   display: block;
   max-width: 100%;
   height: auto;

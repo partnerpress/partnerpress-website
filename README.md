@@ -87,5 +87,8 @@ Cloudflare Workers Builds is connected to GitHub and deploys `main`. It runs `np
 - Add real photos and client screenshots where the placeholder boxes are.
 - Review the blog post in `src/content/blog/`.
 - Set `PUBLIC_GA4_ID` in the Worker's build variables.
+- Turn on Turnstile for the contact form: create a Turnstile widget for partnerpress.net, set `PUBLIC_TURNSTILE_SITE_KEY` (build variable) and `TURNSTILE_SECRET` (runtime secret), then redeploy. Set both or neither: a secret without the site key rejects every submission.
+- Optional: add a Cloudflare rate limiting rule for `POST /api/contact` (for example 5 requests per minute per IP).
 - Add partnerpress.net as a custom domain on the Worker, set `SITE_INDEXABLE=true`, redeploy and confirm the build log says "search engines: allowed".
 - Submit `https://partnerpress.net/sitemap-index.xml` in Google Search Console.
+- HSTS: partnerpress.net is not on the browser preload list (checked 2026-11-04), so `public/_headers` leaves out `preload`. Only add it if you submit the domain at hstspreload.org.

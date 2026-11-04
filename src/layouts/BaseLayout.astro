@@ -18,6 +18,9 @@ import BusinessSchema from '@/components/BusinessSchema.astro';
 import Analytics from '@/components/Analytics.astro';
 import { SITE, type NavKey, type OfficeKey } from '@/config/site';
 import { isIndexable } from '@/lib/indexing.mjs';
+import { getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import defaultShareImage from '@/assets/img/home/golden-gate-bridge.jpg';
 
 interface Props {
   title: string;
@@ -30,11 +33,15 @@ interface Props {
   /** Keep this page out of search results even on the live site. */
   noindex?: boolean;
   ogType?: 'website' | 'article';
+  /** Image shown when the page is shared on social media. Cropped to 1200x630; smaller images are not enlarged. */
+  image?: ImageMetadata;
 }
 
-const { title, description, nav, office = 'marin', schema = [], noindex = false, ogType = 'website' } = Astro.props;
+const { title, description, nav, office = 'marin', schema = [], noindex = false, ogType = 'website', image = defaultShareImage } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.url).href;
 const robots = noindex || !isIndexable();
+const share = await getImage({ src: image, width: 1200, height: 630, fit: 'cover', format: 'jpg', quality: 80 });
+const shareUrl = new URL(share.src, Astro.site ?? SITE.url).href;
 ---
 
 <!doctype html>
@@ -53,7 +60,9 @@ const robots = noindex || !isIndexable();
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={shareUrl} />
+    <meta property="og:image:alt" content={title} />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="alternate" type="application/rss+xml" title="PartnerPress blog" href="/rss.xml" />
     <meta name="generator" content={Astro.generator} />

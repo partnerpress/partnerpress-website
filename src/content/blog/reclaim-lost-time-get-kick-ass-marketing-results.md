@@ -71,7 +71,7 @@ Start by evaluating your current workload and identify tasks that can be outsour
 
 If you're on a super limited budget, you may want to start by searching Upwork. If you've got a bit more wiggle room, you should take a look at Codeable.
 
-But if you want to work with an agency that's served the WordPress needs of growth focused businesses since 2010, [feel free to reach out](/services/complimentary-consultation/), we'd love to talk.
+But if you want to work with an agency that's served the WordPress needs of growth focused businesses since 2010, [feel free to reach out](/contact/), we'd love to talk.
 
 ## Conclusion
 

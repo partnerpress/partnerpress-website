@@ -22,6 +22,8 @@ const FIELDS = [
   ['message', 'Message'],
 ];
 const MAX_FIELD = 5000;
+/** The form is a few KB at most; refuse anything far bigger before reading it. */
+const MAX_BODY = 64 * 1024;
 
 export default {
   async fetch(request, env) {
@@ -32,6 +34,7 @@ export default {
 };
 
 async function handleContact(request, env) {
+  const url = new URL(request.url);
   if (request.method !== 'POST') return new Response('Method not allowed', { status: 405, headers: { Allow: 'POST' } });
 
   const wantsJson = (request.headers.get('Accept') ?? '').includes('application/json');
@@ -39,6 +42,12 @@ async function handleContact(request, env) {
     wantsJson
       ? Response.json({ ok }, { status })
       : Response.redirect(new URL(ok ? '/thank-you/' : '/contact/?error=1', request.url), 303);
+
+  // Only accept posts from a page on this same site (blocks other sites posting the form).
+  const origin = request.headers.get('Origin');
+  if (origin && origin !== url.origin) return done(false, 403);
+
+  if (Number(request.headers.get('Content-Length') ?? 0) > MAX_BODY) return done(false, 413);
 
   let form;
   try {
