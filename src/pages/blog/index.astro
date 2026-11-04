@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
+import typewriter from '@/assets/img/blog-typewriter.jpg';
 import Section from '@/components/Section.astro';
 import Grid from '@/components/Grid.astro';
 import PostCard from '@/components/PostCard.astro';
@@ -15,7 +16,7 @@ const posts = await getPosts();
   description="Plain-English guides on WordPress, Local SEO and Google Ads for small service businesses, from Shane Barnes at PartnerPress."
   nav="blog"
 >
-  <PageHero eyebrow="Blog" title="WordPress, SEO and Google Ads, in plain English" centered>
+  <PageHero eyebrow="Blog" title="WordPress, SEO and Google Ads, in plain English" bg={typewriter} centered>
     <Fragment slot="lead">Practical guides for small business owners who want their website to pull its weight.</Fragment>
   </PageHero>
 

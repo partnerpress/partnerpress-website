@@ -1,5 +1,7 @@
 ---
-// Client names, then a review panel beside the Google rating. Extra content (a case study) goes in the default slot.
+// Client names or logos, then a review panel beside the Google rating. Extra content (a case study) goes in the default slot.
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import NameStrip from '@/components/NameStrip.astro';
 import ReviewPanel from './ReviewPanel.astro';
 import type { Review } from '@/data/reviews';
@@ -9,12 +11,14 @@ interface Props {
   title: string;
   lead?: string;
   names?: string[];
+  /** Client logos, shown in a light strip instead of names. */
+  logos?: { name: string; img: ImageMetadata }[];
   review: Review;
   scoreNote?: string;
   tone?: 'white' | 'subtle';
 }
 
-const { eyebrow = 'Clients', title, lead, names, review, scoreNote, tone = 'white' } = Astro.props;
+const { eyebrow = 'Clients', title, lead, names, logos, review, scoreNote, tone = 'white' } = Astro.props;
 ---
 
 <section class:list={['lp-band', tone === 'subtle' && 'lp-band--subtle']}>
@@ -25,6 +29,17 @@ const { eyebrow = 'Clients', title, lead, names, review, scoreNote, tone = 'whit
       {lead && <p class="lead-text">{lead}</p>}
     </div>
     {names && <NameStrip names={names} align="start" />}
+    {
+      logos && (
+        <ul class="lp-card logos" aria-label="Clients">
+          {logos.map((logo) => (
+            <li>
+              <Image src={logo.img} alt={logo.name} height={48} densities={[1, 2]} />
+            </li>
+          ))}
+        </ul>
+      )
+    }
     <ReviewPanel review={review} scoreNote={scoreNote} />
     <slot />
   </div>
@@ -39,6 +54,25 @@ const { eyebrow = 'Clients', title, lead, names, review, scoreNote, tone = 'whit
 
   .head {
     margin-bottom: 0;
+  }
+
+  .logos {
+    list-style: none;
+    margin: 0;
+    padding: 28px 32px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    gap: 28px 44px;
+  }
+
+  .logos :global(img) {
+    display: block;
+    width: auto;
+    height: 44px;
+    max-width: 180px;
+    object-fit: contain;
   }
 
   .lead-text {
