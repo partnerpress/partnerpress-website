@@ -1,4 +1,6 @@
 ---
+// Pricing table column, styled after the production comparison tables:
+// gray name header, brand blue price band, gray tagline row, then every row with a check or an x.
 import Button from './Button.astro';
 import { perDay, formatPrice, type Plan } from '@/data/plans';
 
@@ -11,113 +13,175 @@ const { plan, showPerDay = false } = Astro.props;
 ---
 
 <article class:list={['plan', plan.featured && 'plan--featured']}>
-  <div class="plan__head">
-    <div class="plan__name">
-      <h3>{plan.name}</h3>
-      {plan.badge && <span class="plan__badge">{plan.badge}</span>}
-    </div>
-    <p class="plan__for">{plan.bestFor}</p>
-  </div>
+  <header class="plan__name">
+    <h3>{plan.name}</h3>
+    {plan.badge && <span class="plan__badge">{plan.badge}</span>}
+  </header>
   <div class="plan__price">
     <span class="plan__amount">{formatPrice(plan.price)}<span>/month</span></span>
     {showPerDay && <span class="plan__day">About {perDay(plan.price)} a day</span>}
   </div>
-  <Button href={`/contact/?plan=${plan.name}`} variant={plan.featured ? 'primary' : 'secondary'} block>
-    Choose {plan.name}
-  </Button>
-  <ul class="plan__features">
-    {plan.includesPrevious && <li class="plan__includes">{plan.includesPrevious}</li>}
-    {plan.features.map((f) => <li>{f}</li>)}
+  <div class="plan__tagline">
+    <strong>{plan.tagline}</strong>
+    <span>{plan.bestFor}</span>
+  </div>
+  <ul class="plan__rows">
+    {
+      plan.rows.map((row) => (
+        <li class:list={[!row.included && 'is-off']}>
+          {row.included ? (
+            <svg class="plan__icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12.5l4.5 4.5L19 7.5" />
+            </svg>
+          ) : (
+            <svg class="plan__icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+              <path d="M7 7l10 10M17 7L7 17" />
+            </svg>
+          )}
+          <span>
+            {!row.included && <span class="visually-hidden">Not included: </span>}
+            {row.label}
+          </span>
+        </li>
+      ))
+    }
   </ul>
+  <div class="plan__cta">
+    <Button href={`/contact/?plan=${plan.name}`} variant={plan.featured ? 'primary' : 'secondary'} block>
+      Choose {plan.name}
+    </Button>
+  </div>
 </article>
 
 <style>
   .plan {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 32px;
+    overflow: hidden;
     background: var(--white);
     border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius);
   }
 
   .plan--featured {
-    padding: 31px;
     border: 2px solid var(--blue);
     box-shadow: var(--shadow-brand);
-  }
-
-  .plan__head {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
   }
 
   .plan__name {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 8px 10px;
     align-items: center;
+    justify-content: center;
+    padding: 18px 20px;
+    background: var(--surface-2);
+    text-align: center;
   }
 
   h3 {
-    font-size: 26px;
+    font-size: 18px;
     font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
   .plan__badge {
     padding: 3px 10px;
     border-radius: var(--radius-pill);
-    background: var(--blue-50);
-    color: var(--blue-700);
+    background: var(--blue);
+    color: var(--white);
     font-family: var(--font-heading);
     font-size: 12px;
     font-weight: 600;
   }
 
-  .plan__for {
-    font-size: 15px;
-    color: var(--muted);
-  }
-
   .plan__price {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    align-items: center;
+    gap: 4px;
+    padding: 18px 20px;
+    background: var(--blue);
+    color: var(--white);
+    text-align: center;
   }
 
   .plan__amount {
     font-family: var(--font-heading);
-    font-size: 44px;
-    font-weight: 800;
-    line-height: 1;
-    color: var(--ink);
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.1;
   }
 
   .plan__amount span {
-    font-size: 17px;
-    font-weight: 500;
-    color: var(--muted);
+    margin-left: 4px;
+    font-size: 16px;
+    font-weight: 600;
   }
 
   .plan__day {
     font-size: 14px;
-    color: var(--subtle);
+    opacity: 0.9;
   }
 
-  .plan__features {
+  .plan__tagline {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 4px;
+    padding: 14px 20px;
+    background: var(--surface-2);
+    text-align: center;
+  }
+
+  .plan__tagline strong {
+    font-family: var(--font-heading);
+    font-size: 16px;
+    color: var(--ink);
+  }
+
+  .plan__tagline span {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .plan__rows {
     margin: 0;
     padding: 0;
     list-style: none;
     font-size: 15px;
   }
 
-  .plan__includes {
-    font-weight: 700;
-    color: var(--ink);
+  .plan__rows li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 10px 20px;
+  }
+
+  .plan__rows li:nth-child(even) {
+    background: var(--surface);
+  }
+
+  .plan__icon {
+    flex: none;
+    width: 16px;
+    height: 16px;
+    margin-top: 3px;
+    color: var(--green);
+  }
+
+  .is-off {
+    color: var(--subtle);
+    text-decoration: line-through;
+  }
+
+  .is-off .plan__icon {
+    color: #d12c2c;
+  }
+
+  .plan__cta {
+    margin-top: auto;
+    padding: 20px;
   }
 </style>

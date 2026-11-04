@@ -21,7 +21,7 @@ const { label, result, text, image = 'Site screenshot', shot, alt = '' } = Astro
 <article class="case">
   {
     shot ? (
-      <Image class="case__shot" src={shot} alt={alt} widths={[400, 640, 960]} sizes="(min-width: 1000px) 400px, 100vw" />
+      <Image class="case__shot" src={shot} alt={alt} loading="eager" widths={[400, 640, 960]} sizes="(min-width: 1000px) 400px, 100vw" />
     ) : (
       image && <Placeholder label={image} ratio="16 / 10" tone="plain" />
     )
@@ -66,15 +66,15 @@ const { label, result, text, image = 'Site screenshot', shot, alt = '' } = Astro
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--subtle);
+    color: var(--blue);
   }
 
   .case__result {
     font-family: var(--font-heading);
-    font-size: clamp(24px, 1.4vw + 17px, 32px);
+    font-size: 22px;
     font-weight: 700;
-    line-height: 1.1;
-    color: var(--blue);
+    line-height: 1.2;
+    color: var(--ink);
   }
 
   p {
