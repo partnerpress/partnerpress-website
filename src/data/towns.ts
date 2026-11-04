@@ -31,7 +31,7 @@ export const TOWNS: Town[] = [
     title: 'San Rafael Web Design & Local SEO | PartnerPress',
     description:
       'WordPress web design and local SEO for San Rafael businesses, from downtown Fourth Street to Terra Linda. Marin-based since 2010. Call (415) 390-6563.',
-    eyebrow: 'San Rafael, CA · 15 minutes from my Novato office',
+    eyebrow: 'San Rafael, CA · Just down 101 from Novato',
     h1: 'Web design and local SEO for San Rafael businesses',
     lead: 'San Rafael is Marin’s county seat and its busiest business hub. I help the firms, shops and service companies here win the local searches that matter, with websites that turn those visits into calls.',
     hero: missionSanRafael,
@@ -61,11 +61,11 @@ export const TOWNS: Town[] = [
       'Bret Harte',
       'Canal',
     ],
-    neighborhoodsNote: 'Happy to meet at your office or a café downtown.',
+    neighborhoodsNote: 'We start on Google Meet, and I can visit your office later if that helps.',
     faqs: [
       {
-        q: 'Do you have an office in San Rafael?',
-        a: 'My office is in Novato, about 15 minutes north on 101. I meet San Rafael clients at their office, downtown, or on a video call.',
+        q: 'How do we get started?',
+        a: 'With a free Google Meet call, so we can look at your site together. I’m based in Novato, about 15 minutes north on 101, and can meet at your San Rafael office later in the project if it’s useful.',
       },
       {
         q: 'Can you help a San Rafael business show up in nearby towns too?',
@@ -83,12 +83,12 @@ export const TOWNS: Town[] = [
     name: 'Novato',
     title: 'Novato Web Design & Local SEO | PartnerPress',
     description:
-      'Novato-based WordPress web design and local SEO for Novato businesses, from Old Town to Hamilton and Bel Marin Keys. In-person meetings. Call (415) 390-6563.',
+      'Novato-based WordPress web design and local SEO for Novato businesses, from Old Town to Hamilton and Bel Marin Keys. Local and hands-on. Call (415) 390-6563.',
     eyebrow: 'Novato, CA · My home base',
     h1: 'Novato web design and local SEO from a Novato neighbor',
     hero: novatoCityHall,
     heroPosition: '75% 72%',
-    lead: 'PartnerPress is based in Novato. I help local businesses here get found on Google and turn those searches into calls, and we can meet in person whenever you like.',
+    lead: 'PartnerPress is based in Novato. I help local businesses here get found on Google and turn those searches into calls. We start with a quick Google Meet, and I can stop by your business when it helps.',
     intro: [
       {
         title: 'Marin’s northern gateway',
@@ -114,11 +114,11 @@ export const TOWNS: Town[] = [
       'Pacheco Valley',
       'Rowland',
     ],
-    neighborhoodsNote: 'We can meet at your business, in Old Town, or anywhere in town.',
+    neighborhoodsNote: 'We start on Google Meet, and I can visit your business later if that helps.',
     faqs: [
       {
-        q: 'Can we meet in person in Novato?',
-        a: 'Yes. I live and work in Novato, so meeting at your business or for coffee in Old Town is easy. Video calls are always an option too.',
+        q: 'Can we meet in person?',
+        a: 'We start with a free Google Meet call, the quickest way to look at your site together. Since I’m in Novato too, I can meet at your business later in the project if that’s useful.',
       },
       {
         q: 'My customers come from Petaluma too. Can you help with that?',

@@ -43,7 +43,7 @@ const areaNotes = [
 const faqs: Faq[] = [
   {
     q: 'Do you meet clients in person in Marin?',
-    a: 'Yes. I’m based in Novato and meet anywhere in the county, at your office or over coffee. Video calls work too.',
+    a: 'We start with a free Google Meet call so we can look at your site together. After that, I’m happy to meet at your office anywhere in Marin if it helps.',
   },
   {
     q: 'Which Marin towns do you work in?',
@@ -105,8 +105,7 @@ const local: Record<string, { title: string; summary: string; href?: string }> =
 
   <Section tone="subtle" compact>
     <AreaList title="Towns I serve" areas={MARIN_TOWNS}>
-      In-person meetings anywhere in Marin, or on video if that's easier.
-      {office.mapUrl && <a href={office.mapUrl}>Get directions to my Novato office</a>}
+      Most work happens over Google Meet, and I can visit your office anywhere in Marin when it helps.
     </AreaList>
   </Section>
 
