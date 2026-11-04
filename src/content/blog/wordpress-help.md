@@ -271,7 +271,7 @@ If you’re not in the least bit interested in DIY'ing your way out of your Word
 
 With 12+ years experience solving all manner of problems for businesses in need of WordPress help and support, I can get your problems sorted out in short order.
 
-Whether you need a comprehensive WordPress Audit, or you're looking for support on an [ongoing basis](/services/wordpress-success-plans/), I can provide the WordPress help you need so you can get back to doing what you do best.
+Whether you need a comprehensive WordPress Audit, or you're looking for support on an [ongoing basis](/wordpress-care-plans/), I can provide the WordPress help you need so you can get back to doing what you do best.
 
 To that end, feel free to reach out and [schedule a complimentary consultation](https://meetings.hubspot.com/partnerpress/complimentary-consultation), I’d be happy to discuss your needs and how I can help.
 

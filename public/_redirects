@@ -110,3 +110,9 @@
 /blog/why-too-many-wordpress-plugins-can-be-bad-for-your-business/                         /blog/too-many-wordpress-plugins-bad-for-business/  301
 /blog/how-to-fix-the-error-establishing-a-database-connection-in-wordpress                 /blog/fix-error-establishing-database-connection/  301
 /blog/how-to-fix-the-error-establishing-a-database-connection-in-wordpress/                /blog/fix-error-establishing-database-connection/  301
+
+# Old WordPress RSS feeds
+/feed                                            /rss.xml                     301
+/feed/                                           /rss.xml                     301
+/blog/feed                                       /rss.xml                     301
+/blog/feed/                                      /rss.xml                     301

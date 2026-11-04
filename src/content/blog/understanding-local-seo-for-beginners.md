@@ -14,7 +14,7 @@ This situation is more common than most realize. Did you know that about 80% of 
 
 After learning what works and helping many businesses get found, I put together simple steps that really help beginners.
 
-In this guide, I will share easy [local SEO](/services/search-engine-optimization/) tips you can use right away. You will learn how to set up **Google Business Profile**, pick smart keywords, and improve your website so more people nearby can find you online.
+In this guide, I will share easy [local SEO](/local-seo/) tips you can use right away. You will learn how to set up **Google Business Profile**, pick smart keywords, and improve your website so more people nearby can find you online.
 
 These steps work if you want **higher rankings in search engines** like Google or Bing.
 

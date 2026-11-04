@@ -58,6 +58,6 @@ Assuming either you or your webmaster are able to answer "yes" to all the above,
 
 If however, you're short on time or uncomfortable with the idea of performing maintenance on your website then you may want to hire a professional.
 
-To learn more, [check out our WordPress Success Plans](/services/wordpress-success-plans/) that go a long way in keeping your site safe and secure against most issues that arise with WordPress.
+To learn more, [check out our WordPress Success Plans](/wordpress-care-plans/) that go a long way in keeping your site safe and secure against most issues that arise with WordPress.
 
 Given that the expense of resurrecting a WordPress installation post-failure can be quite costly both in terms of repair and business lost, it's money well spent.

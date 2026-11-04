@@ -1,7 +1,7 @@
 ---
 heroImage: './images/find-files-media-library-more-easily/featured.png'
 title: 'How to Find Files in Your Media Library More Easily'
-description: 'Among the common issues I see are Media Libraries filled with files that make use of default file-naming conventions, making them super hard to find in huge libraries...'
+description: 'Default file names make a big WordPress Media Library hard to search. Here''s how to name and organize files so you can find them fast.'
 pubDate: 2024-12-21
 updatedDate: 2024-12-24
 tags: ['WordPress']

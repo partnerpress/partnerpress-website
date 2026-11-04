@@ -1,7 +1,7 @@
 ---
 heroImage: './images/6-ways-download-images-from-wordpress-media-library/featured.png'
 title: '6 Ways to Download Images From The WordPress Media Library'
-description: 'You can download images from WordPress Media Library in different ways, based on your needs and available tools. Here are several ways to download images from...'
+description: 'Six ways to download images from the WordPress Media Library, from a quick right-click to plugins, FTP and bulk export tools.'
 pubDate: 2024-12-21
 updatedDate: 2024-12-24
 tags: ['WordPress']
@@ -11,7 +11,7 @@ So you've got a ton of images uploaded to your WordPress Media Library, but what
 
 Well, as it turns out, there are several ways you can download images from WordPress Media Library, depending upon your needs.
 
-![](./images/6-ways-download-images-from-wordpress-media-library/right-click-save-as.gif)
+<video src="/assets/blog/6-ways-download-images-from-wordpress-media-library/right-click-save-as.mp4" poster="/assets/blog/6-ways-download-images-from-wordpress-media-library/right-click-save-as.jpg" width="800" height="436" autoplay loop muted playsinline preload="none" aria-label="Right-clicking an image on a web page and choosing Save Image As"></video>
 
 ## Right-Click & "Save As"
 
@@ -23,7 +23,7 @@ From there you should be able to download the image to the desired location on y
 
 I typically download to desktop items I'll be working with right away, and then assign them a permanent location when I'm done.
 
-![](./images/6-ways-download-images-from-wordpress-media-library/click-grid-mode-download-image-file.gif)
+<video src="/assets/blog/6-ways-download-images-from-wordpress-media-library/click-grid-mode-download-image-file.mp4" poster="/assets/blog/6-ways-download-images-from-wordpress-media-library/click-grid-mode-download-image-file.jpg" width="800" height="452" autoplay loop muted playsinline preload="none" aria-label="Opening an image in the WordPress Media Library grid view and clicking Download file"></video>
 
 ## Use the Download Link
 
@@ -63,7 +63,7 @@ As an alternative, tools like the [Image Extractor](https://extract.pics/) allow
 
 This can be particularly helpful if your site displays image files in .webp format, but you need to download the .png or .jpeg files.
 
-![](./images/6-ways-download-images-from-wordpress-media-library/using-ftp-to-download-image-files.gif)
+<video src="/assets/blog/6-ways-download-images-from-wordpress-media-library/using-ftp-to-download-image-files.mp4" poster="/assets/blog/6-ways-download-images-from-wordpress-media-library/using-ftp-to-download-image-files.jpg" width="800" height="480" autoplay loop muted playsinline preload="none" aria-label="Downloading image files from the wp-content/uploads folder with an FTP client"></video>
 
 ## Download via FTP
 

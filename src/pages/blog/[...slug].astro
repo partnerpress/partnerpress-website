@@ -1,6 +1,6 @@
 ---
 import { render } from 'astro:content';
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Section from '@/components/Section.astro';
 import CtaBand from '@/components/CtaBand.astro';
@@ -15,6 +15,11 @@ export async function getStaticPaths() {
 const { post } = Astro.props as { post: Post };
 const { Content } = await render(post);
 const { title, description, pubDate, updatedDate, author, heroImage } = post.data;
+// Google shows about 60 characters, so only add the brand when it fits.
+const pageTitle = title.length + ' | PartnerPress'.length <= 60 ? `${title} | PartnerPress` : title;
+const heroUrl = heroImage
+  ? new URL((await getImage({ src: heroImage, width: 1200, height: 630, fit: 'cover', format: 'jpg', quality: 80 })).src, Astro.site).href
+  : undefined;
 
 const schema = JSON.stringify({
   '@context': 'https://schema.org',
@@ -24,12 +29,18 @@ const schema = JSON.stringify({
   datePublished: pubDate.toISOString(),
   ...(updatedDate && { dateModified: updatedDate.toISOString() }),
   author: { '@type': 'Person', name: author },
-  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  ...(heroUrl && { image: heroUrl }),
+  publisher: {
+    '@type': 'Organization',
+    name: SITE.name,
+    url: SITE.url,
+    logo: { '@type': 'ImageObject', url: `${SITE.url}/assets/img/logo-color.png` },
+  },
   mainEntityOfPage: new URL(Astro.url.pathname, Astro.site).href,
 });
 ---
 
-<BaseLayout title={`${title} | PartnerPress`} description={description} nav="blog" ogType="article">
+<BaseLayout title={pageTitle} description={description} nav="blog" ogType="article" image={heroImage}>
   <script slot="head" type="application/ld+json" set:html={schema} />
 
   <Section width="narrow">
