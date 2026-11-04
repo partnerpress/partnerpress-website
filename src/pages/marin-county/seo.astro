@@ -19,6 +19,7 @@ import ServiceSchema from '@/components/ServiceSchema.astro';
 import { SITE } from '@/config/site';
 import { MARIN_TOWNS, MARIN_CLIENTS } from '@/data/locations';
 import { REVIEWS } from '@/data/reviews';
+import { TOWNS } from '@/data/towns';
 import type { Faq } from '@/data/faqs';
 
 const description =
@@ -139,6 +140,19 @@ const faqs: Faq[] = [
         <ReviewQuote review={REVIEWS.jae} variant="tint" />
       </div>
     </Split>
+  </Section>
+
+  <Section compact>
+    <SectionIntro eyebrow="Ranking by town" title="Towns I work in" />
+    <Grid min={320} gap="20px">
+      {
+        TOWNS.map((t) => (
+          <Feature title={`Web design and SEO in ${t.name}`} href={`/marin-county/${t.slug}/`} boxed>
+            {t.teaser}
+          </Feature>
+        ))
+      }
+    </Grid>
   </Section>
 
   <Section tone="subtle">
