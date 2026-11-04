@@ -319,3 +319,75 @@ summary::-webkit-details-marker {
     animation: none !important;
   }
 }
+
+/* Local page building blocks (town and hub pages) */
+.lp-band {
+  padding-block: var(--section-y);
+  background: var(--white);
+}
+
+.lp-band--subtle {
+  background: var(--surface);
+}
+
+.lp-band--flush {
+  padding-top: 0;
+}
+
+.lp-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 6px rgba(16, 18, 22, 0.06);
+}
+
+.lp-ic {
+  width: 52px;
+  height: 52px;
+  flex: none;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--blue-50);
+  color: var(--blue);
+}
+
+.lp-ic--sm {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+}
+
+.lp-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.lp-head {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 760px;
+  margin-bottom: 48px;
+}
+
+.lp-split {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 40px 64px;
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .lp-split {
+    grid-template-columns: 1fr;
+  }
+}

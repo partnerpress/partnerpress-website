@@ -1,0 +1,117 @@
+---
+// Section of three numbered cards with icons and an orange top rule.
+import Icon, { type IconName } from '@/components/Icon.astro';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lead?: string;
+  items: { icon: IconName; title: string; text: string }[];
+  tone?: 'white' | 'subtle';
+}
+
+const { eyebrow, title, lead, items, tone = 'white' } = Astro.props;
+---
+
+<section class:list={['lp-band', tone === 'subtle' && 'lp-band--subtle']}>
+  <div class="container">
+    <div class:list={['head', lead && 'head--split']}>
+      <div class="head__titles">
+        {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+        <h2 class="title-md">{title}</h2>
+      </div>
+      {lead && <p class="head__lead">{lead}</p>}
+    </div>
+    <div class="cards">
+      {
+        items.map((f, i) => (
+          <article class="lp-card card">
+            <div class="card__top">
+              <span class="lp-ic">
+                <Icon name={f.icon} />
+              </span>
+              <span class="card__num" aria-hidden="true">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+            </div>
+            <h3>{f.title}</h3>
+            <p>{f.text}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .head {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 760px;
+    margin-bottom: 48px;
+  }
+
+  .head--split {
+    max-width: none;
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: 24px 64px;
+    align-items: end;
+  }
+
+  .head__titles {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .head__lead {
+    font-size: 18px;
+    color: var(--muted);
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .card {
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border-top: 4px solid var(--orange);
+  }
+
+  .card__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .card__num {
+    font-family: var(--font-heading);
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--blue-100);
+    line-height: 1;
+  }
+
+  .card h3 {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .card p {
+    font-size: 15px;
+  }
+
+  @media (max-width: 960px) {
+    .cards,
+    .head--split {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

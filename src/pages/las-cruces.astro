@@ -1,38 +1,35 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
-import Section from '@/components/Section.astro';
-import SectionIntro from '@/components/SectionIntro.astro';
-import Grid from '@/components/Grid.astro';
 import Button from '@/components/Button.astro';
 import organMountains from '@/assets/img/locations/las-cruces-organ-mountains.jpg';
-import ServiceCard from '@/components/ServiceCard.astro';
-import AreaList from '@/components/AreaList.astro';
 import CaseStudyCard from '@/components/CaseStudyCard.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import Phone from '@/components/Phone.astro';
+import ProofStrip from '@/components/local/ProofStrip.astro';
+import AreaBand from '@/components/local/AreaBand.astro';
+import ServiceShowcase from '@/components/local/ServiceShowcase.astro';
+import ReviewPanel from '@/components/local/ReviewPanel.astro';
+import FaqSplit from '@/components/local/FaqSplit.astro';
+import type { Faq } from '@/data/faqs';
 import { SITE, OFFICES } from '@/config/site';
-import { SERVICES } from '@/data/services';
-import { LAS_CRUCES_AREAS } from '@/data/locations';
 
 const office = OFFICES.nm;
-const order = ['google-ads', 'local-seo', 'care', 'web-design'];
-const local: Record<string, { title: string; summary: string }> = {
-  'google-ads': {
-    title: 'Google Ads in Las Cruces',
-    summary: 'Show up at the top for the searches that bring calls, targeted to Las Cruces, Mesilla and El Paso.',
+
+const faqs: Faq[] = [
+  {
+    q: 'Can we meet in person?',
+    a: 'We start with a free Google Meet call so we can look at your site together. After that, I’m happy to meet at your office around Las Cruces if it helps.',
   },
-  'local-seo': {
-    title: 'Local SEO and Google Business Profile',
-    summary: 'Get into the map pack with a complete profile, steady reviews and local pages Google trusts.',
+  {
+    q: 'Do you work with businesses in El Paso and Mesilla?',
+    a: 'Yes. I work with businesses across Doña Ana County and over the line in El Paso, and can target your ads and Google Business Profile service area to the places your customers are.',
   },
-  care: { title: 'WordPress care plans', summary: 'Weekly updates, daily security scans and unlimited quick fixes. From $249 a month.' },
-  'web-design': {
-    title: 'Website design and rebuilds',
-    summary: 'Replace an aging site with a fast WordPress site built to turn local visitors into calls.',
+  {
+    q: 'Can one person really handle my website, SEO and ads?',
+    a: 'For most local service businesses, yes. You get one point of contact who knows your site, your rankings and your ad account, so nothing falls between vendors.',
   },
-};
-const services = order.map((key) => SERVICES.find((s) => s.key === key)!);
+];
 ---
 
 <BaseLayout
@@ -57,38 +54,84 @@ const services = order.map((key) => SERVICES.find((s) => s.key === key)!);
     </Fragment>
   </PageHero>
 
-  <Section>
-    <SectionIntro title="What I do for Las Cruces businesses" />
-    <Grid min={250} gap="20px">
-      {services.map((s) => <ServiceCard service={s} detailed={false} title={local[s.key].title} summary={local[s.key].summary} />)}
-    </Grid>
-  </Section>
+  <ProofStrip
+    items={[
+      { icon: 'calendar', value: 'Since 2010', label: 'Building WordPress sites' },
+      { icon: 'star', value: `${SITE.reviews.rating} rating`, label: `From ${SITE.reviews.count} Google reviews`, accent: true },
+      { icon: 'home', value: 'Lives here', label: 'Based in Las Cruces' },
+      { icon: 'video', value: 'Meet first', label: 'Free Google Meet call' },
+    ]}
+  />
 
-  <Section tone="subtle" compact>
-    <AreaList title="Areas I serve" areas={LAS_CRUCES_AREAS}>Most work happens over Google Meet, and I can visit your office around Las Cruces when it helps.</AreaList>
-  </Section>
+  <ServiceShowcase
+    tone="white"
+    title="What I do for Las Cruces businesses"
+    featured={[
+      {
+        icon: 'megaphone',
+        tag: 'Flat monthly fee',
+        title: 'Google Ads in Las Cruces',
+        href: '/google-ads/',
+        text: 'Show up at the top for the searches that bring calls, targeted to Las Cruces, Mesilla and El Paso.',
+        more: 'See Google Ads',
+      },
+      {
+        icon: 'pin',
+        tag: 'From $1,495/mo',
+        title: 'Local SEO and Google Business Profile',
+        href: '/local-seo/',
+        text: 'Get into the map pack with a complete profile, steady reviews and local pages Google trusts.',
+        more: 'See local SEO',
+      },
+    ]}
+    secondary={[
+      {
+        icon: 'shield',
+        title: 'WordPress care plans',
+        tag: 'From $249/mo',
+        href: '/wordpress-care-plans/',
+        text: 'Weekly updates, daily security scans and unlimited quick fixes.',
+        more: 'See care plans',
+      },
+      {
+        icon: 'layout',
+        title: 'Website design and rebuilds',
+        href: '/wordpress-web-design/',
+        text: 'Replace an aging site with a fast WordPress site built to turn local visitors into calls.',
+        more: 'See web design',
+      },
+    ]}
+  />
 
-  <Section>
-    <Grid min={340}>
-      <CaseStudyCard
-        label="Las Cruces client story"
-        result="[Las Cruces client] · [RESULT]"
-        text="[Two sentences on the problem and what changed. Add a Las Cruces Google review here once the Las Cruces profile is live.]"
-        image={false}
-      />
-      <div class="since">
-        <h3>Since 2010</h3>
-        <p>
-          Hundreds of WordPress sites for service businesses, nonprofits and brands like Sutter Health and Grifols. 5.0 stars
-          from 19 Google reviews.
-        </p>
-      </div>
-    </Grid>
-  </Section>
+  <AreaBand
+    title="Areas I serve"
+    groups={[
+      { label: 'Las Cruces', areas: ['Las Cruces', 'University Park', 'Sonoma Ranch', 'Picacho Hills'] },
+      { label: 'Around the valley', areas: ['Mesilla', 'Doña Ana', 'Anthony'] },
+      { label: 'Toward El Paso', areas: ['Santa Teresa', 'El Paso, TX'] },
+    ]}
+  >
+    Most work happens over Google Meet, and I can visit your office around Las Cruces when it helps.
+  </AreaBand>
+
+  <section class="lp-band">
+    <div class="container">
+      <ReviewPanel scoreNote="Hundreds of WordPress sites since 2010, for brands like Sutter Health and Grifols">
+        <CaseStudyCard
+          label="Las Cruces client story"
+          result="[Las Cruces client] · [RESULT]"
+          text="[Two sentences on the problem and what changed. Add a Las Cruces Google review here once the Las Cruces profile is live.]"
+          image={false}
+        />
+      </ReviewPanel>
+    </div>
+  </section>
+
+  <FaqSplit title="Las Cruces questions" faqs={faqs} flush />
 
   <CtaBand title="Talk to a local WordPress expert">
     <address>
-      {SITE.name}, {office.street}, {office.city}, {office.region}
+      {SITE.name}, {office.street}, {office.city}, {office.region}{" "}
       {office.postalCode} · <Phone office="nm" strong />
     </address>
   </CtaBand>
@@ -97,23 +140,5 @@ const services = order.map((key) => SERVICES.find((s) => s.key === key)!);
 <style>
   .call {
     font-size: 18px;
-  }
-
-  .since {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 32px;
-    background: var(--blue-50);
-    border-radius: var(--radius);
-  }
-
-  .since h3 {
-    font-size: 22px;
-    font-weight: 700;
-  }
-
-  .since p {
-    font-size: 16px;
   }
 </style>

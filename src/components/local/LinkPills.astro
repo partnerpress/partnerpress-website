@@ -1,0 +1,63 @@
+---
+// A light row of pill links to related pages.
+interface Props {
+  title: string;
+  links: { label: string; href: string }[];
+}
+
+const { title, links } = Astro.props;
+---
+
+<nav class="pills" aria-label={title}>
+  <div class="container row">
+    <span class="title">{title}</span>
+    {
+      links.map((l) => (
+        <a class="pill" href={l.href}>
+          {l.label}
+        </a>
+      ))
+    }
+  </div>
+</nav>
+
+<style>
+  .pills {
+    border-top: 1px solid var(--line);
+    padding-block: 40px;
+    background: var(--white);
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px 16px;
+  }
+
+  .title {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-right: 8px;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 20px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--line-strong);
+    background: var(--white);
+    color: var(--text-strong);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .pill:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+  }
+</style>

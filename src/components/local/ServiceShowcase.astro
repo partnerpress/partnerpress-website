@@ -1,0 +1,178 @@
+---
+// Two featured service cards followed by two compact ones, each with an icon and an arrow link.
+import Icon, { type IconName } from '@/components/Icon.astro';
+
+export interface ShowcaseService {
+  icon: IconName;
+  title: string;
+  text: string;
+  href: string;
+  more: string;
+  /** Featured cards: a small orange tag. Compact cards: a price on the right. */
+  tag?: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  featured: ShowcaseService[];
+  secondary: ShowcaseService[];
+  tone?: 'white' | 'subtle';
+}
+
+const { eyebrow = 'Services', title, featured, secondary, tone = 'subtle' } = Astro.props;
+---
+
+<section class:list={['lp-band', tone === 'subtle' && 'lp-band--subtle']}>
+  <div class="container">
+    <div class="lp-head">
+      <span class="eyebrow">{eyebrow}</span>
+      <h2 class="title-md">{title}</h2>
+    </div>
+    <div class="services">
+      {
+        featured.map((s) => (
+          <a class="lp-card svc svc--lg" href={s.href}>
+            <div class="svc__top">
+              <span class="lp-ic">
+                <Icon name={s.icon} />
+              </span>
+              {s.tag && <span class="tag">{s.tag}</span>}
+            </div>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+            <span class="lp-more">
+              {s.more} <Icon name="arrow" size={18} />
+            </span>
+          </a>
+        ))
+      }
+      {
+        secondary.map((s) => (
+          <a class="lp-card svc" href={s.href}>
+            <div class="svc__row">
+              <span class="lp-ic lp-ic--sm">
+                <Icon name={s.icon} size={22} />
+              </span>
+              <h3>{s.title}</h3>
+              {s.tag && <span class="svc__price">{s.tag}</span>}
+            </div>
+            <p>{s.text}</p>
+            <span class="lp-more">
+              {s.more} <Icon name="arrow" size={18} />
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .services {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .svc {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 32px;
+    color: var(--text);
+    text-decoration: none;
+    transition:
+      box-shadow 200ms ease,
+      transform 200ms ease;
+  }
+
+  .svc:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+  }
+
+  .svc:focus-visible {
+    outline: none;
+    box-shadow: var(--focus);
+  }
+
+  .svc p {
+    font-size: 15px;
+  }
+
+  .svc--lg {
+    padding: 40px;
+  }
+
+  .svc--lg h3 {
+    font-size: 26px;
+    font-weight: 700;
+  }
+
+  .svc--lg p {
+    font-size: 16px;
+  }
+
+  .svc__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .tag {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--orange-700);
+    background: var(--orange-50);
+    border-radius: var(--radius-pill);
+    padding: 4px 12px;
+  }
+
+  .svc__row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .svc__row h3 {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .svc__price {
+    margin-left: auto;
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 960px) {
+    .services {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .svc--lg {
+      padding: 28px;
+    }
+
+    .svc__price {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .svc {
+      transition: none;
+    }
+
+    .svc:hover {
+      transform: none;
+    }
+  }
+</style>

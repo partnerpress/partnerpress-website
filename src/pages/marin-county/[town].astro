@@ -3,10 +3,16 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import Button from '@/components/Button.astro';
 import Rating from '@/components/Rating.astro';
-import Icon, { type IconName } from '@/components/Icon.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import Phone from '@/components/Phone.astro';
 import ServiceSchema from '@/components/ServiceSchema.astro';
+import ProofStrip from '@/components/local/ProofStrip.astro';
+import NumberedCards from '@/components/local/NumberedCards.astro';
+import AreaBand from '@/components/local/AreaBand.astro';
+import ServiceShowcase from '@/components/local/ServiceShowcase.astro';
+import ReviewPanel from '@/components/local/ReviewPanel.astro';
+import FaqSplit from '@/components/local/FaqSplit.astro';
+import LinkPills from '@/components/local/LinkPills.astro';
 import { TOWNS, type Town } from '@/data/towns';
 import { REVIEWS } from '@/data/reviews';
 import { SITE } from '@/config/site';
@@ -22,62 +28,7 @@ interface Props {
 const { town } = Astro.props;
 const path = `/marin-county/${town.slug}/`;
 const review = town.slug === 'novato' ? REVIEWS.maxson : REVIEWS.perry;
-const initials = review.name
-  .split(' ')
-  .map((w) => w[0])
-  .join('');
-
-const proof: { icon: IconName; value: string; label: string; accent?: boolean }[] = [
-  { icon: 'calendar', value: 'Since 2010', label: 'Building Marin websites' },
-  { icon: 'star', value: `${SITE.reviews.rating} rating`, label: `From ${SITE.reviews.count} Google reviews`, accent: true },
-  { icon: 'clock', value: town.proximity.value, label: town.proximity.label },
-  { icon: 'video', value: 'Meet first', label: 'Free Google Meet call' },
-];
-
-const featured = [
-  {
-    icon: 'layout' as IconName,
-    tag: 'Fixed quote up front',
-    title: `Web design in ${town.name}`,
-    href: '/marin-county/web-design/',
-    text: 'Fast, accessible WordPress sites built to turn local visitors into calls, with a fixed quote up front.',
-    more: 'See web design',
-  },
-  {
-    icon: 'search' as IconName,
-    tag: 'Map pack focus',
-    title: `Local SEO in ${town.name}`,
-    href: '/marin-county/seo/',
-    text: `Google Business Profile, reviews and pages that help you show up when people in ${town.name} search.`,
-    more: 'See local SEO',
-  },
-];
-const secondary = [
-  {
-    icon: 'shield' as IconName,
-    title: 'WordPress care plans',
-    price: 'From $249/mo',
-    href: '/wordpress-care-plans/',
-    text: 'Weekly updates, daily security scans and unlimited quick fixes.',
-    more: 'See care plans',
-  },
-  {
-    icon: 'megaphone' as IconName,
-    title: 'Google Ads',
-    href: '/google-ads/',
-    text: `Ads targeted to ${town.name} and nearby towns while your organic rankings build.`,
-    more: 'See Google Ads',
-  },
-];
-
-const groups = town.neighborhoodGroups ?? [{ label: '', areas: town.neighborhoods }];
 const others = TOWNS.filter((t) => t.slug !== town.slug);
-
-const faqSchema = JSON.stringify({
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: town.faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
-});
 ---
 
 <BaseLayout
@@ -108,194 +59,82 @@ const faqSchema = JSON.stringify({
     <Rating slot="meta" />
   </PageHero>
 
-  <section class="proof" aria-label="Why PartnerPress">
-    <ul class="container proof__list">
+  <ProofStrip
+    items={[
+      { icon: 'calendar', value: 'Since 2010', label: 'Building Marin websites' },
+      { icon: 'star', value: `${SITE.reviews.rating} rating`, label: `From ${SITE.reviews.count} Google reviews`, accent: true },
+      { icon: 'clock', value: town.proximity.value, label: town.proximity.label },
+      { icon: 'video', value: 'Meet first', label: 'Free Google Meet call' },
+    ]}
+  />
+
+  <NumberedCards
+    eyebrow={`Doing business in ${town.name}`}
+    title={`What ${town.name} businesses need online`}
+    lead="Three things shape how people here find and choose a local business. Each one points to a different fix."
+    items={town.intro.map((f, i) => ({ ...f, icon: town.introIcons[i] ?? 'pin' }))}
+  />
+
+  <AreaBand title={`${town.name} neighborhoods I serve`} groups={town.neighborhoodGroups ?? [{ areas: town.neighborhoods }]}>
+    Each part of town searches a little differently. {town.neighborhoodsNote}
+  </AreaBand>
+
+  <ServiceShowcase
+    title={`How I help ${town.name} businesses`}
+    featured={[
       {
-        proof.map((p) => (
-          <li class="proof__item">
-            <Icon name={p.icon} class:list={['proof__icon', p.accent && 'proof__icon--accent']} />
-            <span>
-              <strong class="proof__value">{p.value}</strong>
-              <span class="proof__label">{p.label}</span>
-            </span>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
-
-  <section class="band">
-    <div class="container">
-      <div class="head head--split">
-        <div class="head__titles">
-          <span class="eyebrow">Doing business in {town.name}</span>
-          <h2 class="title-md">What {town.name} businesses need online</h2>
-        </div>
-        <p class="head__lead">Three things shape how people here find and choose a local business. Each one points to a different fix.</p>
-      </div>
-      <div class="needs">
-        {
-          town.intro.map((f, i) => (
-            <article class="card need">
-              <div class="need__top">
-                <span class="ic">
-                  <Icon name={town.introIcons[i] ?? 'pin'} />
-                </span>
-                <span class="need__num" aria-hidden="true">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-              </div>
-              <h3>{f.title}</h3>
-              <p>{f.text}</p>
-            </article>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <section class="band band--brand">
-    <div class="container split">
-      <div class="area__intro">
-        <span class="eyebrow eyebrow--light">Where I work</span>
-        <h2 class="title-md">{town.name} neighborhoods I serve</h2>
-        <p>Each part of town searches a little differently. {town.neighborhoodsNote}</p>
-        <Button href="/contact/" variant="inverse">Book a free call</Button>
-      </div>
-      <div class="area__groups">
-        {
-          groups.map((g) => (
-            <div class="area__group">
-              {g.label && <h3 class="area__label">{g.label}</h3>}
-              <ul class="chips">
-                {g.areas.map((a) => (
-                  <li class="chip">
-                    <Icon name="pin" size={16} />
-                    {a}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <section class="band band--subtle">
-    <div class="container">
-      <div class="head">
-        <span class="eyebrow">Services</span>
-        <h2 class="title-md">How I help {town.name} businesses</h2>
-      </div>
-      <div class="services">
-        {
-          featured.map((s) => (
-            <a class="card svc svc--lg" href={s.href}>
-              <div class="svc__top">
-                <span class="ic">
-                  <Icon name={s.icon} />
-                </span>
-                <span class="tag">{s.tag}</span>
-              </div>
-              <h3>{s.title}</h3>
-              <p>{s.text}</p>
-              <span class="more">
-                {s.more} <Icon name="arrow" size={18} />
-              </span>
-            </a>
-          ))
-        }
-        {
-          secondary.map((s) => (
-            <a class="card svc" href={s.href}>
-              <div class="svc__row">
-                <span class="ic ic--sm">
-                  <Icon name={s.icon} size={22} />
-                </span>
-                <h3>{s.title}</h3>
-                {s.price && <span class="svc__price">{s.price}</span>}
-              </div>
-              <p>{s.text}</p>
-              <span class="more">
-                {s.more} <Icon name="arrow" size={18} />
-              </span>
-            </a>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <section class="band">
-    <div class="container proofs">
-      <figure class="card quote">
-        <svg class="quote__mark" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M3 21c3 0 7-1 7-8V5H3v8h4c0 4-2 5-4 5zm11 0c3 0 7-1 7-8V5h-7v8h4c0 4-2 5-4 5z"></path>
-        </svg>
-        <blockquote>
-          <p>{review.quote}</p>
-        </blockquote>
-        <figcaption>
-          <span class="quote__avatar" aria-hidden="true">{initials}</span>
-          <span>
-            <strong>{review.name}</strong>
-            <span class="quote__note">{review.note}</span>
-          </span>
-        </figcaption>
-      </figure>
-      <div class="card score">
-        <span class="eyebrow">Google reviews</span>
-        <span class="score__num">{SITE.reviews.rating}</span>
-        <span class="score__stars" aria-hidden="true">★★★★★</span>
-        <p>Average from {SITE.reviews.count} Google reviews</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="band band--flush">
-    <div class="container split">
-      <div class="faq__side">
-        <span class="eyebrow">FAQ</span>
-        <h2 class="title-md">{town.name} questions</h2>
-        <div class="card ask">
-          <h3>Still have a question?</h3>
-          <p>Ask me on a free Google Meet call. We can look at your site together.</p>
-          <a class="more" href="/contact/">Book a free call <Icon name="arrow" size={18} /></a>
-        </div>
-      </div>
-      <div class="faq">
-        {
-          town.faqs.map((f, i) => (
-            <details class="faq__item" open={i === 0}>
-              <summary>
-                {f.q}
-                <Icon name="plus" size={22} class="faq__icon" />
-              </summary>
-              <p>{f.a}</p>
-            </details>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-  <script type="application/ld+json" set:html={faqSchema} />
-
-  <nav class="nearby" aria-label="More in Marin">
-    <div class="container nearby__row">
-      <span class="nearby__title">More in Marin</span>
-      <a class="pill" href="/marin-county/">All Marin County services</a>
+        icon: 'layout',
+        tag: 'Fixed quote up front',
+        title: `Web design in ${town.name}`,
+        href: '/marin-county/web-design/',
+        text: 'Fast, accessible WordPress sites built to turn local visitors into calls, with a fixed quote up front.',
+        more: 'See web design',
+      },
       {
-        others.map((t) => (
-          <a class="pill" href={`/marin-county/${t.slug}/`}>
-            {t.name}
-          </a>
-        ))
-      }
-      <a class="pill" href="/marin-county/seo/">Marin SEO</a>
-      <a class="pill" href="/marin-county/web-design/">Marin web design</a>
+        icon: 'search',
+        tag: 'Map pack focus',
+        title: `Local SEO in ${town.name}`,
+        href: '/marin-county/seo/',
+        text: `Google Business Profile, reviews and pages that help you show up when people in ${town.name} search.`,
+        more: 'See local SEO',
+      },
+    ]}
+    secondary={[
+      {
+        icon: 'shield',
+        title: 'WordPress care plans',
+        tag: 'From $249/mo',
+        href: '/wordpress-care-plans/',
+        text: 'Weekly updates, daily security scans and unlimited quick fixes.',
+        more: 'See care plans',
+      },
+      {
+        icon: 'megaphone',
+        title: 'Google Ads',
+        href: '/google-ads/',
+        text: `Ads targeted to ${town.name} and nearby towns while your organic rankings build.`,
+        more: 'See Google Ads',
+      },
+    ]}
+  />
+
+  <section class="lp-band">
+    <div class="container">
+      <ReviewPanel review={review} />
     </div>
-  </nav>
+  </section>
+
+  <FaqSplit title={`${town.name} questions`} faqs={town.faqs} flush />
+
+  <LinkPills
+    title="More in Marin"
+    links={[
+      { label: 'All Marin County services', href: '/marin-county/' },
+      ...others.map((t) => ({ label: t.name, href: `/marin-county/${t.slug}/` })),
+      { label: 'Marin SEO', href: '/marin-county/seo/' },
+      { label: 'Marin web design', href: '/marin-county/web-design/' },
+    ]}
+  />
 
   <CtaBand title={`Let’s talk about your ${town.name} business`}>
     Prefer to talk first? Call <Phone office="marin" />.
@@ -306,581 +145,5 @@ const faqSchema = JSON.stringify({
   .call {
     font-size: 18px;
     color: var(--text-strong);
-  }
-
-  /* Proof strip */
-  .proof {
-    background: var(--white);
-    border-bottom: 1px solid var(--line);
-  }
-
-  .proof__list {
-    list-style: none;
-    margin-block: 0;
-    padding-block: 32px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px 0;
-  }
-
-  .proof__item {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding-inline: 24px;
-    border-left: 1px solid var(--line);
-  }
-
-  .proof__item > span {
-    display: flex;
-    flex-direction: column;
-  }
-
-  :global(.proof__icon) {
-    flex: none;
-    color: var(--blue);
-  }
-
-  :global(.proof__icon--accent) {
-    color: var(--orange);
-  }
-
-  .proof__value {
-    font-family: var(--font-heading);
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--ink);
-    line-height: 1.3;
-  }
-
-  .proof__label {
-    font-size: 14px;
-    color: var(--muted);
-  }
-
-  /* Bands and section heads */
-  .band {
-    padding-block: var(--section-y);
-    background: var(--white);
-  }
-
-  .band--subtle {
-    background: var(--surface);
-  }
-
-  .band--flush {
-    padding-top: 0;
-  }
-
-  .band--brand {
-    background: var(--blue);
-    color: var(--blue-50);
-  }
-
-  .band--brand h2 {
-    color: var(--white);
-  }
-
-  .eyebrow--light {
-    color: var(--white);
-  }
-
-  .head {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    max-width: 760px;
-    margin-bottom: 48px;
-  }
-
-  .head--split {
-    max-width: none;
-    display: grid;
-    grid-template-columns: 5fr 7fr;
-    gap: 24px 64px;
-    align-items: end;
-  }
-
-  .head__titles {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .head__lead {
-    font-size: 18px;
-    color: var(--muted);
-  }
-
-  .card {
-    background: var(--white);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    box-shadow: 0 2px 6px rgba(16, 18, 22, 0.06);
-  }
-
-  .ic {
-    width: 52px;
-    height: 52px;
-    flex: none;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--blue-50);
-    color: var(--blue);
-  }
-
-  .ic--sm {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-  }
-
-  .more {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: auto;
-    font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: 15px;
-    color: var(--blue);
-    text-decoration: none;
-  }
-
-  /* Needs */
-  .needs {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-
-  .need {
-    padding: 32px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    border-top: 4px solid var(--orange);
-  }
-
-  .need__top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .need__num {
-    font-family: var(--font-heading);
-    font-size: 40px;
-    font-weight: 800;
-    color: var(--blue-100);
-    line-height: 1;
-  }
-
-  .need h3 {
-    font-size: 20px;
-    font-weight: 600;
-  }
-
-  .need p {
-    font-size: 15px;
-  }
-
-  /* Neighborhoods */
-  .split {
-    display: grid;
-    grid-template-columns: 5fr 7fr;
-    gap: 40px 64px;
-    align-items: start;
-  }
-
-  .area__intro {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 18px;
-    font-size: 17px;
-  }
-
-  .area__groups {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-  }
-
-  .area__group {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .area__label {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--white);
-    letter-spacing: 0;
-  }
-
-  .chips {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    min-height: 40px;
-    padding: 0 16px 0 12px;
-    border-radius: var(--radius-pill);
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    color: var(--white);
-    font-size: 15px;
-    font-weight: 500;
-  }
-
-  .chip :global(svg) {
-    color: var(--orange-300);
-  }
-
-  /* Services */
-  .services {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-  }
-
-  .svc {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    padding: 32px;
-    color: var(--text);
-    text-decoration: none;
-    transition:
-      box-shadow 200ms ease,
-      transform 200ms ease;
-  }
-
-  .svc:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-3px);
-  }
-
-  .svc:focus-visible {
-    outline: none;
-    box-shadow: var(--focus);
-  }
-
-  .svc--lg {
-    padding: 40px;
-  }
-
-  .svc--lg h3 {
-    font-size: 26px;
-    font-weight: 700;
-  }
-
-  .svc__top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .tag {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--orange-700);
-    background: var(--orange-50);
-    border-radius: var(--radius-pill);
-    padding: 4px 12px;
-  }
-
-  .svc__row {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .svc__row h3 {
-    font-size: 20px;
-    font-weight: 600;
-  }
-
-  .svc__price {
-    margin-left: auto;
-    font-family: var(--font-heading);
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--ink);
-    white-space: nowrap;
-  }
-
-  .svc p {
-    font-size: 15px;
-  }
-
-  .svc--lg p {
-    font-size: 16px;
-  }
-
-  /* Review */
-  .proofs {
-    display: grid;
-    grid-template-columns: 7fr 4fr;
-    gap: 24px;
-  }
-
-  .quote {
-    margin: 0;
-    padding: 48px;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    background: var(--blue-50);
-    border-color: var(--blue-100);
-  }
-
-  .quote__mark {
-    width: 44px;
-    height: 44px;
-    fill: var(--blue);
-  }
-
-  .quote blockquote {
-    margin: 0;
-  }
-
-  .quote blockquote p {
-    font-family: var(--font-heading);
-    font-size: clamp(20px, 1.2vw + 14px, 28px);
-    line-height: 1.35;
-    font-weight: 600;
-    color: var(--blue-900);
-    letter-spacing: -0.01em;
-  }
-
-  .quote figcaption {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-top: auto;
-  }
-
-  .quote figcaption > span:last-child {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .quote figcaption strong {
-    color: var(--ink);
-  }
-
-  .quote__avatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: var(--blue);
-    color: var(--white);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-heading);
-    font-weight: 700;
-  }
-
-  .quote__note {
-    font-size: 14px;
-    color: var(--muted);
-  }
-
-  .score {
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .score__num {
-    font-family: var(--font-heading);
-    font-size: 72px;
-    font-weight: 800;
-    line-height: 1;
-    color: var(--ink);
-  }
-
-  .score__stars {
-    color: var(--orange);
-    font-size: 24px;
-    letter-spacing: 3px;
-  }
-
-  .score p {
-    color: var(--muted);
-  }
-
-  /* FAQ */
-  .faq__side {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  .ask {
-    margin-top: 12px;
-    padding: 28px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    background: var(--surface);
-  }
-
-  .ask h3 {
-    font-size: 18px;
-    font-weight: 600;
-  }
-
-  .ask p {
-    font-size: 15px;
-  }
-
-  .faq {
-    border-top: 1px solid var(--line);
-  }
-
-  .faq__item {
-    border-bottom: 1px solid var(--line);
-  }
-
-  .faq__item summary {
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-    min-height: 44px;
-    padding-block: 22px;
-    font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: 18px;
-    color: var(--ink);
-  }
-
-  .faq__item summary:focus-visible {
-    outline: none;
-    box-shadow: var(--focus);
-    border-radius: 6px;
-  }
-
-  :global(.faq__icon) {
-    flex: none;
-    color: var(--blue);
-    transition: transform 200ms ease;
-  }
-
-  .faq__item[open] :global(.faq__icon) {
-    transform: rotate(45deg);
-  }
-
-  .faq__item p {
-    padding-bottom: 22px;
-  }
-
-  /* Nearby towns */
-  .nearby {
-    border-top: 1px solid var(--line);
-    padding-block: 40px;
-    background: var(--white);
-  }
-
-  .nearby__row {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 12px 16px;
-  }
-
-  .nearby__title {
-    font-family: var(--font-heading);
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--ink);
-    margin-right: 8px;
-  }
-
-  .pill {
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-    padding: 0 20px;
-    border-radius: var(--radius-pill);
-    border: 1px solid var(--line-strong);
-    background: var(--white);
-    color: var(--text-strong);
-    font-weight: 500;
-    text-decoration: none;
-  }
-
-  .pill:hover {
-    border-color: var(--blue);
-    color: var(--blue);
-  }
-
-  @media (max-width: 960px) {
-    .proof__list {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .needs,
-    .services,
-    .proofs,
-    .split,
-    .head--split {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @media (max-width: 520px) {
-    .proof__item {
-      padding-inline: 12px;
-      gap: 10px;
-    }
-
-    .proof__value {
-      font-size: 16px;
-    }
-
-    .proof__label {
-      font-size: 13px;
-    }
-
-    .quote,
-    .svc--lg {
-      padding: 28px;
-    }
-
-    .svc__price {
-      display: none;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .svc,
-    :global(.faq__icon) {
-      transition: none;
-    }
-
-    .svc:hover {
-      transform: none;
-    }
   }
 </style>

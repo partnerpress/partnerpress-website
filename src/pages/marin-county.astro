@@ -1,44 +1,28 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
-import Section from '@/components/Section.astro';
-import SectionIntro from '@/components/SectionIntro.astro';
-import Grid from '@/components/Grid.astro';
 import Button from '@/components/Button.astro';
 import Rating from '@/components/Rating.astro';
+import Icon from '@/components/Icon.astro';
 import mountTam from '@/assets/img/locations/marin-mount-tam.jpg';
-import ServiceCard from '@/components/ServiceCard.astro';
-import AreaList from '@/components/AreaList.astro';
 import NameStrip from '@/components/NameStrip.astro';
 import CaseStudyCard from '@/components/CaseStudyCard.astro';
-import ReviewQuote from '@/components/ReviewQuote.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import Phone from '@/components/Phone.astro';
-import Feature from '@/components/Feature.astro';
-import FaqList from '@/components/FaqList.astro';
+import ProofStrip from '@/components/local/ProofStrip.astro';
+import NumberedCards from '@/components/local/NumberedCards.astro';
+import AreaBand from '@/components/local/AreaBand.astro';
+import ServiceShowcase from '@/components/local/ServiceShowcase.astro';
+import ReviewPanel from '@/components/local/ReviewPanel.astro';
+import FaqSplit from '@/components/local/FaqSplit.astro';
 import { TOWNS } from '@/data/towns';
 import type { Faq } from '@/data/faqs';
 import { SITE, OFFICES } from '@/config/site';
-import { SERVICES } from '@/data/services';
-import { MARIN_TOWNS, MARIN_CLIENTS } from '@/data/locations';
+import { MARIN_CLIENTS } from '@/data/locations';
 import { REVIEWS } from '@/data/reviews';
 
 const office = OFFICES.marin;
-
-const areaNotes = [
-  {
-    title: 'Mill Valley and Sausalito',
-    text: 'Southern Marin sits right next to San Francisco, so local businesses often compete with city firms. A sharp local profile and clear reviews help you stand out.',
-  },
-  {
-    title: 'Larkspur, Corte Madera and the Ross Valley',
-    text: 'Short drives but distinct towns. Naming San Anselmo, Fairfax, Ross and Kentfield on your site helps Google connect you to each.',
-  },
-  {
-    title: 'Tiburon and Belvedere',
-    text: 'Small, high-value markets where word of mouth meets search. A polished site and a handful of strong reviews go a long way.',
-  },
-];
 
 const faqs: Faq[] = [
   {
@@ -54,23 +38,6 @@ const faqs: Faq[] = [
     a: 'For most local service businesses, yes. You get one point of contact who knows your site, your rankings and your ad account, so nothing falls between vendors.',
   },
 ];
-const local: Record<string, { title: string; summary: string; href?: string }> = {
-  'web-design': {
-    title: 'Marin web design',
-    summary: 'Fast, accessible WordPress sites for Marin service businesses, nonprofits and professional firms.',
-    href: '/marin-county/web-design/',
-  },
-  care: { title: 'WordPress care plans', summary: 'Weekly updates, daily security scans and unlimited quick fixes. From $249 a month.' },
-  'local-seo': {
-    title: 'Marin local SEO',
-    summary: 'Get into the map pack for searches in Novato, San Rafael and across the county. From $1,495 a month.',
-    href: '/marin-county/seo/',
-  },
-  'google-ads': {
-    title: 'Google Ads in Marin',
-    summary: 'Local campaigns targeted to Marin and southern Sonoma, for one flat monthly fee.',
-  },
-};
 ---
 
 <BaseLayout
@@ -96,65 +63,232 @@ const local: Record<string, { title: string; summary: string; href?: string }> =
     <Rating slot="meta" />
   </PageHero>
 
-  <Section>
-    <SectionIntro title="What I do for Marin businesses" />
-    <Grid min={250} gap="20px">
-      {SERVICES.map((s) => <ServiceCard service={{ ...s, href: local[s.key].href ?? s.href }} detailed={false} title={local[s.key].title} summary={local[s.key].summary} />)}
-    </Grid>
-  </Section>
+  <ProofStrip
+    items={[
+      { icon: 'calendar', value: 'Since 2010', label: 'Building Marin websites' },
+      { icon: 'star', value: `${SITE.reviews.rating} rating`, label: `From ${SITE.reviews.count} Google reviews`, accent: true },
+      { icon: 'home', value: 'Based in Novato', label: 'Local to Marin' },
+      { icon: 'video', value: 'Meet first', label: 'Free Google Meet call' },
+    ]}
+  />
 
-  <Section tone="subtle" compact>
-    <AreaList title="Towns I serve" areas={MARIN_TOWNS}>
-      Most work happens over Google Meet, and I can visit your office anywhere in Marin when it helps.
-    </AreaList>
-  </Section>
-
-  <Section>
-    <SectionIntro eyebrow="Around Marin" title="Every Marin town searches a little differently">
-      Google ranks local businesses by distance as much as quality, so I plan for the towns you want to reach.
-    </SectionIntro>
-    <Grid min={320} gap="20px">
+  <ServiceShowcase
+    tone="white"
+    title="What I do for Marin businesses"
+    featured={[
       {
-        TOWNS.map((t) => (
-          <Feature title={`Web design and SEO in ${t.name}`} href={`/marin-county/${t.slug}/`} boxed>
-            {t.teaser}
-          </Feature>
-        ))
-      }
-    </Grid>
-    <Grid min={260} gap="32px 28px" class="area-notes">
-      {areaNotes.map((n) => <Feature title={n.title}>{n.text}</Feature>)}
-    </Grid>
-  </Section>
+        icon: 'layout',
+        tag: 'Fixed quote up front',
+        title: 'Marin web design',
+        href: '/marin-county/web-design/',
+        text: 'Fast, accessible WordPress sites for Marin service businesses, nonprofits and professional firms.',
+        more: 'See Marin web design',
+      },
+      {
+        icon: 'search',
+        tag: 'From $1,495/mo',
+        title: 'Marin local SEO',
+        href: '/marin-county/seo/',
+        text: 'Get into the map pack for searches in Novato, San Rafael and across the county.',
+        more: 'See Marin SEO',
+      },
+    ]}
+    secondary={[
+      {
+        icon: 'shield',
+        title: 'WordPress care plans',
+        tag: 'From $249/mo',
+        href: '/wordpress-care-plans/',
+        text: 'Weekly updates, daily security scans and unlimited quick fixes.',
+        more: 'See care plans',
+      },
+      {
+        icon: 'megaphone',
+        title: 'Google Ads in Marin',
+        tag: 'One flat fee',
+        href: '/google-ads/',
+        text: 'Local campaigns targeted to Marin and southern Sonoma, for one flat monthly fee.',
+        more: 'See Google Ads',
+      },
+    ]}
+  />
 
-  <Section>
-    <SectionIntro title="Trusted by Marin organizations" />
-    <NameStrip names={MARIN_CLIENTS} align="start" />
-    <Grid min={340}>
+  <section class="lp-band lp-band--subtle">
+    <div class="container">
+      <div class="lp-head">
+        <span class="eyebrow">Around Marin</span>
+        <h2 class="title-md">Every Marin town searches a little differently</h2>
+        <p class="head-lead">Google ranks local businesses by distance as much as quality, so I plan for the towns you want to reach.</p>
+      </div>
+      <div class="towns">
+        {
+          TOWNS.map((t) => (
+            <a class="lp-card town" href={`/marin-county/${t.slug}/`}>
+              {t.hero && (
+                <Image
+                  src={t.hero}
+                  alt=""
+                  widths={[400, 800]}
+                  sizes="(max-width: 960px) 100vw, 380px"
+                  class="town__img"
+                  style={t.heroPosition ? `object-position: ${t.heroPosition}` : undefined}
+                />
+              )}
+              <div class="town__body">
+                <h3>{t.name}</h3>
+                <p>{t.teaser}</p>
+                <span class="lp-more">
+                  Web design and SEO in {t.name} <Icon name="arrow" size={18} />
+                </span>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <NumberedCards
+    eyebrow="Beyond the town pages"
+    title="What the rest of Marin needs"
+    items={[
+      {
+        icon: 'store',
+        title: 'Mill Valley and Sausalito',
+        text: 'Southern Marin sits right next to San Francisco, so local businesses often compete with city firms. A sharp local profile and clear reviews help you stand out.',
+      },
+      {
+        icon: 'map',
+        title: 'Larkspur, Corte Madera and the Ross Valley',
+        text: 'Short drives but distinct towns. Naming San Anselmo, Fairfax, Ross and Kentfield on your site helps Google connect you to each.',
+      },
+      {
+        icon: 'trending',
+        title: 'Tiburon and Belvedere',
+        text: 'Small, high-value markets where word of mouth meets search. A polished site and a handful of strong reviews go a long way.',
+      },
+    ]}
+  />
+
+  <AreaBand
+    title="Towns I serve"
+    groups={[
+      { label: 'North Marin and Sonoma', areas: ['Novato', 'Petaluma'] },
+      { label: 'Central Marin', areas: ['San Rafael', 'Larkspur', 'Corte Madera'] },
+      { label: 'Ross Valley', areas: ['San Anselmo', 'Fairfax', 'Ross'] },
+      { label: 'Southern Marin', areas: ['Mill Valley', 'Sausalito', 'Tiburon', 'Belvedere'] },
+    ]}
+  >
+    Most work happens over Google Meet, and I can visit your office anywhere in Marin when it helps.
+  </AreaBand>
+
+  <section class="lp-band">
+    <div class="container trust">
+      <div class="lp-head">
+        <span class="eyebrow">Clients</span>
+        <h2 class="title-md">Trusted by Marin organizations</h2>
+      </div>
+      <NameStrip names={MARIN_CLIENTS} align="start" />
+      <ReviewPanel review={REVIEWS.krivatsy} scoreNote="Building Marin websites since 2010" />
       <CaseStudyCard label="Marin client story" result="[Marin client] · [RESULT]" text="[Two sentences on the problem and what changed.]" image={false} />
-      <ReviewQuote review={REVIEWS.krivatsy} variant="tint" />
-    </Grid>
-  </Section>
+    </div>
+  </section>
 
-  <Section width="narrow">
-    <FaqList faqs={faqs} title="Marin County questions" />
-  </Section>
+  <FaqSplit title="Marin County questions" faqs={faqs} flush />
 
   <CtaBand title="Talk to a Marin WordPress expert">
     <address>
-      {SITE.name}, {office.street}, {office.city}, {office.region}
+      {SITE.name}, {office.street}, {office.city}, {office.region}{" "}
       {office.postalCode} · <Phone office="marin" strong />
     </address>
   </CtaBand>
 </BaseLayout>
 
 <style>
-  :global(.area-notes) {
-    margin-top: 40px;
-  }
-
   .call {
     font-size: 18px;
     color: var(--text-strong);
+  }
+
+  .head-lead {
+    font-size: 18px;
+    color: var(--muted);
+  }
+
+  .towns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .town {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    color: var(--text);
+    text-decoration: none;
+    transition:
+      box-shadow 200ms ease,
+      transform 200ms ease;
+  }
+
+  .town:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+  }
+
+  .town:focus-visible {
+    outline: none;
+    box-shadow: var(--focus);
+  }
+
+  .town :global(.town__img) {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    filter: grayscale(1);
+  }
+
+  .town__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 28px;
+  }
+
+  .town h3 {
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  .town p {
+    font-size: 15px;
+  }
+
+  .trust {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .trust .lp-head {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 960px) {
+    .towns {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .town {
+      transition: none;
+    }
+
+    .town:hover {
+      transform: none;
+    }
   }
 </style>
