@@ -4,6 +4,7 @@ import type { ImageMetadata } from 'astro';
 import type { Faq } from '@/data/faqs';
 import missionSanRafael from '@/assets/img/locations/marin-mission-san-rafael.jpg';
 import novatoCityHall from '@/assets/img/locations/novato-old-city-hall.jpg';
+import millValleyThrockmorton from '@/assets/img/locations/mill-valley-throckmorton.jpg';
 
 export interface Town {
   slug: string;
@@ -130,5 +131,59 @@ export const TOWNS: Town[] = [
       },
     ],
     teaser: 'My home base, where Marin meets southern Sonoma.',
+  },
+  {
+    slug: 'mill-valley',
+    name: 'Mill Valley',
+    title: 'Mill Valley Web Design & Local SEO | PartnerPress',
+    description:
+      'WordPress web design and local SEO for Mill Valley businesses, from downtown Throckmorton to Tam Valley and Strawberry. Marin-based since 2010. Call (415) 390-6563.',
+    eyebrow: 'Mill Valley, CA · Southern Marin',
+    h1: 'Web design and local SEO for Mill Valley businesses',
+    lead: 'Mill Valley customers expect a lot from the businesses they choose, and they check online first. I build websites and local search plans that help Mill Valley firms, studios and shops look as good on Google as they do in person.',
+    hero: millValleyThrockmorton,
+    heroPosition: '50% 65%',
+    intro: [
+      {
+        title: 'A town that shops local',
+        text: 'Downtown around Lytton Square and Throckmorton Avenue is full of independent shops, studios, cafes and wellness practices. Customers here compare a few sites before they book, so a clear, well-designed site that loads fast on a phone matters as much as the storefront.',
+      },
+      {
+        title: 'The map pack favors nearby businesses',
+        text: 'Google weighs distance heavily, and southern Marin searches mostly show businesses located in Mill Valley, Sausalito and Corte Madera. If your office is here, a complete Google Business Profile and steady reviews are the fastest win. If it is not, strong service pages and organic rankings do the heavy lifting.',
+      },
+      {
+        title: 'Many businesses, few storefronts',
+        text: 'Plenty of Mill Valley consultants, designers, therapists and trades work from home or by appointment. A service-area profile that hides your address and names the neighborhoods you cover keeps your home private and still gets you found.',
+      },
+    ],
+    neighborhoods: [
+      'Downtown and Lytton Square',
+      'Blithedale Canyon',
+      'Cascade',
+      'Homestead Valley',
+      'Tam Valley',
+      'Almonte',
+      'Strawberry',
+      'Alto',
+      'Sycamore Park',
+      'Scott Valley',
+    ],
+    neighborhoodsNote: 'We start on Google Meet, and I can visit your office later if that helps.',
+    faqs: [
+      {
+        q: 'How do we get started?',
+        a: 'With a free Google Meet call, so we can look at your site together. I’m based in Novato, about 20 minutes north on 101, and can meet at your Mill Valley office later in the project if it’s useful.',
+      },
+      {
+        q: 'Can I rank in Mill Valley if my office is somewhere else?',
+        a: 'In the regular results, usually yes, with a genuinely useful page about the work you do here. The map pack is harder, because Google favors businesses close to the searcher. On the free call I’ll tell you honestly what is realistic.',
+      },
+      {
+        q: 'I work from home. Should my address show on Google?',
+        a: 'Not if customers don’t visit you. Set your Google Business Profile as a service-area business, hide the address and list the towns you actually serve. I can set that up and keep your site’s details consistent with it.',
+      },
+    ],
+    teaser: 'Southern Marin’s independent downtown, where the map pack favors nearby businesses.',
   },
 ];
