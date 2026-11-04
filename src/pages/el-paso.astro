@@ -1,0 +1,176 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import Button from '@/components/Button.astro';
+import Rating from '@/components/Rating.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import Phone from '@/components/Phone.astro';
+import ServiceSchema from '@/components/ServiceSchema.astro';
+import ProofStrip from '@/components/local/ProofStrip.astro';
+import NumberedCards from '@/components/local/NumberedCards.astro';
+import AreaBand from '@/components/local/AreaBand.astro';
+import ServiceShowcase from '@/components/local/ServiceShowcase.astro';
+import TrustBand from '@/components/local/TrustBand.astro';
+import FaqSplit from '@/components/local/FaqSplit.astro';
+import LinkPills from '@/components/local/LinkPills.astro';
+import heroPhoto from '@/assets/img/locations/el-paso-franklin-mountains.jpg';
+import { SITE } from '@/config/site';
+import { REVIEWS } from '@/data/reviews';
+import type { Faq } from '@/data/faqs';
+
+const description =
+  'WordPress web design, local SEO and Google Ads for El Paso businesses, from a specialist based in Las Cruces since 2010. Call (575) 517-4795.';
+
+const faqs: Faq[] = [
+  {
+    q: 'Do you have an office in El Paso?',
+    a: 'No. I’m based in Las Cruces, about 45 minutes up I-10, and most of the work happens remotely. We start with a free Google Meet call so we can look at your site together.',
+  },
+  {
+    q: 'Can you help my business show up across El Paso?',
+    a: 'Yes. A complete Google Business Profile and steady reviews help you in the map near your office, and useful service pages help you rank in the regular results across the city.',
+  },
+  {
+    q: 'Can my website be in English and Spanish?',
+    a: 'Yes. WordPress handles bilingual sites well, and I can set up Spanish versions of your key pages from your translated content so customers can read in the language they prefer.',
+  },
+  {
+    q: 'Do you work with businesses on the New Mexico side too?',
+    a: 'Yes. I work with businesses in Las Cruces, Mesilla, Santa Teresa, Sunland Park and Anthony, and can plan one site that serves customers in both states.',
+  },
+];
+---
+
+<BaseLayout title="El Paso Web Design & SEO | PartnerPress" description={description} nav="locations" office="nm" schema={['nm']} image={heroPhoto}>
+  <ServiceSchema
+    slot="head"
+    office="nm"
+    name="Web design and SEO in El Paso"
+    serviceType="Website design and local search engine optimization"
+    description={description}
+    path="/el-paso/"
+    areas={['El Paso']}
+    region="TX"
+  />
+
+  <PageHero eyebrow="El Paso, TX · 45 minutes down I-10 from Las Cruces" title="Web design and SEO for El Paso businesses" bg={heroPhoto} bgPosition="50% 70%">
+    <Fragment slot="lead">
+      I’m a WordPress and local SEO specialist based in Las Cruces. I build websites and search plans that help El Paso
+      businesses get found on Google and turn those visits into calls.
+    </Fragment>
+    <Fragment slot="actions">
+      <Button href="/contact/" size="lg">Book a free call</Button>
+      <span class="call">or call <Phone office="nm" strong /></span>
+    </Fragment>
+    <Rating slot="meta" />
+  </PageHero>
+
+  <ProofStrip
+    items={[
+      { icon: 'calendar', value: 'Since 2010', label: 'Building WordPress sites' },
+      { icon: 'star', value: `${SITE.reviews.rating} rating`, label: `From ${SITE.reviews.count} Google reviews`, accent: true },
+      { icon: 'clock', value: '45 minutes', label: 'Up I-10 in Las Cruces' },
+      { icon: 'video', value: 'Meet first', label: 'Free Google Meet call' },
+    ]}
+  />
+
+  <NumberedCards
+    eyebrow="Doing business in El Paso"
+    title="What El Paso businesses need online"
+    lead="El Paso is a big, busy search market. Three things shape how customers here find and choose a local business."
+    items={[
+      {
+        icon: 'target',
+        title: 'More searches, more competition',
+        text: 'As one of the largest cities in Texas, El Paso gets far more searches for local services than anywhere in southern New Mexico. More agencies chase them too, so a fast site with clear services and real proof is what gets you chosen.',
+      },
+      {
+        icon: 'users',
+        title: 'Two languages, one border',
+        text: 'Many El Paso customers switch between English and Spanish, and plenty of businesses serve families on both sides of the border. Plain, simple copy, with Spanish pages where your customers want them, makes it easier for everyone to say yes.',
+      },
+      {
+        icon: 'pin',
+        title: 'The map pack favors nearby businesses',
+        text: 'Google shows El Paso businesses in the map for El Paso searches. If your office is here, a complete Google Business Profile and steady reviews are the fastest win, and strong service pages carry you into the regular results across the city.',
+      },
+    ]}
+  />
+
+  <AreaBand
+    title="El Paso areas I serve"
+    groups={[
+      { label: 'West Side and Upper Valley', areas: ['West El Paso', 'Upper Valley', 'Kern Place', 'Coronado'] },
+      { label: 'Central and Northeast', areas: ['Downtown', 'Sunset Heights', 'Five Points', 'Northeast', 'Fort Bliss'] },
+      { label: 'East Side', areas: ['East El Paso', 'Horizon City', 'Socorro'] },
+      { label: 'Along the New Mexico line', areas: ['Sunland Park', 'Santa Teresa', 'Anthony'] },
+    ]}
+  >
+    Most of the work happens remotely, starting with a free Google Meet call.
+  </AreaBand>
+
+  <ServiceShowcase
+    title="How I help El Paso businesses"
+    featured={[
+      {
+        icon: 'layout',
+        tag: 'Fixed quote up front',
+        title: 'Web design in El Paso',
+        href: '/wordpress-web-design/',
+        text: 'Fast, accessible WordPress sites built to turn local visitors into calls, with a fixed quote up front.',
+        more: 'See web design',
+      },
+      {
+        icon: 'search',
+        tag: 'From $1,495/mo',
+        title: 'Local SEO in El Paso',
+        href: '/local-seo/',
+        text: 'Google Business Profile, reviews and pages that help you show up when people in El Paso search.',
+        more: 'See local SEO',
+      },
+    ]}
+    secondary={[
+      {
+        icon: 'shield',
+        title: 'WordPress care plans',
+        tag: 'From $249/mo',
+        href: '/wordpress-care-plans/',
+        text: 'Weekly updates, daily security scans and unlimited quick fixes.',
+        more: 'See care plans',
+      },
+      {
+        icon: 'megaphone',
+        title: 'Google Ads',
+        tag: 'One flat fee',
+        href: '/google-ads/',
+        text: 'Ads targeted to El Paso and nearby towns while your organic rankings build.',
+        more: 'See Google Ads',
+      },
+    ]}
+  />
+
+  <TrustBand eyebrow="Reviews" title="What clients say about working with me" review={REVIEWS.panek} scoreNote="Building WordPress sites since 2010" />
+
+  <FaqSplit title="El Paso questions" faqs={faqs} flush />
+
+  <LinkPills
+    title="More in the region"
+    links={[
+      { label: 'Las Cruces', href: '/las-cruces/' },
+      { label: 'Web design', href: '/wordpress-web-design/' },
+      { label: 'Local SEO', href: '/local-seo/' },
+      { label: 'Google Ads', href: '/google-ads/' },
+    ]}
+  />
+
+  <CtaBand title="Let’s talk about your El Paso business">
+    Prefer to talk first? Call <Phone office="nm" />.
+  </CtaBand>
+</BaseLayout>
+
+<style>
+  .call {
+    font-size: 18px;
+    color: var(--text-strong);
+  }
+</style>
