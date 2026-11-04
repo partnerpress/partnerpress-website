@@ -1,0 +1,179 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import heroPhoto from '@/assets/img/locations/marin-point-bonita-lighthouse.jpg';
+import Section from '@/components/Section.astro';
+import SectionIntro from '@/components/SectionIntro.astro';
+import Split from '@/components/Split.astro';
+import Grid from '@/components/Grid.astro';
+import Button from '@/components/Button.astro';
+import Rating from '@/components/Rating.astro';
+import Feature from '@/components/Feature.astro';
+import Steps from '@/components/Steps.astro';
+import NameStrip from '@/components/NameStrip.astro';
+import ReviewQuote from '@/components/ReviewQuote.astro';
+import FaqList from '@/components/FaqList.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import Phone from '@/components/Phone.astro';
+import ServiceSchema from '@/components/ServiceSchema.astro';
+import { SITE } from '@/config/site';
+import { MARIN_TOWNS, MARIN_CLIENTS } from '@/data/locations';
+import { REVIEWS } from '@/data/reviews';
+import type { Faq } from '@/data/faqs';
+
+const description =
+  'Local SEO for Marin County businesses from a Novato-based consultant. Map pack rankings, Google Business Profile, reviews and town pages from Novato to Sausalito.';
+
+const marinDifferences = [
+  {
+    title: 'A long, narrow county',
+    text: 'Marin stretches about 30 miles along Highway 101, from Sausalito to Novato. Google weighs distance heavily in the map pack, so a business can rank first in its own town and be invisible two exits away. I plan for each town you want to reach, not one county-wide keyword.',
+  },
+  {
+    title: 'Neighborhood names matter',
+    text: 'People search by the place they live: Greenbrae, Kentfield, Strawberry, Tam Valley, Marinwood. Many of these are not incorporated towns, so Google relies on your pages and your profile to connect you to them.',
+  },
+  {
+    title: 'Small numbers, high value',
+    text: 'A search like "marin seo" or "san rafael web design" happens a few dozen times a month. Every one of those is a nearby customer ready to hire, so a few extra calls make a real difference to a Marin business.',
+  },
+  {
+    title: 'Reviews carry extra weight',
+    text: 'In a county this size, many service categories have only a handful of strong Google profiles. A steady flow of genuine reviews is often what separates the top three in the map pack from everyone else.',
+  },
+];
+
+const steps = [
+  { title: 'Free ranking check', text: 'See where you show up today for your top searches in each Marin town you serve.' },
+  {
+    title: 'Fix the foundation',
+    text: 'Google Business Profile categories and services, plus the same name, address and phone on your site, Yelp, BBB and Nextdoor.',
+  },
+  {
+    title: 'Build town relevance',
+    text: 'Pages for the towns and services with real search demand, each with useful local detail instead of copy-and-paste city pages.',
+  },
+  {
+    title: 'Earn reviews and links',
+    text: 'A simple way to ask happy customers for reviews, and links from Marin chambers, nonprofits and community sites.',
+  },
+  {
+    title: 'Track every town',
+    text: 'Monthly map scans across Marin show where you rank block by block, explained in plain English.',
+  },
+];
+
+const faqs: Faq[] = [
+  {
+    q: 'Can I rank in Marin towns where I don’t have an office?',
+    a: 'Usually yes in the regular results, with genuinely useful pages about the work you do there. The map pack is harder, because Google favors businesses close to the searcher. On the free call I’ll tell you honestly which towns are realistic.',
+  },
+  {
+    q: 'Should my Google profile show my address or a service area?',
+    a: 'If customers visit you, show the address. If you travel to them, set a service area made up of the towns you actually serve and hide the address. Listing places you never work can hurt more than help.',
+  },
+  {
+    q: 'How soon will I see results in Marin?',
+    a: 'Google Business Profile fixes often show up within a few weeks. New pages, reviews and local links build over months. Each monthly report shows exactly what moved and where.',
+  },
+  {
+    q: 'Do we need to meet in person?',
+    a: 'Only if you’d like to. I’m based in Novato and happy to meet anywhere in Marin, or on a video call if that’s easier.',
+  },
+];
+---
+
+<BaseLayout
+  title="Marin SEO Services for Local Businesses | PartnerPress"
+  description={description}
+  nav="locations"
+  office="marin"
+  schema={['marin']}
+  image={heroPhoto}
+>
+  <ServiceSchema
+    slot="head"
+    office="marin"
+    name="Marin SEO"
+    serviceType="Local search engine optimization"
+    description={description}
+    path="/marin-county/seo/"
+    areas={MARIN_TOWNS}
+    region="CA"
+  />
+
+  <PageHero eyebrow="Marin SEO · Based in Novato" title="Marin SEO that gets you into the map pack, town by town" bg={heroPhoto}>
+    <Fragment slot="lead">
+      I’m Shane Barnes, a local SEO consultant in Novato. I help Marin businesses show up when people in San Rafael,
+      Mill Valley and the rest of the county search for what they do.
+    </Fragment>
+    <Fragment slot="actions">
+      <Button href="/contact/" size="lg">Get a free Marin ranking check</Button>
+      <span class="call">or call <Phone office="marin" strong /></span>
+    </Fragment>
+    <Rating slot="meta" />
+  </PageHero>
+
+  <Section>
+    <SectionIntro eyebrow="Local knowledge" title="Why ranking in Marin is different">
+      Generic SEO advice is written for big cities. Marin’s geography and search habits call for a different plan.
+    </SectionIntro>
+    <Grid min={260} gap="32px 28px">
+      {marinDifferences.map((f) => <Feature title={f.title}>{f.text}</Feature>)}
+    </Grid>
+  </Section>
+
+  <Section tone="subtle">
+    <SectionIntro title="How I get Marin businesses found" />
+    <Steps steps={steps} min={190} />
+  </Section>
+
+  <Section>
+    <Split align="center">
+      <SectionIntro slot="side" eyebrow="Practice what I preach" title="Proof close to home">
+        PartnerPress holds a {SITE.reviews.rating} rating from {SITE.reviews.count} Google reviews, built with the same
+        process I use for clients.
+      </SectionIntro>
+      <div class="proof">
+        <NameStrip names={MARIN_CLIENTS} align="start" />
+        <ReviewQuote review={REVIEWS.jae} variant="tint" />
+      </div>
+    </Split>
+  </Section>
+
+  <Section tone="subtle">
+    <Grid min={280}>
+      <Feature title="Plans and pricing" href="/local-seo/#pricing" boxed>
+        Marin SEO plans start at $1,495 a month, month to month, with a WordPress care plan included. Compare every plan
+        on the Local SEO page.
+      </Feature>
+      <Feature title="Is your website holding you back?" href="/marin-county/web-design/" boxed>
+        Rankings bring visitors; the site turns them into calls. See how I design websites for Marin businesses.
+      </Feature>
+      <Feature title="Everything I do in Marin County" href="/marin-county/" boxed>
+        Web design, WordPress care, local SEO and Google Ads for businesses from Novato to Sausalito.
+      </Feature>
+    </Grid>
+  </Section>
+
+  <Section width="narrow">
+    <FaqList faqs={faqs} title="Marin SEO questions" />
+  </Section>
+
+  <CtaBand title="See where you rank across Marin" button="Get a free Marin ranking check">
+    Prefer to talk first? Call <Phone office="marin" />.
+  </CtaBand>
+</BaseLayout>
+
+<style>
+  .call {
+    font-size: 18px;
+    color: var(--text-strong);
+  }
+
+  .proof {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+</style>

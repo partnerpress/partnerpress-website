@@ -204,6 +204,10 @@ const fit = [
     <Split>
       <SectionIntro slot="side" eyebrow="Wherever you are" title="Working together, from anywhere in the U.S.">
         You don't need to be nearby to work with me. Here's how it works when we're a few time zones apart.
+        <span class="nearby">
+          Close to home? See <a href="/marin-county/web-design/">Marin web design</a>,
+          <a href="/marin-county/seo/">Marin SEO</a> or <a href="/las-cruces/">Las Cruces services</a>.
+        </span>
       </SectionIntro>
       <Grid min={230} gap="32px">
         <Feature title="Calls on your clock">
@@ -264,6 +268,11 @@ const fit = [
 </BaseLayout>
 
 <style>
+  .nearby {
+    display: block;
+    margin-top: 12px;
+  }
+
   .center {
     text-align: center;
   }

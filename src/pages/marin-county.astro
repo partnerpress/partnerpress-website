@@ -14,21 +14,57 @@ import CaseStudyCard from '@/components/CaseStudyCard.astro';
 import ReviewQuote from '@/components/ReviewQuote.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import Phone from '@/components/Phone.astro';
+import Feature from '@/components/Feature.astro';
+import FaqList from '@/components/FaqList.astro';
+import { TOWNS } from '@/data/towns';
+import type { Faq } from '@/data/faqs';
 import { SITE, OFFICES } from '@/config/site';
 import { SERVICES } from '@/data/services';
 import { MARIN_TOWNS, MARIN_CLIENTS } from '@/data/locations';
 import { REVIEWS } from '@/data/reviews';
 
 const office = OFFICES.marin;
-const local: Record<string, { title: string; summary: string }> = {
+
+const areaNotes = [
+  {
+    title: 'Mill Valley and Sausalito',
+    text: 'Southern Marin sits right next to San Francisco, so local businesses often compete with city firms. A sharp local profile and clear reviews help you stand out.',
+  },
+  {
+    title: 'Larkspur, Corte Madera and the Ross Valley',
+    text: 'Short drives but distinct towns. Naming San Anselmo, Fairfax, Ross and Kentfield on your site helps Google connect you to each.',
+  },
+  {
+    title: 'Tiburon and Belvedere',
+    text: 'Small, high-value markets where word of mouth meets search. A polished site and a handful of strong reviews go a long way.',
+  },
+];
+
+const faqs: Faq[] = [
+  {
+    q: 'Do you meet clients in person in Marin?',
+    a: 'Yes. I’m based in Novato and meet anywhere in the county, at your office or over coffee. Video calls work too.',
+  },
+  {
+    q: 'Which Marin towns do you work in?',
+    a: 'All of them, from Novato to Sausalito and out to West Marin, plus Petaluma and southern Sonoma.',
+  },
+  {
+    q: 'Can one person really handle my website, SEO and ads?',
+    a: 'For most local service businesses, yes. You get one point of contact who knows your site, your rankings and your ad account, so nothing falls between vendors.',
+  },
+];
+const local: Record<string, { title: string; summary: string; href?: string }> = {
   'web-design': {
     title: 'Marin web design',
     summary: 'Fast, accessible WordPress sites for Marin service businesses, nonprofits and professional firms.',
+    href: '/marin-county/web-design/',
   },
   care: { title: 'WordPress care plans', summary: 'Weekly updates, daily security scans and unlimited quick fixes. From $249 a month.' },
   'local-seo': {
     title: 'Marin local SEO',
     summary: 'Get into the map pack for searches in Novato, San Rafael and across the county. From $1,495 a month.',
+    href: '/marin-county/seo/',
   },
   'google-ads': {
     title: 'Google Ads in Marin',
@@ -63,12 +99,33 @@ const local: Record<string, { title: string; summary: string }> = {
   <Section>
     <SectionIntro title="What I do for Marin businesses" />
     <Grid min={250} gap="20px">
-      {SERVICES.map((s) => <ServiceCard service={s} detailed={false} title={local[s.key].title} summary={local[s.key].summary} />)}
+      {SERVICES.map((s) => <ServiceCard service={{ ...s, href: local[s.key].href ?? s.href }} detailed={false} title={local[s.key].title} summary={local[s.key].summary} />)}
     </Grid>
   </Section>
 
   <Section tone="subtle" compact>
-    <AreaList title="Towns I serve" areas={MARIN_TOWNS}>In-person meetings anywhere in Marin, or on video if that's easier.</AreaList>
+    <AreaList title="Towns I serve" areas={MARIN_TOWNS}>
+      In-person meetings anywhere in Marin, or on video if that's easier.
+      {office.mapUrl && <a href={office.mapUrl}>Get directions to my Novato office</a>}
+    </AreaList>
+  </Section>
+
+  <Section>
+    <SectionIntro eyebrow="Around Marin" title="Every Marin town searches a little differently">
+      Google ranks local businesses by distance as much as quality, so I plan for the towns you want to reach.
+    </SectionIntro>
+    <Grid min={320} gap="20px">
+      {
+        TOWNS.map((t) => (
+          <Feature title={`Web design and SEO in ${t.name}`} href={`/marin-county/${t.slug}/`} boxed>
+            {t.teaser}
+          </Feature>
+        ))
+      }
+    </Grid>
+    <Grid min={260} gap="32px 28px" class="area-notes">
+      {areaNotes.map((n) => <Feature title={n.title}>{n.text}</Feature>)}
+    </Grid>
   </Section>
 
   <Section>
@@ -80,6 +137,10 @@ const local: Record<string, { title: string; summary: string }> = {
     </Grid>
   </Section>
 
+  <Section width="narrow">
+    <FaqList faqs={faqs} title="Marin County questions" />
+  </Section>
+
   <CtaBand title="Talk to a Marin WordPress expert">
     <address>
       {SITE.name}, {office.street}, {office.city}, {office.region}
@@ -89,6 +150,10 @@ const local: Record<string, { title: string; summary: string }> = {
 </BaseLayout>
 
 <style>
+  :global(.area-notes) {
+    margin-top: 40px;
+  }
+
   .call {
     font-size: 18px;
     color: var(--text-strong);

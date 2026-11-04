@@ -10,8 +10,8 @@
 /services/wordpress-success-plans/               /wordpress-care-plans/       301
 /services/search-engine-optimization             /local-seo/                  301
 /services/search-engine-optimization/            /local-seo/                  301
-/services/marin-seo-consultant                   /local-seo/                  301
-/services/marin-seo-consultant/                  /local-seo/                  301
+/services/marin-seo-consultant                   /marin-county/seo/           301
+/services/marin-seo-consultant/                  /marin-county/seo/           301
 /services/google-business-profile-management     /local-seo/                  301
 /services/google-business-profile-management/    /local-seo/                  301
 /services/google-ads-agency                      /google-ads/                 301
@@ -20,14 +20,14 @@
 /services/santa-rosa-web-design/                 /wordpress-web-design/       301
 
 # Marin County town and service pages
-/services/marin-web-design                       /marin-county/               301
-/services/marin-web-design/                      /marin-county/               301
+/services/marin-web-design                       /marin-county/web-design/    301
+/services/marin-web-design/                      /marin-county/web-design/    301
 /services/marin-wordpress                        /marin-county/               301
 /services/marin-wordpress/                       /marin-county/               301
-/services/novato-wordpress                       /marin-county/               301
-/services/novato-wordpress/                      /marin-county/               301
-/services/san-rafael-wordpress-agency            /marin-county/               301
-/services/san-rafael-wordpress-agency/           /marin-county/               301
+/services/novato-wordpress                       /marin-county/novato/        301
+/services/novato-wordpress/                      /marin-county/novato/        301
+/services/san-rafael-wordpress-agency            /marin-county/san-rafael/    301
+/services/san-rafael-wordpress-agency/           /marin-county/san-rafael/    301
 /services/mill-valley-wordpress-agency           /marin-county/               301
 /services/mill-valley-wordpress-agency/          /marin-county/               301
 /services/sausalito-wordpress-agency             /marin-county/               301
