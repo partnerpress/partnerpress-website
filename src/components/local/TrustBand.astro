@@ -34,7 +34,7 @@ const { eyebrow = 'Clients', title, lead, names, logos, review, scoreNote, tone 
         <ul class="lp-card logos" aria-label="Clients">
           {logos.map((logo) => (
             <li>
-              <Image src={logo.img} alt={logo.name} height={48} densities={[1, 2]} />
+              <Image src={logo.img} alt={logo.name} height={48} densities={[1, 2]} quality={60} />
             </li>
           ))}
         </ul>
