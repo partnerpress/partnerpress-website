@@ -19,7 +19,7 @@ import { REVIEWS } from '@/data/reviews';
 import type { Faq } from '@/data/faqs';
 
 const description =
-  'WordPress web design, local SEO and Google Ads for El Paso businesses, from a specialist based in Las Cruces since 2010. Call (575) 517-4795.';
+  'Web design, local SEO and Google Ads for El Paso businesses, from a specialist based in Las Cruces since 2010. Call (575) 517-4795.';
 
 const faqs: Faq[] = [
   {
@@ -32,7 +32,7 @@ const faqs: Faq[] = [
   },
   {
     q: 'Can my website be in English and Spanish?',
-    a: 'Yes. WordPress handles bilingual sites well, and I can set up Spanish versions of your key pages from your translated content so customers can read in the language they prefer.',
+    a: 'Yes. I build bilingual sites, and I can set up Spanish versions of your key pages from your translated content so customers can read in the language they prefer.',
   },
   {
     q: 'Do you work with businesses on the New Mexico side too?',
@@ -55,7 +55,7 @@ const faqs: Faq[] = [
 
   <PageHero eyebrow="El Paso, TX · 45 minutes down I-10 from Las Cruces" title="Web design and SEO for El Paso businesses" bg={heroPhoto} bgPosition="50% 70%">
     <Fragment slot="lead">
-      I’m a WordPress and local SEO specialist based in Las Cruces. I build websites and search plans that help El Paso
+      I’m a web design and local SEO specialist based in Las Cruces. I build websites and search plans that help El Paso
       businesses get found on Google and turn those visits into calls.
     </Fragment>
     <Fragment slot="actions">
@@ -67,7 +67,7 @@ const faqs: Faq[] = [
 
   <ProofStrip
     items={[
-      { icon: 'calendar', value: 'Since 2010', label: 'Building WordPress sites' },
+      { icon: 'calendar', value: 'Since 2010', label: 'Building websites' },
       { icon: 'star', value: `${SITE.reviews.rating} rating`, label: `From ${SITE.reviews.count} Google reviews`, accent: true },
       { icon: 'clock', value: '45 minutes', label: 'Up I-10 in Las Cruces' },
       { icon: 'video', value: 'Meet first', label: 'Free Google Meet call' },
@@ -116,8 +116,8 @@ const faqs: Faq[] = [
         icon: 'layout',
         tag: 'Fixed quote up front',
         title: 'Web design in El Paso',
-        href: '/wordpress-web-design/',
-        text: 'Fast, accessible WordPress sites built to turn local visitors into calls, with a fixed quote up front.',
+        href: '/web-design/',
+        text: 'Fast, secure, accessible websites built to turn local visitors into calls, with a fixed quote up front.',
         more: 'See web design',
       },
       {
@@ -149,7 +149,7 @@ const faqs: Faq[] = [
     ]}
   />
 
-  <TrustBand eyebrow="Reviews" title="What clients say about working with me" review={REVIEWS.panek} scoreNote="Building WordPress sites since 2010" />
+  <TrustBand eyebrow="Reviews" title="What clients say about working with me" review={REVIEWS.panek} scoreNote="Building websites since 2010" />
 
   <FaqSplit title="El Paso questions" faqs={faqs} flush />
 
@@ -157,7 +157,7 @@ const faqs: Faq[] = [
     title="More in the region"
     links={[
       { label: 'Las Cruces', href: '/las-cruces/' },
-      { label: 'Web design', href: '/wordpress-web-design/' },
+      { label: 'Web design', href: '/web-design/' },
       { label: 'Local SEO', href: '/local-seo/' },
       { label: 'Google Ads', href: '/google-ads/' },
     ]}

@@ -4,6 +4,8 @@
 # static files, so never add a rule that matches a real page (that loops).
 
 # Service pages
+/wordpress-web-design                            /web-design/                 301
+/wordpress-web-design/                           /web-design/                 301
 /services                                        /                            301
 /services/                                       /                            301
 /services/wordpress-success-plans                /wordpress-care-plans/       301
@@ -16,8 +18,8 @@
 /services/google-business-profile-management/    /local-seo/                  301
 /services/google-ads-agency                      /google-ads/                 301
 /services/google-ads-agency/                     /google-ads/                 301
-/services/santa-rosa-web-design                  /wordpress-web-design/       301
-/services/santa-rosa-web-design/                 /wordpress-web-design/       301
+/services/santa-rosa-web-design                  /web-design/                 301
+/services/santa-rosa-web-design/                 /web-design/                 301
 
 # Marin County town and service pages
 /services/marin-web-design                       /marin-county/web-design/    301

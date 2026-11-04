@@ -26,18 +26,18 @@ import { REVIEWS } from '@/data/reviews';
 import { WEB_DESIGN_FAQS } from '@/data/faqs';
 
 const included: { icon: IconName; title: string; text: string }[] = [
-  { icon: 'zap', title: 'Fast on phones', text: 'Lean builds without slider and page-builder bloat, aimed at Google\'s "good" Core Web Vitals.' },
+  { icon: 'zap', title: 'Fast on phones', text: 'Pre-built pages with no plugin or page-builder bloat, aimed at Google\'s "good" Core Web Vitals.' },
   { icon: 'target', title: 'Built to convert', text: 'Click-to-call on every page, short forms, clear next steps, and call and form tracking set up at launch.' },
-  { icon: 'search', title: 'SEO-ready', text: 'Service and location pages, clean structure, schema markup and Search Console from day one.' },
+  { icon: 'search', title: 'SEO-ready', text: "Service and location pages, schema markup, Search Console, and redirects from every old URL so you keep the rankings you've earned." },
   { icon: 'eye', title: 'Accessible', text: 'Designed and tested so everyone can use it, with an accessibility statement and compliant policies.' },
-  { icon: 'pencil', title: 'Easy to edit', text: 'Update text, photos and posts yourself in the WordPress editor, with a walkthrough at launch.' },
-  { icon: 'rocket', title: 'Safe launch', text: "Redirects from every old URL so a redesign doesn't cost you the rankings you've already earned." },
+  { icon: 'shield', title: 'Secure by design', text: 'No database, no plugins and no login page to attack, so there is nothing to hack or patch every week.' },
+  { icon: 'pencil', title: 'Easy to edit', text: 'Update text, photos and posts yourself in a simple editor, with a walkthrough at launch.' },
 ];
 
 const startingPoints: { icon: IconName; title: string; text: string }[] = [
   { icon: 'filePlus', title: 'No website yet', text: 'A complete first site with the pages, copy structure and setup a local business needs.' },
   { icon: 'refresh', title: 'An outdated site', text: "A redesign that keeps what works, fixes what doesn't, and protects your existing rankings." },
-  { icon: 'shuffle', title: 'Another platform', text: 'Moving from Wix, Squarespace, Joomla or Drupal to WordPress, with your content carried over.' },
+  { icon: 'shuffle', title: 'A slow WordPress site', text: 'Moving from WordPress, Wix or Squarespace to a faster, safer Astro build, with your content carried over.' },
   { icon: 'wrench', title: 'An inherited mess', text: 'Developer disappeared? I untangle the site, merge duplicates and get it stable again.' },
 ];
 
@@ -47,19 +47,19 @@ const steps = [
   { title: 'Design', text: 'Homepage and key page designs for your review.' },
   { title: 'Build', text: 'Development on a private staging site.' },
   { title: 'Launch', text: 'Redirects, tracking and testing, then go live.' },
-  { title: 'Care', text: 'Optional care plan keeps it fast and secure.' },
+  { title: 'Support', text: 'Changes, updates and help whenever you need it.' },
 ];
 ---
 
 <BaseLayout
-  title="WordPress Web Design for Local Businesses | PartnerPress"
-  description="Fast, mobile-first WordPress websites built to turn visitors into calls. New sites, redesigns and migrations with a fixed quote up front."
+  title="Web Design for Local Businesses | PartnerPress"
+  description="Fast, secure, mobile-first websites built to turn visitors into calls. New sites, redesigns and WordPress migrations with a fixed quote up front."
   nav="web-design"
 >
-  <PageHero eyebrow="WordPress design and development" title="A WordPress website built to make your phone ring" bg={heroPhoto}>
+  <PageHero eyebrow="Web design and development" title="A website built to make your phone ring" bg={heroPhoto}>
     <Fragment slot="lead">
       Fast, mobile-first sites for local service businesses, designed around one goal: turning visitors into calls and
-      inquiries. Built by a WordPress specialist since 2010.
+      inquiries. Built by a web developer working since 2010.
     </Fragment>
     <Fragment slot="actions">
       <Button href="/contact/" size="lg">Start your project</Button>
@@ -70,7 +70,7 @@ const steps = [
 
   <ProofStrip
     items={[
-      { icon: 'calendar', value: 'Since 2010', label: 'Building WordPress sites' },
+      { icon: 'calendar', value: 'Since 2010', label: 'Building websites' },
       { icon: 'star', value: `${SITE.reviews.rating} rating`, label: `From ${SITE.reviews.count} Google reviews`, accent: true },
       { icon: 'fileText', value: 'Fixed quote', label: 'Before any work starts' },
       { icon: 'key', value: 'You own it', label: 'Site, domain and content' },
@@ -102,12 +102,12 @@ const steps = [
         Every project is quoted after the discovery call, so you know the full cost up front. No hourly surprises.
       </SectionIntro>
       <div class="price-card">
-        <span class="price-card__label">WordPress websites</span>
+        <span class="price-card__label">Websites</span>
         <span class="price-card__amount"><span>From </span>[PRICE]</span>
         <ul>
           <li>Typical timeline: [X to Y] weeks</li>
           <li>You own the site, the domain and all content</li>
-          <li>Add a <a href="/wordpress-care-plans/">care plan</a> after launch from $249/month</li>
+          <li>Hosting set up in your name on Cloudflare</li>
         </ul>
         <Button href="/contact/" size="lg" block>Get a fixed quote</Button>
       </div>

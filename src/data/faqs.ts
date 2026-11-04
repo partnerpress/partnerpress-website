@@ -24,11 +24,15 @@ export const SEO_FAQS: Faq[] = [
   { q: 'Do I need a contract?', a: 'No. Plans are month to month and you can change or cancel at the end of any term.' },
   {
     q: 'Why is website maintenance included?',
-    a: 'A slow, broken or hacked site undoes SEO work. Including a Success Plan keeps the foundation solid.',
+    a: 'A slow, broken or hacked site undoes SEO work. Including site care keeps the foundation solid.',
+  },
+  {
+    q: 'My site is on WordPress. Is that a problem?',
+    a: "Not at first. I'll get it fast and stable with a care plan. If plugin bloat, slow pages or security issues keep undercutting results, I'll recommend moving it to Astro, a faster and more secure platform.",
   },
   {
     q: "My site isn't on WordPress. Can you still help?",
-    a: "Google Business Profile and review work, yes. For on-site SEO I'll recommend moving the site to WordPress first.",
+    a: 'Yes. Google Business Profile and review work fit any platform. If the site itself is holding rankings back, I can rebuild it in Astro with your content carried over.',
   },
 ];
 
@@ -58,11 +62,19 @@ export const WEB_DESIGN_FAQS: Faq[] = [
     a: '[Yes, copywriting is included / available as an add-on / You provide content and I edit it for the web.]',
   },
   {
+    q: 'What do you build sites with?',
+    a: "Astro, a modern framework that serves pages as plain, pre-built files. No database, no plugins to patch, nothing for hackers to log in to, and pages that load fast on any phone.",
+  },
+  {
+    q: 'Do you still build on WordPress?',
+    a: "For most local businesses I recommend Astro instead. If you already have a WordPress site you're happy with, a care plan keeps it fast, secure and up to date.",
+  },
+  {
     q: 'Who hosts the site?',
-    a: "I'll recommend managed WordPress hosting and set it up in your name, or work with the host you already have.",
+    a: "Astro sites run on Cloudflare's global network, set up in your name. Hosting is fast, secure and usually costs less than managed WordPress hosting.",
   },
   {
     q: 'Can I update the site myself?',
-    a: 'Yes. You get a walkthrough at launch, and care plan clients can send small changes to me instead.',
+    a: 'Yes. You get a simple editor for text, photos and posts, a walkthrough at launch, and you can always send changes to me instead.',
   },
 ];

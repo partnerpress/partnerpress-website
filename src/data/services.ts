@@ -14,11 +14,11 @@ export interface Service {
 export const SERVICES: Service[] = [
   {
     key: 'web-design',
-    title: 'WordPress design and development',
-    shortTitle: 'WordPress Design',
-    summary: 'Fast, accessible sites built to turn visitors into calls. Redesigns, rebuilds and migrations.',
+    title: 'Web design and development',
+    shortTitle: 'Web Design',
+    summary: 'Fast, secure, accessible sites built to turn visitors into calls. New sites, redesigns and migrations.',
     price: 'From [PRICE]',
-    href: '/wordpress-web-design/',
+    href: '/web-design/',
     icon: 'layout',
   },
   {

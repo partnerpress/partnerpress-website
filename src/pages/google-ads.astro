@@ -11,6 +11,7 @@ import ProofStrip from '@/components/local/ProofStrip.astro';
 import NumberedCards from '@/components/local/NumberedCards.astro';
 import StepsBand from '@/components/local/StepsBand.astro';
 import FaqSplit from '@/components/local/FaqSplit.astro';
+import AstroMigration from '@/components/local/AstroMigration.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import Phone from '@/components/Phone.astro';
 import AdMock from '@/components/mockups/AdMock.astro';
@@ -21,7 +22,7 @@ const included = [
   'Campaign build: ad copy, extensions and call ads',
   'Location and schedule targeting',
   'Call and form conversion tracking',
-  'Landing page tune-ups on your WordPress site',
+  'Landing page tune-ups on your website',
   'Click fraud protection',
   'Weekly bid, keyword and search-term reviews',
   'Monthly report: spend, calls, leads and cost per lead',
@@ -114,6 +115,8 @@ const steps = [
       </div>
     </Split>
   </Section>
+
+  <AstroMigration stakes="every dollar of ad spend" tone="subtle" />
 
   <Section tone="tint" compact>
     <div class="together">
