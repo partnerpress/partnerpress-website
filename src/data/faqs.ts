@@ -19,7 +19,7 @@ export const CARE_FAQS: Faq[] = [
 export const SEO_FAQS: Faq[] = [
   {
     q: 'How long until I see results?',
-    a: 'Google Business Profile fixes can show up within weeks. New pages and rankings usually take [X to Y] months. If you need calls sooner, pair SEO with Google Ads.',
+    a: 'Google Business Profile fixes can show up within weeks. New pages and rankings usually take 3 to 6 months. If you need calls sooner, pair SEO with Google Ads.',
   },
   { q: 'Do I need a contract?', a: 'No. Plans are month to month and you can change or cancel at the end of any term.' },
   {

@@ -22,6 +22,11 @@ import CtaBand from '@/components/CtaBand.astro';
 import Phone from '@/components/Phone.astro';
 import { OFFICES, SITE } from '@/config/site';
 import BrowserFrame from '@/components/mockups/BrowserFrame.astro';
+import { Image } from 'astro:assets';
+import qrpShot from '@/assets/img/work/qrp.jpg';
+import gbiShot from '@/assets/img/work/ghilotti-bros.jpg';
+import esselShot from '@/assets/img/work/essel.jpg';
+import msaShot from '@/assets/img/work/marin-school-of-the-arts.jpg';
 import { REVIEWS } from '@/data/reviews';
 import { WEB_DESIGN_FAQS } from '@/data/faqs';
 
@@ -65,7 +70,16 @@ const steps = [
       <Button href="/contact/" size="lg">Book a free call</Button>
       <Button href="#work" variant="secondary" size="lg">See recent work</Button>
     </Fragment>
-    <BrowserFrame slot="aside" />
+    <BrowserFrame slot="aside">
+      <Image
+        class="browser__shot"
+        src={qrpShot}
+        alt="QRP, the QuinStreet Rating Platform, home page"
+        widths={[560, 800, 1120]}
+        sizes="(min-width: 1000px) 560px, 100vw"
+        loading="eager"
+      />
+    </BrowserFrame>
   </PageHero>
 
   <ProofStrip
@@ -86,9 +100,14 @@ const steps = [
   <Section tone="subtle" id="work">
     <SectionIntro title="Recent websites" />
     <Grid min={300}>
-      <CaseStudyCard label="[Industry · Town]" result="[Client name]" />
-      <CaseStudyCard label="[Industry · Town]" result="[Client name]" />
-      <CaseStudyCard label="[Industry · Town]" result="[Client name]" />
+      <CaseStudyCard label="Construction · San Rafael" result="Ghilotti Bros." shot={gbiShot} alt="Ghilotti Bros. home page" />
+      <CaseStudyCard label="Recruiting · California" result="Essel" shot={esselShot} alt="Essel home page" />
+      <CaseStudyCard
+        label="Arts school · Novato"
+        result="Marin School of the Arts"
+        shot={msaShot}
+        alt="Marin School of the Arts home page"
+      />
     </Grid>
   </Section>
 
@@ -103,9 +122,9 @@ const steps = [
       </SectionIntro>
       <div class="price-card">
         <span class="price-card__label">Websites</span>
-        <span class="price-card__amount"><span>From </span>[PRICE]</span>
+        <span class="price-card__amount"><span>From </span>$1,500</span>
         <ul>
-          <li>Typical timeline: [X to Y] weeks</li>
+          <li>Typical timeline: 4 to 6 weeks</li>
           <li>You own the site, the domain and all content</li>
           <li>Hosting set up in your name on Cloudflare</li>
         </ul>
@@ -144,6 +163,15 @@ const steps = [
 </BaseLayout>
 
 <style>
+  .browser__shot {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 11;
+    object-fit: cover;
+    object-position: top;
+  }
+
   .price-card {
     display: flex;
     flex-direction: column;

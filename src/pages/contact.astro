@@ -4,7 +4,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import CheckList from '@/components/CheckList.astro';
 import ContactForm from '@/components/ContactForm.astro';
 import { OFFICES } from '@/config/site';
-import coffeeNotebook from '@/assets/img/contact-coffee-notebook.jpg';
+import deskPhone from '@/assets/img/contact-desk-phone.jpg';
 ---
 
 <BaseLayout
@@ -15,7 +15,7 @@ import coffeeNotebook from '@/assets/img/contact-coffee-notebook.jpg';
   <section class="contact">
     <Image
       class="contact__bg"
-      src={coffeeNotebook}
+      src={deskPhone}
       alt=""
       widths={[640, 1024, 1600, 2048]}
       sizes="100vw"
@@ -82,7 +82,7 @@ import coffeeNotebook from '@/assets/img/contact-coffee-notebook.jpg';
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.78) 55%, rgba(255, 255, 255, 0.6) 100%);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.82) 40%, rgba(255, 255, 255, 0.2) 75%, rgba(255, 255, 255, 0.1) 100%);
   }
 
   /* Desktop: intro and offices on the left, form on the right.
@@ -121,6 +121,11 @@ import coffeeNotebook from '@/assets/img/contact-coffee-notebook.jpg';
       grid-template-columns: 1fr;
       grid-template-areas: 'copy' 'form' 'offices';
       grid-template-rows: none;
+    }
+
+    /* Stacked layout: an even wash so the heading and offices stay readable */
+    .contact::before {
+      background: rgba(255, 255, 255, 0.85);
     }
   }
 
