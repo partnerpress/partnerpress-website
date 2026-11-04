@@ -1,19 +1,19 @@
 ---
 import { Image } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Section from '@/components/Section.astro';
-import SectionIntro from '@/components/SectionIntro.astro';
-import Split from '@/components/Split.astro';
-import Grid from '@/components/Grid.astro';
 import Button from '@/components/Button.astro';
 import Rating from '@/components/Rating.astro';
-import Feature from '@/components/Feature.astro';
-import Icon from '@/components/Icon.astro';
 import TrustindexReviews from '@/components/TrustindexReviews.astro';
+import ServiceShowcase, { type ShowcaseService } from '@/components/local/ServiceShowcase.astro';
+import TrustBand from '@/components/local/TrustBand.astro';
+import NumberedCards from '@/components/local/NumberedCards.astro';
+import FaqSplit from '@/components/local/FaqSplit.astro';
+import type { IconName } from '@/components/Icon.astro';
+import type { Faq } from '@/data/faqs';
 import Phone from '@/components/Phone.astro';
 import BusinessSchema from '@/components/BusinessSchema.astro';
 import { SERVICES } from '@/data/services';
-import { REVIEWS } from '@/data/reviews';
+import { REVIEWS, type Review } from '@/data/reviews';
 import bridge from '@/assets/img/home/golden-gate-bridge.jpg';
 import shane from '@/assets/img/home/shane-barnes.png';
 import grifols from '@/assets/img/clients/grifols.png';
@@ -24,26 +24,63 @@ import quinstreet from '@/assets/img/clients/quinstreet.png';
 
 const service = Object.fromEntries(SERVICES.map((s) => [s.key, s]));
 
-const howIDoIt = [
+const showcaseFeatured: ShowcaseService[] = [
   {
-    service: service.care,
-    title: 'I keep your site on solid ground',
-    text: "Your reputation starts with a WordPress site that's stable and secure, so it doesn't get hacked or blacklisted by Google.",
-  },
-  {
-    service: service['web-design'],
-    title: 'I build sites that bring in calls',
+    icon: service['web-design'].icon,
+    title: 'Websites that bring in calls',
     text: 'Fast, clear pages written for your customers, designed so visitors take action when it matters most.',
+    href: service['web-design'].href,
+    more: 'See web design',
   },
   {
-    service: service['local-seo'],
-    title: 'I increase your visibility online',
+    icon: service['local-seo'].icon,
+    tag: 'From $1,495/mo',
+    title: 'Visibility in local search',
     text: "Websites don't just appear at the top of Google. I get your business into the map pack and local results, and keep it there.",
+    href: service['local-seo'].href,
+    more: 'See local SEO',
+  },
+];
+
+const showcaseSecondary: ShowcaseService[] = [
+  {
+    icon: service.care.icon,
+    tag: 'From $249/mo',
+    title: 'WordPress care plans',
+    text: "A stable, secure WordPress site that doesn't get hacked or blacklisted by Google.",
+    href: service.care.href,
+    more: 'See care plans',
   },
   {
-    service: service['google-ads'],
-    title: 'I put you at the top today',
-    text: 'Google Ads aimed at the people searching for you right now, tracked down to the phone call, while SEO builds.',
+    icon: service['google-ads'].icon,
+    tag: 'Flat monthly fee',
+    title: 'Google Ads',
+    text: 'Ads aimed at the people searching for you right now, tracked down to the phone call, while SEO builds.',
+    href: service['google-ads'].href,
+    more: 'See Google Ads',
+  },
+];
+
+const remote: { icon: IconName; title: string; text: string }[] = [
+  {
+    icon: 'calendar',
+    title: 'Calls on your clock',
+    text: 'We meet by phone or Google Meet at a time that works in your time zone. Screen sharing makes walkthroughs easy.',
+  },
+  {
+    icon: 'chart',
+    title: 'Reports you can read',
+    text: "A plain-English report every month: what I did, what changed and what's next, sent to your inbox.",
+  },
+  {
+    icon: 'phone',
+    title: 'Your direct line',
+    text: 'Questions go straight to me by phone or email, not to a ticket queue or an account manager.',
+  },
+  {
+    icon: 'pin',
+    title: 'Local work, anywhere',
+    text: 'Local SEO and ads are built around your town, your competitors and your customers, not mine.',
   },
 ];
 
@@ -55,32 +92,32 @@ const logos = [
   { name: 'QuinStreet', img: quinstreet },
 ];
 
-const testimonials = [REVIEWS.jenkins, REVIEWS.ralston];
+const moreReviews: Review[] = [REVIEWS.ralston, REVIEWS.maxson];
 
-const fit = [
+const fit: Faq[] = [
   {
-    title: 'You have an established service business',
-    text: "If your business is a side hustle, a hobby, or you're preparing to close soon, we're not a good fit. I only work with established, growth-focused service businesses that are in it for the long haul.",
+    q: 'You have an established service business',
+    a: "If your business is a side hustle, a hobby, or you're preparing to close soon, we're not a good fit. I only work with established, growth-focused service businesses that are in it for the long haul.",
   },
   {
-    title: 'You have specific, measurable goals',
-    text: "You can't hit a target if you don't know what you're aiming for. You know your numbers, and you're ready to do what it takes to improve them.",
+    q: 'You have specific, measurable goals',
+    a: "You can't hit a target if you don't know what you're aiming for. You know your numbers, and you're ready to do what it takes to improve them.",
   },
   {
-    title: "You're invested in your success",
-    text: "You value quality work and have a marketing budget. You also understand that I don't work on trade, for \"exposure\" or on the promise of more work to come.",
+    q: "You're invested in your success",
+    a: "You value quality work and have a marketing budget. You also understand that I don't work on trade, for \"exposure\" or on the promise of more work to come.",
   },
   {
-    title: 'You have a solid team behind you',
-    text: "Whether it's in-house staff, a virtual assistant or a full marketing team, you can't do it all yourself. Your focus should be on doing what you do best.",
+    q: 'You have a solid team behind you',
+    a: "Whether it's in-house staff, a virtual assistant or a full marketing team, you can't do it all yourself. Your focus should be on doing what you do best.",
   },
   {
-    title: 'You make time for your partners',
-    text: "If we're going to partner on a project, you need to be as invested in it as I am. If you're too busy to make time for it, I can't be of real service to you.",
+    q: 'You make time for your partners',
+    a: "If we're going to partner on a project, you need to be as invested in it as I am. If you're too busy to make time for it, I can't be of real service to you.",
   },
   {
-    title: 'You enjoy what you do for a living',
-    text: "Loving what you do makes the hard parts of running a business a lot easier. We're probably a good fit if you look forward to your work.",
+    q: 'You enjoy what you do for a living',
+    a: "Loving what you do makes the hard parts of running a business a lot easier. We're probably a good fit if you look forward to your work.",
   },
 ];
 ---
@@ -145,112 +182,64 @@ const fit = [
     </div>
   </div>
 
-  <Section id="services">
-    <h2 class="title-md center">How I do it</h2>
-    <div class="how">
-      {
-        howIDoIt.map((item) => (
-          <a class="how__item" href={item.service.href}>
-            <span class="how__icon">
-              <Icon name={item.service.icon} size={26} />
-            </span>
-            <h3>{item.title}</h3>
-            <p>{item.text}</p>
-            <span class="how__link">
-              {item.service.shortTitle}
-              <Icon name="arrow" size={16} />
-            </span>
-          </a>
-        ))
-      }
-    </div>
-  </Section>
+  <ServiceShowcase
+    tone="subtle"
+    eyebrow="How I do it"
+    title="One partner for your website, rankings and ads"
+    featured={showcaseFeatured}
+    secondary={showcaseSecondary}
+  />
 
-  <Section compact label="Clients">
-    <h2 class="title-md center">A few of my clients</h2>
-    <ul class="logos">
+  <TrustBand
+    eyebrow="Clients"
+    title="Trusted by local businesses and big names alike"
+    logos={logos}
+    review={REVIEWS.jenkins}
+    scoreNote="Since 2010"
+  >
+    <div class="quotes">
       {
-        logos.map((logo) => (
-          <li>
-            <Image src={logo.img} alt={logo.name} height={56} densities={[1, 2]} />
-          </li>
-        ))
-      }
-    </ul>
-  </Section>
-
-  <Section id="reviews">
-    <div class="center reviews-head">
-      <h2 class="title-md">Recent reviews</h2>
-      <Rating />
-    </div>
-    <div class="testimonials">
-      {
-        testimonials.map((r) => (
-          <figure class="testimonial">
-            {r.photo && <Image src={r.photo} alt="" width={132} height={132} densities={[1, 2]} />}
+        moreReviews.map((r) => (
+          <figure class="lp-card mini">
             <blockquote>"{r.quote}"</blockquote>
             <figcaption>
-              <strong>{r.name}</strong>, {r.note}
+              {r.photo && <Image src={r.photo} alt="" width={48} height={48} densities={[1, 2]} />}
+              <span>
+                <strong>{r.name}</strong>
+                <span class="mini__note">{r.note}</span>
+              </span>
             </figcaption>
           </figure>
         ))
       }
     </div>
     <TrustindexReviews />
-  </Section>
+  </TrustBand>
 
-  <Section tone="subtle" id="remote">
-    <Split>
-      <SectionIntro slot="side" eyebrow="Wherever you are" title="Working together, from anywhere in the U.S.">
-        You don't need to be nearby to work with me. Here's how it works when we're a few time zones apart.
-        <span class="nearby">
-          Close to home? See <a href="/marin-county/web-design/">Marin web design</a>,
-          <a href="/marin-county/seo/">Marin SEO</a> or <a href="/las-cruces/">Las Cruces services</a>.
-        </span>
-      </SectionIntro>
-      <Grid min={230} gap="32px">
-        <Feature title="Calls on your clock">
-          We meet by phone or Google Meet at a time that works in your time zone. Screen sharing makes walkthroughs easy.
-        </Feature>
-        <Feature title="Reports you can read">
-          A plain-English report every month: what I did, what changed and what's next, sent to your inbox.
-        </Feature>
-        <Feature title="Your direct line">
-          Questions go straight to me by phone or email, not to a ticket queue or an account manager.
-        </Feature>
-        <Feature title="Local work, anywhere">
-          Local SEO and ads are built around your town, your competitors and your customers, not mine.
-        </Feature>
-      </Grid>
-    </Split>
-  </Section>
+  <NumberedCards
+    tone="subtle"
+    eyebrow="Wherever you are"
+    title="Working together, from anywhere in the U.S."
+    lead="You don't need to be nearby to work with me. Here's how it works when we're a few time zones apart."
+    items={remote}
+    numbered={false}
+    columns={4}
+    id="remote"
+  >
+    <p class="nearby">
+      Close to home? See <a href="/marin-county/web-design/">Marin web design</a>,{' '}
+      <a href="/marin-county/seo/">Marin SEO</a> or <a href="/las-cruces/">Las Cruces services</a>.
+    </p>
+  </NumberedCards>
 
-  <Section tone="brand" width="narrow" id="fit">
-    <div class="center fit-intro">
-      <h2 class="title-md">Who I work with</h2>
-      <p>
-        Before you reach out, it's worth making sure we're on the same page. I know you're busy, and I want to use your
-        time well. If the points below sound like you, we're probably a good fit, and I'd love to hear from you.
-      </p>
-    </div>
-  </Section>
-
-  <Section width="narrow" class="fit-section">
-    <div class="fit">
-      {
-        fit.map((item) => (
-          <details>
-            <summary>
-              <span class="fit__plus" aria-hidden="true" />
-              {item.title}
-            </summary>
-            <p>{item.text}</p>
-          </details>
-        ))
-      }
-    </div>
-  </Section>
+  <FaqSplit
+    eyebrow="Who I work with"
+    title="Are we a good fit?"
+    faqs={fit}
+    schema={false}
+    askTitle="Sound like you?"
+    askText="If these sound like your business, we're probably a good fit, and I'd love to hear from you."
+  />
 
   <section class="ready">
     <Image class="ready__bg" src={bridge} alt="" widths={[640, 1024, 1600]} sizes="100vw" quality={45} />
@@ -269,12 +258,64 @@ const fit = [
 
 <style>
   .nearby {
-    display: block;
-    margin-top: 12px;
+    margin-top: 32px;
+    color: var(--muted);
   }
 
-  .center {
-    text-align: center;
+  .quotes {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .mini {
+    margin: 0;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .mini blockquote {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  .mini figcaption {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: auto;
+    font-size: 15px;
+  }
+
+  .mini figcaption :global(img) {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .mini figcaption > span {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mini strong {
+    color: var(--ink);
+  }
+
+  .mini__note {
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  @media (max-width: 760px) {
+    .quotes {
+      grid-template-columns: 1fr;
+    }
   }
 
   /* Hero: black and white Golden Gate backdrop with Shane's cut-out photo.
@@ -405,184 +446,57 @@ const fit = [
   }
 
   /* How I do it */
-  .how {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 40px 32px;
   }
 
-  .how__item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    text-align: center;
-    color: var(--text);
-    text-decoration: none;
   }
 
-  .how__icon {
-    display: grid;
-    place-items: center;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: var(--blue);
-    color: var(--white);
-    margin-bottom: 4px;
   }
 
-  .how__item h3 {
-    font-size: 21px;
-    line-height: 1.25;
-    font-weight: 700;
-    color: var(--ink);
   }
 
-  .how__item p {
-    font-size: 16px;
   }
 
-  .how__link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: auto;
-    padding-top: 4px;
-    font-family: var(--font-heading);
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--blue);
   }
 
-  .how__item:hover .how__link {
-    text-decoration: underline;
   }
 
   /* Client logos */
-  .logos {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 32px clamp(32px, 5vw, 64px);
-    list-style: none;
-    padding: 0;
   }
 
-  .logos :global(img) {
-    display: block;
-    width: auto;
-    height: 56px;
-    max-width: 180px;
-    object-fit: contain;
   }
 
   /* Testimonials with black and white headshots */
-  .reviews-head {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
   }
 
-  .testimonials {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 48px;
   }
 
-  .testimonial {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 18px;
-    margin: 0;
   }
 
-  .testimonial :global(img) {
-    width: 132px;
-    height: 132px;
-    border-radius: 50%;
-    object-fit: cover;
   }
 
-  .testimonial blockquote {
-    margin: 0;
-    font-size: 17px;
-    font-style: italic;
-    line-height: 1.6;
-    color: var(--text-strong);
   }
 
-  .testimonial figcaption {
-    align-self: stretch;
-    font-size: 15px;
   }
 
-  .testimonial strong {
-    color: var(--ink);
   }
 
   /* Who I work with */
-  .fit-intro {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    font-size: 18px;
   }
 
-  .fit {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
   }
 
-  .fit details {
-    border: 2px solid var(--ink);
-    border-radius: var(--radius-sm);
   }
 
-  .fit summary {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 18px 22px;
-    font-family: var(--font-heading);
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--ink);
-    cursor: pointer;
   }
 
-  .fit__plus {
-    position: relative;
-    flex: none;
-    width: 16px;
-    height: 16px;
   }
 
-  .fit__plus::before,
-  .fit__plus::after {
-    content: '';
-    position: absolute;
-    inset: 7px 0 auto;
-    height: 2px;
-    background: currentColor;
   }
 
-  .fit__plus::after {
-    transform: rotate(90deg);
-    transition: transform 0.2s;
   }
 
-  .fit details[open] .fit__plus::after {
-    transform: rotate(0deg);
   }
 
-  .fit details p {
-    padding: 0 22px 20px 52px;
-    font-size: 17px;
   }
 
   :global(.fit-section) {

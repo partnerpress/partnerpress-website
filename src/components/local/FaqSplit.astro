@@ -8,9 +8,23 @@ interface Props {
   faqs: Faq[];
   /** Drop the top padding when the band above is also white. */
   flush?: boolean;
+  eyebrow?: string;
+  /** Text for the card under the heading. */
+  askTitle?: string;
+  askText?: string;
+  /** Emit FAQPage structured data. Turn off when the items are not questions. */
+  schema?: boolean;
 }
 
-const { title, faqs, flush = false } = Astro.props;
+const {
+  title,
+  faqs,
+  flush = false,
+  eyebrow = 'FAQ',
+  askTitle = 'Still have a question?',
+  askText = 'Ask me on a free Google Meet call. We can look at your site together.',
+  schema: withSchema = true,
+} = Astro.props;
 const ready = faqs.filter((f) => !f.a.trim().startsWith('['));
 const schema = JSON.stringify({
   '@context': 'https://schema.org',
@@ -22,11 +36,11 @@ const schema = JSON.stringify({
 <section class:list={['lp-band', flush && 'lp-band--flush']}>
   <div class="container lp-split">
     <div class="side">
-      <span class="eyebrow">FAQ</span>
+      <span class="eyebrow">{eyebrow}</span>
       <h2 class="title-md">{title}</h2>
       <div class="lp-card ask">
-        <h3>Still have a question?</h3>
-        <p>Ask me on a free Google Meet call. We can look at your site together.</p>
+        <h3>{askTitle}</h3>
+        <p>{askText}</p>
         <a class="lp-more" href="/contact/">Book a free call <Icon name="arrow" size={18} /></a>
       </div>
     </div>
@@ -45,7 +59,7 @@ const schema = JSON.stringify({
     </div>
   </div>
 </section>
-{ready.length > 0 && <script type="application/ld+json" set:html={schema} />}
+{withSchema && ready.length > 0 && <script type="application/ld+json" set:html={schema} />}
 
 <style>
   .side {
