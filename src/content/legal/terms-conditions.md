@@ -3,7 +3,9 @@ title: Terms and Conditions
 description: Terms and Conditions for partnerpress.net, the website of PartnerPress, LLC.
 ---
 
-<!-- TODO before launch: replace this file's body with the Terms and Conditions from Termageddon
-     (Termageddon dashboard: Policies > Terms and Conditions > Embed, then paste the embed code here). -->
+<!-- Termageddon embed: the policy loads from Termageddon and updates there. -->
 
-<p class="todo-box">[Paste the Termageddon embed code for the Terms and Conditions here.]</p>
+<div id="Y2pOU2RXY3lMeXRuU3pWVGFGRTlQUT09" class="policy_embed_div" width="640" height="480">
+Please wait while the policy is loaded. If it does not load, please <a rel="nofollow" href="https://policies.termageddon.com/api/policy/Y2pOU2RXY3lMeXRuU3pWVGFGRTlQUT09" target="_blank">click here</a> to view the policy.
+</div>
+<script src="https://policies.termageddon.com/api/embed/Y2pOU2RXY3lMeXRuU3pWVGFGRTlQUT09.js"></script>

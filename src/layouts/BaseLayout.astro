@@ -16,6 +16,7 @@ import Footer from '@/components/Footer.astro';
 import CallBar from '@/components/CallBar.astro';
 import BusinessSchema from '@/components/BusinessSchema.astro';
 import Analytics from '@/components/Analytics.astro';
+import CookieConsent from '@/components/CookieConsent.astro';
 import { SITE, type NavKey, type OfficeKey } from '@/config/site';
 import { isIndexable } from '@/lib/indexing.mjs';
 import { getImage } from 'astro:assets';
@@ -49,6 +50,7 @@ const shareUrl = new URL(share.src, Astro.site ?? SITE.url).href;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <CookieConsent />
     <link rel="preload" href={poppins800} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={inter400} as="font" type="font/woff2" crossorigin />
     <title>{title}</title>
