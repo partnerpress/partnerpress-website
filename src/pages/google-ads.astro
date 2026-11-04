@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
+import heroPhoto from '@/assets/img/services/google-ads-phone-search.jpg';
 import Section from '@/components/Section.astro';
 import SectionIntro from '@/components/SectionIntro.astro';
 import Split from '@/components/Split.astro';
@@ -42,7 +43,7 @@ const steps = [
   <PageHero
     eyebrow="Google Ads management · Marin County and Las Cruces"
     title="Get to the top of Google while your SEO catches up"
-    tone="navy"
+    bg={heroPhoto}
   >
     <Fragment slot="lead">
       Local Google Ads campaigns built to make your phone ring, managed by a Google Partner for one flat monthly fee. You
@@ -129,7 +130,7 @@ const steps = [
 <style>
   .hero-note {
     font-size: 16px;
-    color: var(--blue-100);
+    color: var(--muted);
   }
 
   .price-card {

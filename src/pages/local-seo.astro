@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
+import heroPhoto from '@/assets/img/services/local-seo-main-street.jpg';
 import Section from '@/components/Section.astro';
 import SectionIntro from '@/components/SectionIntro.astro';
 import Grid from '@/components/Grid.astro';
@@ -31,7 +32,7 @@ const included = [
   description="Get into the Google map pack. Google Business Profile, reviews, local content and technical SEO for Marin County and Las Cruces businesses."
   nav="local-seo"
 >
-  <PageHero eyebrow="Local SEO · Marin County and Las Cruces" title="Show up when locals search for what you do">
+  <PageHero eyebrow="Local SEO · Marin County and Las Cruces" title="Show up when locals search for what you do" bg={heroPhoto}>
     <Fragment slot="lead">
       Most calls from Google start in the map pack and the first few results. I get your business into those spots and
       keep it there, with a WordPress care plan included so the site underneath stays fast and healthy.

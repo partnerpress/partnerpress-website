@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
+import heroPhoto from '@/assets/img/services/web-design-wireframe.jpg';
 import Section from '@/components/Section.astro';
 import SectionIntro from '@/components/SectionIntro.astro';
 import Split from '@/components/Split.astro';
@@ -48,7 +49,7 @@ const steps = [
   description="Fast, mobile-first WordPress websites built to turn visitors into calls. New sites, redesigns and migrations with a fixed quote up front."
   nav="web-design"
 >
-  <PageHero eyebrow="WordPress design and development" title="A WordPress website built to make your phone ring">
+  <PageHero eyebrow="WordPress design and development" title="A WordPress website built to make your phone ring" bg={heroPhoto}>
     <Fragment slot="lead">
       Fast, mobile-first sites for local service businesses, designed around one goal: turning visitors into calls and
       inquiries. Built by a WordPress specialist since 2010.
