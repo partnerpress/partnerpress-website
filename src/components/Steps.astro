@@ -1,20 +1,36 @@
 ---
-// Numbered process steps. The order matters, so they render as an ordered list.
+// Numbered process steps drawn as a flow: numbered cards joined by arrows.
+// The order matters, so they render as an ordered list.
+// Desktop: one row (up to 5 steps) or two rows (6+). Tablet: two per row. Phone: stacked, arrows point down.
 interface Props {
   steps: { title: string; text: string }[];
+  /** Kept for older callers; the layout now follows the number of steps. */
   min?: number;
 }
 
-const { steps, min = 230 } = Astro.props;
+const { steps } = Astro.props;
+const cols = steps.length <= 5 ? steps.length : Math.ceil(steps.length / 2);
 ---
 
-<ol class="steps" style={`--min: ${min}px`}>
+<ol class="steps" data-cols={cols} style={`--cols: ${cols}`}>
   {
     steps.map((step, i) => (
-      <li>
-        <span class="steps__num">Step {i + 1}</span>
-        <h3>{step.title}</h3>
+      <li class="step">
+        <span class="step__num" aria-hidden="true">
+          {i + 1}
+        </span>
+        <h3>
+          <span class="visually-hidden">Step {i + 1}: </span>
+          {step.title}
+        </h3>
         <p>{step.text}</p>
+        {i < steps.length - 1 && (
+          <span class="step__arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 12h15M13 6l6 6-6 6" />
+            </svg>
+          </span>
+        )}
       </li>
     ))
   }
@@ -22,27 +38,43 @@ const { steps, min = 230 } = Astro.props;
 
 <style>
   .steps {
+    --gap: 48px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(var(--min), 100%), 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    gap: 32px var(--gap);
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  li {
+  .step {
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    padding-top: 18px;
-    border-top: 3px solid var(--blue);
+    gap: 10px;
+    padding: 28px 24px 26px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--blue);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
   }
 
-  .steps__num {
+  .step__num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    margin-bottom: 6px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: var(--white);
     font-family: var(--font-heading);
-    font-size: 15px;
+    font-size: 24px;
     font-weight: 700;
-    color: var(--blue);
+    line-height: 1;
+    box-shadow: 0 0 0 6px var(--blue-50);
   }
 
   h3 {
@@ -53,5 +85,65 @@ const { steps, min = 230 } = Astro.props;
 
   p {
     font-size: 16px;
+  }
+
+  /* Arrow sits in the gap to the right of each card, level with the number. */
+  .step__arrow {
+    position: absolute;
+    top: 42px;
+    right: calc(-1 * var(--gap));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--gap);
+    height: 32px;
+    color: var(--blue);
+  }
+
+  .step__arrow svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  /* No arrow off the end of a row; the numbers carry the order onto the next row. */
+  @media (min-width: 1024px) {
+    .steps[data-cols='2'] .step:nth-child(2n) .step__arrow,
+    .steps[data-cols='3'] .step:nth-child(3n) .step__arrow,
+    .steps[data-cols='4'] .step:nth-child(4n) .step__arrow,
+    .steps[data-cols='5'] .step:nth-child(5n) .step__arrow {
+      display: none;
+    }
+  }
+
+  /* Tablet: two per row */
+  @media (max-width: 1023px) {
+    .steps {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .steps .step:nth-child(2n) .step__arrow {
+      display: none;
+    }
+  }
+
+  /* Phone: one column, arrows point down between cards */
+  @media (max-width: 639px) {
+    .steps {
+      --gap: 40px;
+      grid-template-columns: 1fr;
+      row-gap: var(--gap);
+    }
+
+    .steps .step .step__arrow,
+    .steps .step:nth-child(2n) .step__arrow {
+      display: flex;
+      top: auto;
+      right: auto;
+      bottom: calc(-1 * var(--gap));
+      left: 50%;
+      width: 32px;
+      height: var(--gap);
+      transform: translateX(-50%) rotate(90deg);
+    }
   }
 </style>
