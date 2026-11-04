@@ -9,7 +9,7 @@ import ProofStrip from '@/components/local/ProofStrip.astro';
 import AreaBand from '@/components/local/AreaBand.astro';
 import NumberedCards from '@/components/local/NumberedCards.astro';
 import ServiceShowcase from '@/components/local/ServiceShowcase.astro';
-import { REVIEWS } from '@/data/reviews';
+import CaseStudyCard from '@/components/CaseStudyCard.astro';
 import ReviewPanel from '@/components/local/ReviewPanel.astro';
 import FaqSplit from '@/components/local/FaqSplit.astro';
 import LinkPills from '@/components/local/LinkPills.astro';
@@ -141,7 +141,14 @@ const faqs: Faq[] = [
 
   <section class="lp-band">
     <div class="container">
-      <ReviewPanel review={REVIEWS.ralston} scoreNote="Hundreds of websites since 2010, for brands like Sutter Health and Grifols" />
+      <ReviewPanel scoreNote="Hundreds of websites since 2010, for brands like Sutter Health and Grifols">
+        <CaseStudyCard
+          label="Las Cruces client story"
+          result="[Las Cruces client] · [RESULT]"
+          text="[Two sentences on the problem and what changed. Add a Las Cruces Google review here once the Las Cruces profile is live.]"
+          image={false}
+        />
+      </ReviewPanel>
     </div>
   </section>
 

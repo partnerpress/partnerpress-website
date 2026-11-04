@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import CheckList from '@/components/CheckList.astro';
 import ContactForm from '@/components/ContactForm.astro';
-import { OFFICES, BOOKING_URL } from '@/config/site';
+import { OFFICES } from '@/config/site';
 import coffeeNotebook from '@/assets/img/contact-coffee-notebook.jpg';
 ---
 
@@ -38,13 +38,6 @@ import coffeeNotebook from '@/assets/img/contact-coffee-notebook.jpg';
       </div>
       <div class="contact__form">
         <ContactForm />
-        {
-          BOOKING_URL && (
-            <p class="booking">
-              Rather pick a time yourself? <a href={BOOKING_URL}>Book a Google Meet on my calendar</a>.
-            </p>
-          )
-        }
       </div>
       <div class="contact__offices">
         <div class="offices">
@@ -60,7 +53,6 @@ import coffeeNotebook from '@/assets/img/contact-coffee-notebook.jpg';
             ))
           }
         </div>
-        <p class="offices__note">Both are home offices. Calls happen by phone or Google Meet.</p>
       </div>
     </div>
   </section>
@@ -122,18 +114,6 @@ import coffeeNotebook from '@/assets/img/contact-coffee-notebook.jpg';
   .contact__offices {
     grid-area: offices;
     min-width: 0;
-  }
-
-  .offices__note {
-    margin-top: 12px;
-    font-size: 15px;
-    color: var(--muted);
-  }
-
-  .booking {
-    margin-top: 16px;
-    text-align: center;
-    font-size: 15px;
   }
 
   @media (max-width: 860px) {

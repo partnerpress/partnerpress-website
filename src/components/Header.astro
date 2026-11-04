@@ -2,7 +2,7 @@
 import logo from '@/assets/img/logo-color.svg';
 import Icon from './Icon.astro';
 import Button from './Button.astro';
-import { OFFICES, SERVICE_NAV, SECONDARY_NAV, LOCATION_NAV, type NavKey } from '@/config/site';
+import { OFFICES, SERVICE_NAV, SECONDARY_NAV, type NavKey } from '@/config/site';
 
 interface Props {
   current?: NavKey;
@@ -42,10 +42,12 @@ const aria = (key: NavKey) => (key === current ? 'page' : undefined);
         </summary>
         <div class="dropdown__panel">
           {
-            LOCATION_NAV.map((l) => (
-              <a href={l.href}>
-                <strong>{l.label}</strong>
-                <span>{l.note}</span>
+            offices.map((o) => (
+              <a href={o.page}>
+                <strong>{o.name}</strong>
+                <span>
+                  {o.city} · {o.phone}
+                </span>
               </a>
             ))
           }
@@ -67,17 +69,9 @@ const aria = (key: NavKey) => (key === current ? 'page' : undefined);
     {SERVICE_NAV.map((item) => <a href={item.href} aria-current={aria(item.key)}>{item.mobileLabel ?? item.label}</a>)}
     <span class="mobile-nav__label">Locations</span>
     {
-      LOCATION_NAV.map((l) => (
-        <a href={l.href}>
-          {l.label}
-        </a>
-      ))
-    }
-    <span class="mobile-nav__label">Call</span>
-    {
       offices.map((o) => (
-        <a href={`tel:${o.tel}`}>
-          {o.short} <span>{o.phone}</span>
+        <a href={o.page}>
+          {o.short === 'Marin' ? 'Marin County' : o.short} <span>{o.phone}</span>
         </a>
       ))
     }
@@ -221,7 +215,7 @@ const aria = (key: NavKey) => (key === current ? 'page' : undefined);
     top: calc(100% + 10px);
     left: -14px;
     z-index: 60;
-    min-width: 320px;
+    min-width: 250px;
     display: flex;
     flex-direction: column;
     padding: 6px;
@@ -363,9 +357,24 @@ const aria = (key: NavKey) => (key === current ? 'page' : undefined);
     }
   }
 
-  /* Phones get the fixed call bar instead, so the top bar would only push the page down */
+  /* Phones: the fixed call bar carries the numbers, so the top bar shows the tagline instead */
   @media (max-width: 720px) {
     .topbar {
+      font-size: 13px;
+    }
+
+    .topbar__inner {
+      justify-content: center;
+      padding-inline: 12px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .topbar__since {
+      display: inline;
+    }
+
+    .topbar__phones {
       display: none;
     }
   }

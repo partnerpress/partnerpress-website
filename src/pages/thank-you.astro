@@ -3,7 +3,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Section from '@/components/Section.astro';
 import Button from '@/components/Button.astro';
 import Phone from '@/components/Phone.astro';
-import { BOOKING_URL } from '@/config/site';
 ---
 
 <BaseLayout
@@ -18,7 +17,6 @@ import { BOOKING_URL } from '@/config/site';
       <p class="lead">
         If it's urgent, call me directly: Marin <Phone office="marin" /> or Las Cruces <Phone office="nm" />.
       </p>
-      {BOOKING_URL && <Button href={BOOKING_URL}>Pick a time on my calendar</Button>}
       <Button href="/" variant="secondary">Back to the homepage</Button>
     </div>
   </Section>

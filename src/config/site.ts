@@ -53,9 +53,6 @@ export const OFFICES: Record<OfficeKey, Office> = {
     links: [
       { label: 'Marin web design', href: '/marin-county/web-design/' },
       { label: 'Marin SEO', href: '/marin-county/seo/' },
-      { label: 'San Rafael', href: '/marin-county/san-rafael/' },
-      { label: 'Novato', href: '/marin-county/novato/' },
-      { label: 'Mill Valley', href: '/marin-county/mill-valley/' },
     ],
   },
   nm: {
@@ -70,16 +67,8 @@ export const OFFICES: Record<OfficeKey, Office> = {
     tel: '+15755174795',
     page: '/las-cruces/',
     areaServed: 'Doña Ana County, NM',
-    links: [{ label: 'El Paso, TX', href: '/el-paso/' }],
   },
 };
-
-/** Pages in the Locations menu. */
-export const LOCATION_NAV: { label: string; note: string; href: string }[] = [
-  { label: 'Marin County, CA', note: 'Novato, San Rafael, Mill Valley · (415) 390-6563', href: '/marin-county/' },
-  { label: 'Las Cruces, NM', note: 'Mesilla, Doña Ana County · (575) 517-4795', href: '/las-cruces/' },
-  { label: 'El Paso, TX', note: 'Served from Las Cruces · (575) 517-4795', href: '/el-paso/' },
-];
 
 export type NavKey = 'web-design' | 'care' | 'local-seo' | 'google-ads' | 'locations' | 'about' | 'contact' | 'blog';
 
@@ -103,9 +92,6 @@ export const LEGAL_NAV = [
   { label: 'Disclaimer', href: '/disclaimer/' },
   { label: 'Accessibility', href: '/accessibility-statement/' },
 ];
-
-/** Google Calendar appointment page for booking a Google Meet. Leave empty to hide the booking links. */
-export const BOOKING_URL = '';
 
 /** Google Analytics 4 measurement ID. Set PUBLIC_GA4_ID in the Cloudflare Worker's build variables to turn tracking on. */
 export const GA4_ID = import.meta.env.PUBLIC_GA4_ID ?? '';
