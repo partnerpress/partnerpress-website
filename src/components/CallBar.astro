@@ -8,11 +8,25 @@ interface Props {
 }
 
 const office = OFFICES[Astro.props.office ?? 'marin'];
+// The contact page already is the booking form, so there the bar offers both phone numbers instead.
+const onContact = Astro.url.pathname.startsWith('/contact');
 ---
 
 <div class="call-bar" role="region" aria-label="Quick contact">
-  <Button href={`tel:${office.tel}`} variant="secondary">Call {office.phone}</Button>
-  <Button href="/contact/">Book a free call</Button>
+  {
+    onContact ? (
+      Object.values(OFFICES).map((o) => (
+        <Button href={`tel:${o.tel}`} variant="secondary">
+          Call {o.short}
+        </Button>
+      ))
+    ) : (
+      <>
+        <Button href={`tel:${office.tel}`} variant="secondary">Call {office.phone}</Button>
+        <Button href="/contact/">Book a free call</Button>
+      </>
+    )
+  }
 </div>
 
 <style>

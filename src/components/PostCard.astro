@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import { formatDate, type Post } from '@/lib/blog';
 
 interface Props {
@@ -9,21 +8,15 @@ interface Props {
 const { post } = Astro.props;
 ---
 
-<article class="post-card">
-  {
-    post.data.heroImage && (
-      <Image
-        class="post-card__img"
-        src={post.data.heroImage}
-        alt=""
-        widths={[400, 640, 800]}
-        sizes="(min-width: 760px) 400px, 100vw"
-      />
-    )
-  }
-  <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+<article class="post-card" data-tags={post.data.tags.join("|")}>
+  <!-- Text-only cards: the old featured graphics have their titles baked in and clash with the black and white site. -->
+  <p class="post-card__meta">
+    {post.data.tags[0] && <span class="eyebrow">{post.data.tags[0]}</span>}
+    <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+  </p>
   <h2><a href={`/blog/${post.id}/`}>{post.data.title}</a></h2>
   <p>{post.data.description}</p>
+  <span class="post-card__more" aria-hidden="true">Read article →</span>
   {post.data.draft && <span class="post-card__draft">Draft (only visible in local dev)</span>}
 </article>
 
@@ -39,25 +32,33 @@ const { post } = Astro.props;
     border-radius: var(--radius);
   }
 
-  /* Featured image bleeds to the card's edges. Alt is empty because the title follows. */
-  .post-card__img {
-    display: block;
-    width: calc(100% + 56px);
-    max-width: none;
-    height: auto;
-    aspect-ratio: 1200 / 627;
-    object-fit: cover;
-    margin: -28px -28px 8px;
-    border-radius: var(--radius) var(--radius) 0 0;
-  }
-
   .post-card:hover {
     border-color: var(--blue-300);
+  }
+
+  .post-card {
+    border-top: 3px solid var(--blue);
+  }
+
+  .post-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    align-items: baseline;
   }
 
   time {
     font-size: 14px;
     color: var(--subtle);
+  }
+
+  .post-card__more {
+    margin-top: auto;
+    padding-top: 6px;
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--blue);
   }
 
   h2 {

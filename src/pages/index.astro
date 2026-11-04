@@ -27,6 +27,7 @@ const service = Object.fromEntries(SERVICES.map((s) => [s.key, s]));
 const showcaseFeatured: ShowcaseService[] = [
   {
     icon: service['web-design'].icon,
+    tag: 'Fixed quote',
     title: 'Websites that bring in calls',
     text: 'Fast, clear pages written for your customers, designed so visitors take action when it matters most.',
     href: service['web-design'].href,
@@ -145,7 +146,7 @@ const fit: Faq[] = [
         <h1 class="hero__title">More calls for local service businesses.</h1>
         <p class="hero__sub">Your partner for web design, Local SEO and Google Ads.</p>
         <div class="hero__actions">
-          <Button href="/contact/" size="lg">Book a free 30-minute call</Button>
+          <Button href="/contact/" size="lg">Book a free call</Button>
           <Rating />
         </div>
       </div>
@@ -186,8 +187,8 @@ const fit: Faq[] = [
     tone="subtle"
     eyebrow="How I do it"
     title="One partner for your website, rankings and ads"
-    featured={showcaseFeatured}
-    secondary={showcaseSecondary}
+    featured={[...showcaseFeatured, ...showcaseSecondary]}
+    secondary={[]}
   />
 
   <TrustBand
@@ -203,7 +204,13 @@ const fit: Faq[] = [
           <figure class="lp-card mini">
             <blockquote>"{r.quote}"</blockquote>
             <figcaption>
-              {r.photo && <Image src={r.photo} alt="" width={48} height={48} densities={[1, 2]} />}
+              {r.photo ? (
+                <Image src={r.photo} alt="" width={48} height={48} densities={[1, 2]} />
+              ) : (
+                <span class="mini__initials" aria-hidden="true">
+                  {r.name.split(' ').map((w) => w[0]).join('')}
+                </span>
+              )}
               <span>
                 <strong>{r.name}</strong>
                 <span class="mini__note">{r.note}</span>
@@ -249,7 +256,7 @@ const fit: Faq[] = [
         If you're ready for a reliable, long-term partner for your website, let's talk. I'll give you 30 minutes of my time
         to talk through your needs and how I can help.
       </p>
-      <Button href="/contact/" variant="inverse" size="lg">Book a free 30-minute call</Button>
+      <Button href="/contact/" variant="inverse" size="lg">Book a free call</Button>
       <p class="ready__phones">Or call <Phone office="marin" /> · <Phone office="nm" /></p>
     </div>
   </section>
@@ -305,6 +312,20 @@ const fit: Faq[] = [
 
   .mini strong {
     color: var(--ink);
+  }
+
+  .mini__initials {
+    flex: none;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--blue);
+    color: var(--white);
+    font-family: var(--font-heading);
+    font-weight: 700;
   }
 
   .mini__note {
@@ -513,7 +534,7 @@ const fit: Faq[] = [
   }
 
   .ready::before {
-    background: rgba(32, 81, 197, 0.9);
+    background: rgba(32, 81, 197, 0.96);
   }
 
   .ready__inner {
@@ -545,10 +566,14 @@ const fit: Faq[] = [
       padding-top: 16px;
     }
 
+    /* Crop to head and shoulders so the headline and button reach the first screen */
     .hero :global(.hero__photo) {
       order: -1;
       width: 100%;
       max-width: none;
+      aspect-ratio: 16 / 11;
+      object-fit: cover;
+      object-position: 50% 0;
     }
 
     .hero__copy {

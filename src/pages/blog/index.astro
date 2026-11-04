@@ -9,6 +9,10 @@ import CtaBand from '@/components/CtaBand.astro';
 import { getPosts } from '@/lib/blog';
 
 const posts = await getPosts();
+// Topic filter chips, most used first. Filtering runs in the browser; without JavaScript every post shows.
+const counts = new Map<string, number>();
+posts.forEach((p) => p.data.tags.forEach((t) => counts.set(t, (counts.get(t) ?? 0) + 1)));
+const topics = [...counts.entries()].filter(([, n]) => n > 1).sort((a, b) => b[1] - a[1]).map(([t]) => t);
 ---
 
 <BaseLayout
@@ -23,11 +27,21 @@ const posts = await getPosts();
   <Section>
     {
       posts.length > 0 ? (
+        <>
+        {topics.length > 1 && (
+          <div class="topics" role="group" aria-label="Filter by topic" hidden>
+            <button type="button" aria-pressed="true" data-topic="">All</button>
+            {topics.map((t) => (
+              <button type="button" aria-pressed="false" data-topic={t}>{t}</button>
+            ))}
+          </div>
+        )}
         <Grid min={320}>
           {posts.map((post) => (
             <PostCard post={post} />
           ))}
         </Grid>
+        </>
       ) : (
         <p class="empty">New articles are on the way.</p>
       )
@@ -43,5 +57,56 @@ const posts = await getPosts();
   .empty {
     text-align: center;
     color: var(--muted);
+  }
+</style>
+
+<script>
+  const group = document.querySelector<HTMLElement>('.topics');
+  if (group) {
+    group.hidden = false;
+    const buttons = group.querySelectorAll<HTMLButtonElement>('button');
+    const cards = document.querySelectorAll<HTMLElement>('.post-card');
+    buttons.forEach((btn) =>
+      btn.addEventListener('click', () => {
+        const topic = btn.dataset.topic ?? '';
+        buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+        cards.forEach((card) => {
+          const tags = (card.dataset.tags ?? '').split('|');
+          card.hidden = topic !== '' && !tags.includes(topic);
+        });
+      }),
+    );
+  }
+</script>
+
+<style>
+  .topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+
+  .topics[hidden],
+  :global(article.post-card[hidden]) {
+    display: none;
+  }
+
+  .topics button {
+    padding: 8px 18px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-pill);
+    background: var(--white);
+    color: var(--text-strong);
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .topics button[aria-pressed='true'] {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: var(--white);
   }
 </style>

@@ -4,7 +4,7 @@ title: 'How To Increase Your Visibility In Local Search Results'
 description: 'Discover friendly tips to enhance your local search visibility and attract more customers to your small business.'
 pubDate: 2024-12-21
 updatedDate: 2024-12-24
-tags: ['WordPress']
+tags: ['Local SEO']
 ---
 
 If you're new to marketing your local small business, **achieving visibility in local search results** can feel like an insurmountable task.

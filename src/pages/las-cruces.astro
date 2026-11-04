@@ -3,12 +3,13 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import Button from '@/components/Button.astro';
 import organMountains from '@/assets/img/locations/las-cruces-organ-mountains.jpg';
-import CaseStudyCard from '@/components/CaseStudyCard.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import Phone from '@/components/Phone.astro';
 import ProofStrip from '@/components/local/ProofStrip.astro';
 import AreaBand from '@/components/local/AreaBand.astro';
+import NumberedCards from '@/components/local/NumberedCards.astro';
 import ServiceShowcase from '@/components/local/ServiceShowcase.astro';
+import CaseStudyCard from '@/components/CaseStudyCard.astro';
 import ReviewPanel from '@/components/local/ReviewPanel.astro';
 import FaqSplit from '@/components/local/FaqSplit.astro';
 import LinkPills from '@/components/local/LinkPills.astro';
@@ -64,8 +65,31 @@ const faqs: Faq[] = [
     ]}
   />
 
+  <NumberedCards
+    eyebrow="Doing business in Las Cruces"
+    title="What Las Cruces businesses need online"
+    lead="Las Cruces is a close-knit market next door to a much bigger one. Three things shape how customers here find a local business."
+    items={[
+      {
+        icon: 'target',
+        title: 'A small market beside a big one',
+        text: 'Las Cruces gets far fewer searches than El Paso, 45 minutes down I-10. One well-built site and Google Business Profile can win locally, then reach into El Paso with its own service pages when the numbers make sense.',
+      },
+      {
+        icon: 'users',
+        title: 'Customers in two languages',
+        text: 'Many customers here search and talk in both English and Spanish. Clear, plain copy, with Spanish pages where your customers want them, makes it easier for everyone to call.',
+      },
+      {
+        icon: 'pin',
+        title: 'The map pack favors nearby businesses',
+        text: 'Google shows Las Cruces businesses in the map for Las Cruces searches. A complete, verified Business Profile and a steady stream of reviews are usually the fastest win.',
+      },
+    ]}
+  />
+
   <ServiceShowcase
-    tone="white"
+    tone="subtle"
     title="What I do for Las Cruces businesses"
     featured={[
       {

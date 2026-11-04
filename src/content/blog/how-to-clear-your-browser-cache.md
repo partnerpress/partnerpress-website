@@ -4,7 +4,7 @@ title: 'How to Clear Your Browser Cache on All Major Browsers'
 description: 'Ever had trouble with a website that doesn''t seem to load as it should? Perhaps the visuals appear out of fashion, or it incessantly prompts you to sign in…'
 pubDate: 2024-12-21
 updatedDate: 2024-12-24
-tags: ['WordPress']
+tags: ['Web Design']
 ---
 
 ![An overhead view of electronic devices and cluttered browser icons.](./images/how-to-clear-your-browser-cache/how-clear-browser-cache-309914892.jpg "An overhead view of electronic devices and cluttered browser icons.")

@@ -356,4 +356,26 @@ const aria = (key: NavKey) => (key === current ? 'page' : undefined);
       display: none;
     }
   }
+
+  /* Phones: the fixed call bar carries the numbers, so the top bar shows the tagline instead */
+  @media (max-width: 720px) {
+    .topbar {
+      font-size: 13px;
+    }
+
+    .topbar__inner {
+      justify-content: center;
+      padding-inline: 12px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .topbar__since {
+      display: inline;
+    }
+
+    .topbar__phones {
+      display: none;
+    }
+  }
 </style>

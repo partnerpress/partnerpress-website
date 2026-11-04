@@ -4,7 +4,7 @@ title: 'Mastering Google Business Profile Management for Local Search Success'
 description: 'Boost your online presence with effective Google Business Profile management tips tailored for local business owners.'
 pubDate: 2024-12-21
 updatedDate: 2024-12-24
-tags: ['WordPress']
+tags: ['Local SEO']
 ---
 
 Struggling to get noticed online? Trust me, it's a common hurdle. You're aiming for your business to pop up in searches, and I've walked that path.

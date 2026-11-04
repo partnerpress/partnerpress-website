@@ -1,6 +1,6 @@
 ---
 import { render } from 'astro:content';
-import { Image, getImage } from 'astro:assets';
+import { getImage } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Section from '@/components/Section.astro';
 import CtaBand from '@/components/CtaBand.astro';
@@ -60,19 +60,6 @@ const schema = JSON.stringify({
           }
         </p>
       </header>
-      {
-        heroImage && (
-          <Image
-            class="post__hero"
-            src={heroImage}
-            alt=""
-            widths={[400, 760, 1200]}
-            sizes="(min-width: 800px) 760px, 100vw"
-            loading="eager"
-            fetchpriority="high"
-          />
-        )
-      }
       <div class="prose">
         <Content />
       </div>
@@ -109,13 +96,6 @@ const schema = JSON.stringify({
   }
 
   /* Alt is empty because the image repeats the post title shown above it. */
-  .post__hero {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: var(--radius);
-  }
-
   .post__meta {
     font-size: 15px;
     color: var(--subtle);

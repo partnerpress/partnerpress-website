@@ -4,7 +4,7 @@ title: 'How to Reclaim Lost Time & Deliver Kick A** Results'
 description: 'If you find yourself wrestling with WordPress problems and flaky developers, it''s time to take a step back and refocus on delivering kick a** marketing results.'
 pubDate: 2024-12-21
 updatedDate: 2024-12-24
-tags: ['WordPress']
+tags: ['Marketing']
 ---
 
 Picture this: you've returned from the holidays ready to take on the world, but instead of strategizing and executing on your next big marketing campaign, you're stuck troubleshooting issues with your WordPress website.

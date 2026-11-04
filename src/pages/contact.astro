@@ -35,6 +35,11 @@ import coffeeNotebook from '@/assets/img/contact-coffee-notebook.jpg';
             'No pressure and no long-term contract',
           ]}
         />
+      </div>
+      <div class="contact__form">
+        <ContactForm />
+      </div>
+      <div class="contact__offices">
         <div class="offices">
           {
             Object.values(OFFICES).map((o) => (
@@ -48,9 +53,6 @@ import coffeeNotebook from '@/assets/img/contact-coffee-notebook.jpg';
             ))
           }
         </div>
-      </div>
-      <div class="contact__form">
-        <ContactForm />
       </div>
     </div>
   </section>
@@ -83,15 +85,21 @@ import coffeeNotebook from '@/assets/img/contact-coffee-notebook.jpg';
     background: linear-gradient(90deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.78) 55%, rgba(255, 255, 255, 0.6) 100%);
   }
 
+  /* Desktop: intro and offices on the left, form on the right.
+     Phones: intro, then the form, then the offices, so the first field is close to the top. */
   .contact__inner {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 48px;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    grid-template-areas:
+      'copy form'
+      'offices form';
+    grid-template-rows: auto 1fr;
+    gap: 24px 48px;
+    align-items: start;
   }
 
   .contact__copy {
-    flex: 1 1 380px;
+    grid-area: copy;
     min-width: 0;
     display: flex;
     flex-direction: column;
@@ -99,8 +107,21 @@ import coffeeNotebook from '@/assets/img/contact-coffee-notebook.jpg';
   }
 
   .contact__form {
-    flex: 1 1 480px;
+    grid-area: form;
     min-width: 0;
+  }
+
+  .contact__offices {
+    grid-area: offices;
+    min-width: 0;
+  }
+
+  @media (max-width: 860px) {
+    .contact__inner {
+      grid-template-columns: 1fr;
+      grid-template-areas: 'copy' 'form' 'offices';
+      grid-template-rows: none;
+    }
   }
 
   .offices {
