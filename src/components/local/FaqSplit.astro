@@ -1,0 +1,122 @@
+---
+// Two-column FAQ: heading and a "still have a question" card, beside expandable questions. Emits FAQPage data.
+import Icon from '@/components/Icon.astro';
+import type { Faq } from '@/data/faqs';
+
+interface Props {
+  title: string;
+  faqs: Faq[];
+  /** Drop the top padding when the band above is also white. */
+  flush?: boolean;
+}
+
+const { title, faqs, flush = false } = Astro.props;
+const ready = faqs.filter((f) => !f.a.trim().startsWith('['));
+const schema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: ready.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+});
+---
+
+<section class:list={['lp-band', flush && 'lp-band--flush']}>
+  <div class="container lp-split">
+    <div class="side">
+      <span class="eyebrow">FAQ</span>
+      <h2 class="title-md">{title}</h2>
+      <div class="lp-card ask">
+        <h3>Still have a question?</h3>
+        <p>Ask me on a free Google Meet call. We can look at your site together.</p>
+        <a class="lp-more" href="/contact/">Book a free call <Icon name="arrow" size={18} /></a>
+      </div>
+    </div>
+    <div class="faq">
+      {
+        faqs.map((f, i) => (
+          <details class="item" open={i === 0}>
+            <summary>
+              {f.q}
+              <Icon name="plus" size={22} class="item__icon" />
+            </summary>
+            <p>{f.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+{ready.length > 0 && <script type="application/ld+json" set:html={schema} />}
+
+<style>
+  .side {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .ask {
+    margin-top: 12px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: var(--surface);
+  }
+
+  .ask h3 {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .ask p {
+    font-size: 15px;
+  }
+
+  .faq {
+    border-top: 1px solid var(--line);
+  }
+
+  .item {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .item summary {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    min-height: 44px;
+    padding-block: 22px;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--ink);
+  }
+
+  .item summary:focus-visible {
+    outline: none;
+    box-shadow: var(--focus);
+    border-radius: 6px;
+  }
+
+  .faq :global(.item__icon) {
+    flex: none;
+    color: var(--blue);
+    transition: transform 200ms ease;
+  }
+
+  .item[open] :global(.item__icon) {
+    transform: rotate(45deg);
+  }
+
+  .item p {
+    padding-bottom: 22px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq :global(.item__icon) {
+      transition: none;
+    }
+  }
+</style>

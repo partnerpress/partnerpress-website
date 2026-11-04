@@ -1,0 +1,112 @@
+---
+// Brand blue band listing the areas served as pin chips, optionally grouped by part of the region.
+import Button from '@/components/Button.astro';
+import Icon from '@/components/Icon.astro';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  groups: { label?: string; areas: string[] }[];
+  ctaHref?: string;
+}
+
+const { eyebrow = 'Where I work', title, groups, ctaHref = '/contact/' } = Astro.props;
+---
+
+<section class="band">
+  <div class="container lp-split">
+    <div class="intro">
+      <span class="eyebrow eyebrow--light">{eyebrow}</span>
+      <h2 class="title-md">{title}</h2>
+      <p><slot /></p>
+      <Button href={ctaHref} variant="inverse">Book a free call</Button>
+    </div>
+    <div class="groups">
+      {
+        groups.map((g) => (
+          <div class="group">
+            {g.label && <h3 class="group__label">{g.label}</h3>}
+            <ul class="chips">
+              {g.areas.map((a) => (
+                <li class="chip">
+                  <Icon name="pin" size={16} />
+                  {a}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .band {
+    padding-block: var(--section-y);
+    background: var(--blue);
+    color: var(--blue-50);
+  }
+
+  .band h2 {
+    color: var(--white);
+  }
+
+  .eyebrow--light {
+    color: var(--white);
+  }
+
+  .intro {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    font-size: 17px;
+  }
+
+  .groups {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .group__label {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: 0;
+  }
+
+  .chips {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 40px;
+    padding: 0 16px 0 12px;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: var(--white);
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .chip :global(svg) {
+    color: var(--orange-300);
+  }
+</style>

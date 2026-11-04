@@ -1,0 +1,106 @@
+---
+// A row of four short proof points that sits right under a page hero.
+import Icon, { type IconName } from '@/components/Icon.astro';
+
+export interface ProofItem {
+  icon: IconName;
+  value: string;
+  label: string;
+  /** Orange icon, used for the star rating. */
+  accent?: boolean;
+}
+
+interface Props {
+  items: ProofItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<section class="proof" aria-label="Why PartnerPress">
+  <ul class="container proof__list">
+    {
+      items.map((p) => (
+        <li class="proof__item">
+          <Icon name={p.icon} class:list={['proof__icon', p.accent && 'proof__icon--accent']} />
+          <span>
+            <strong class="proof__value">{p.value}</strong>
+            <span class="proof__label">{p.label}</span>
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .proof {
+    background: var(--white);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .proof__list {
+    list-style: none;
+    margin-block: 0;
+    padding-block: 32px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px 0;
+  }
+
+  .proof__item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-inline: 24px;
+    border-left: 1px solid var(--line);
+  }
+
+  .proof__item > span {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .proof__list :global(.proof__icon) {
+    flex: none;
+    color: var(--blue);
+  }
+
+  .proof__list :global(.proof__icon--accent) {
+    color: var(--orange);
+  }
+
+  .proof__value {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+
+  .proof__label {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  @media (max-width: 960px) {
+    .proof__list {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .proof__item {
+      padding-inline: 12px;
+      gap: 10px;
+    }
+
+    .proof__value {
+      font-size: 16px;
+    }
+
+    .proof__label {
+      font-size: 13px;
+    }
+  }
+</style>
