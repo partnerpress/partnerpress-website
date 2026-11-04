@@ -14,6 +14,7 @@ import ReviewQuote from '@/components/ReviewQuote.astro';
 import FaqList from '@/components/FaqList.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import Phone from '@/components/Phone.astro';
+import { OFFICES } from '@/config/site';
 import BrowserFrame from '@/components/mockups/BrowserFrame.astro';
 import { REVIEWS } from '@/data/reviews';
 import { WEB_DESIGN_FAQS } from '@/data/faqs';
@@ -112,6 +113,18 @@ const steps = [
         <Button href="/contact/" size="lg" block>Get a fixed quote</Button>
       </div>
     </Split>
+  </Section>
+
+  <Section>
+    <SectionIntro title="Web design where you are" size="sm" />
+    <Grid min={320}>
+      <Feature title="Web design in Marin County" href="/marin-county/web-design/" boxed>
+        Novato, San Rafael, Mill Valley, Sausalito and the rest of Marin. Office in Novato, {OFFICES.marin.phone}.
+      </Feature>
+      <Feature title="Web design in Las Cruces" href={OFFICES.nm.page} boxed>
+        Las Cruces, Mesilla, Doña Ana County and El Paso. Office in Las Cruces, {OFFICES.nm.phone}.
+      </Feature>
+    </Grid>
   </Section>
 
   <Section width="narrow">

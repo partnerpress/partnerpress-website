@@ -20,15 +20,17 @@ import { MARIN_TOWNS, MARIN_CLIENTS } from '@/data/locations';
 import { REVIEWS } from '@/data/reviews';
 
 const office = OFFICES.marin;
-const local: Record<string, { title: string; summary: string }> = {
+const local: Record<string, { title: string; summary: string; href?: string }> = {
   'web-design': {
     title: 'Marin web design',
     summary: 'Fast, accessible WordPress sites for Marin service businesses, nonprofits and professional firms.',
+    href: '/marin-county/web-design/',
   },
   care: { title: 'WordPress care plans', summary: 'Weekly updates, daily security scans and unlimited quick fixes. From $249 a month.' },
   'local-seo': {
     title: 'Marin local SEO',
     summary: 'Get into the map pack for searches in Novato, San Rafael and across the county. From $1,495 a month.',
+    href: '/marin-county/seo/',
   },
   'google-ads': {
     title: 'Google Ads in Marin',
@@ -63,7 +65,7 @@ const local: Record<string, { title: string; summary: string }> = {
   <Section>
     <SectionIntro title="What I do for Marin businesses" />
     <Grid min={250} gap="20px">
-      {SERVICES.map((s) => <ServiceCard service={s} detailed={false} title={local[s.key].title} summary={local[s.key].summary} />)}
+      {SERVICES.map((s) => <ServiceCard service={{ ...s, href: local[s.key].href ?? s.href }} detailed={false} title={local[s.key].title} summary={local[s.key].summary} />)}
     </Grid>
   </Section>
 

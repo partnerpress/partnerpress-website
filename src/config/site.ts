@@ -27,6 +27,8 @@ export interface Office {
   tel: string;
   page: string;
   areaServed: string;
+  /** Local service pages listed under this office in the footer. */
+  links?: { label: string; href: string }[];
 }
 
 export const OFFICES: Record<OfficeKey, Office> = {
@@ -42,6 +44,10 @@ export const OFFICES: Record<OfficeKey, Office> = {
     tel: '+14153906563',
     page: '/marin-county/',
     areaServed: 'Marin County, CA',
+    links: [
+      { label: 'Marin web design', href: '/marin-county/web-design/' },
+      { label: 'Marin SEO', href: '/marin-county/seo/' },
+    ],
   },
   nm: {
     key: 'nm',

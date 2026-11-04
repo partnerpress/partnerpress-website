@@ -1,0 +1,176 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import heroPhoto from '@/assets/img/home/golden-gate-bridge.jpg';
+import Section from '@/components/Section.astro';
+import SectionIntro from '@/components/SectionIntro.astro';
+import Split from '@/components/Split.astro';
+import Grid from '@/components/Grid.astro';
+import Button from '@/components/Button.astro';
+import Rating from '@/components/Rating.astro';
+import Feature from '@/components/Feature.astro';
+import NameStrip from '@/components/NameStrip.astro';
+import ReviewQuote from '@/components/ReviewQuote.astro';
+import FaqList from '@/components/FaqList.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import Phone from '@/components/Phone.astro';
+import ServiceSchema from '@/components/ServiceSchema.astro';
+import { MARIN_TOWNS, MARIN_CLIENTS } from '@/data/locations';
+import { REVIEWS } from '@/data/reviews';
+import type { Faq } from '@/data/faqs';
+
+const description =
+  'Custom WordPress website design for Marin County businesses from a Novato designer working since 2010. Fast, accessible sites with a fixed quote. Call (415) 390-6563.';
+
+const whoFor = [
+  {
+    title: 'Professional firms',
+    text: 'Attorneys, CPAs, financial advisors and consultants in San Rafael, Larkspur and Corte Madera who need a site that earns trust before the first call.',
+  },
+  {
+    title: 'Contractors and home services',
+    text: 'Builders, landscapers and trades working up and down the 101 corridor, where a clear list of services and towns brings in the right jobs.',
+  },
+  {
+    title: 'Health and wellness practices',
+    text: 'Therapists, dentists, chiropractors and studios that need easy booking and a calm, welcoming first impression.',
+  },
+  {
+    title: 'Nonprofits and schools',
+    text: 'Marin organizations that rely on donors, volunteers and families finding clear, accessible information quickly.',
+  },
+];
+
+const expectations = [
+  {
+    title: 'Built for phones first',
+    text: 'Most local searches happen on a phone. Click-to-call, directions and a short contact form sit within reach on every page.',
+  },
+  {
+    title: 'Clear about where you work',
+    text: 'Your service area is spelled out town by town, so a customer in Tiburon knows you’ll come to them, and Google does too.',
+  },
+  {
+    title: 'Easy for every visitor',
+    text: 'Marin has one of the oldest populations in the Bay Area. Readable type, strong contrast and keyboard-friendly navigation keep every customer in the conversation.',
+  },
+  {
+    title: 'Fast on patchy signal',
+    text: 'Cell coverage drops in West Marin and the hills. Lean pages load where heavy, page-builder sites stall.',
+  },
+];
+
+const faqs: Faq[] = [
+  {
+    q: 'Can we meet in person?',
+    a: 'Yes. I’m based in Novato and meet clients anywhere in Marin, at your office or over coffee. Video calls work just as well if your schedule is tight.',
+  },
+  {
+    q: 'How much does a website cost in Marin?',
+    a: 'It depends on the number of pages, how much writing you need and features like booking or online payments. After a free discovery call you get a fixed quote, so the full cost is clear before any work starts.',
+  },
+  {
+    q: 'Why WordPress?',
+    a: 'You own it outright, you can edit it yourself, and any developer can pick it up later. That means you’re never locked in to me or to a monthly website builder.',
+  },
+  {
+    q: 'Can you also look after the site and our Google rankings?',
+    a: 'Yes. Care plans from $249 a month cover updates, security and quick fixes, and Marin SEO plans build on the same site so it keeps bringing in calls.',
+  },
+];
+---
+
+<BaseLayout
+  title="Marin Website Design & WordPress Development | PartnerPress"
+  description={description}
+  nav="locations"
+  office="marin"
+  schema={['marin']}
+  image={heroPhoto}
+>
+  <ServiceSchema
+    slot="head"
+    office="marin"
+    name="Marin web design"
+    serviceType="Website design and WordPress development"
+    description={description}
+    path="/marin-county/web-design/"
+    areas={MARIN_TOWNS}
+    region="CA"
+  />
+
+  <PageHero eyebrow="Marin web design · Based in Novato" title="Marin web design for businesses that want the phone to ring" bg={heroPhoto}>
+    <Fragment slot="lead">
+      I’ve designed and built WordPress websites for Marin businesses since 2010. You work directly with me, from the
+      first sketch to launch day and beyond.
+    </Fragment>
+    <Fragment slot="actions">
+      <Button href="/contact/" size="lg">Get a fixed quote</Button>
+      <span class="call">or call <Phone office="marin" strong /></span>
+    </Fragment>
+    <Rating slot="meta" />
+  </PageHero>
+
+  <Section>
+    <SectionIntro eyebrow="Who I work with" title="Websites for the businesses that keep Marin running" />
+    <Grid min={250} gap="20px">
+      {whoFor.map((f) => <Feature title={f.title} boxed>{f.text}</Feature>)}
+    </Grid>
+  </Section>
+
+  <Section tone="subtle">
+    <SectionIntro title="What Marin customers expect from your website" />
+    <Grid min={260} gap="32px 28px">
+      {expectations.map((f) => <Feature title={f.title}>{f.text}</Feature>)}
+    </Grid>
+  </Section>
+
+  <Section>
+    <Split align="center">
+      <SectionIntro slot="side" eyebrow="Local and hands-on" title="One designer, close by">
+        No account managers or offshore handoffs. I’m in Novato, and the person you meet is the person who builds your
+        site.
+      </SectionIntro>
+      <div class="proof">
+        <NameStrip names={MARIN_CLIENTS} align="start" />
+        <ReviewQuote review={REVIEWS.gibbs} variant="tint" />
+      </div>
+    </Split>
+  </Section>
+
+  <Section tone="subtle">
+    <Grid min={280}>
+      <Feature title="How a project runs" href="/wordpress-web-design/" boxed>
+        Discovery, plan, design, build and launch, with redirects that protect the rankings you already have. See the full
+        process and what every site includes.
+      </Feature>
+      <Feature title="Get found once you launch" href="/marin-county/seo/" boxed>
+        A great site still needs to rank. See how Marin SEO gets you into the map pack in the towns you serve.
+      </Feature>
+      <Feature title="Everything I do in Marin County" href="/marin-county/" boxed>
+        Web design, WordPress care, local SEO and Google Ads for businesses from Novato to Sausalito.
+      </Feature>
+    </Grid>
+  </Section>
+
+  <Section width="narrow">
+    <FaqList faqs={faqs} title="Marin web design questions" />
+  </Section>
+
+  <CtaBand title="Let’s plan your new Marin website" button="Get a fixed quote">
+    Prefer to talk first? Call <Phone office="marin" />.
+  </CtaBand>
+</BaseLayout>
+
+<style>
+  .call {
+    font-size: 18px;
+    color: var(--text-strong);
+  }
+
+  .proof {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+</style>

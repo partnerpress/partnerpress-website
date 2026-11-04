@@ -30,6 +30,7 @@ const offices = Object.values(OFFICES);
               {o.city}, {o.region} {o.postalCode}
             </address>
             <a href={`tel:${o.tel}`}>{o.phone}</a>
+            {o.links?.map((l) => <a href={l.href}>{l.label}</a>)}
           </div>
         ))
       }
