@@ -30,8 +30,8 @@
 /services/novato-wordpress/                      /marin-county/novato/        301
 /services/san-rafael-wordpress-agency            /marin-county/san-rafael/    301
 /services/san-rafael-wordpress-agency/           /marin-county/san-rafael/    301
-/services/mill-valley-wordpress-agency           /marin-county/               301
-/services/mill-valley-wordpress-agency/          /marin-county/               301
+/services/mill-valley-wordpress-agency           /marin-county/mill-valley/   301
+/services/mill-valley-wordpress-agency/          /marin-county/mill-valley/   301
 /services/sausalito-wordpress-agency             /marin-county/               301
 /services/sausalito-wordpress-agency/            /marin-county/               301
 /services/larkspur-wordpress-agency              /marin-county/               301
@@ -66,6 +66,11 @@
 # Content that no longer exists
 /clients                                         /                            301
 /clients/                                        /                            301
+/blog/page/*                                     /blog/                       301
+/offers/wordpress-help                           /wordpress-care-plans/       301
+/offers/wordpress-help/                          /wordpress-care-plans/       301
+/wp-content/uploads/2020/07/shane-barnes-wordpress-help.png                 /about/  301
+/wp-content/uploads/2023/11/shane-barnes-partnerpress-e1698960926477.png    /about/  301
 /author/*                                        /about/                      301
 /sitemap                                         /sitemap-index.xml           301
 /sitemap/                                        /sitemap-index.xml           301
