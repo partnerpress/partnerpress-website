@@ -2,11 +2,14 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import heroPhoto from '@/assets/img/services/care-hands-keyboard.jpg';
-import Section from '@/components/Section.astro';
 import Grid from '@/components/Grid.astro';
-import Feature from '@/components/Feature.astro';
 import PricingCard from '@/components/PricingCard.astro';
-import FaqList from '@/components/FaqList.astro';
+import ProofStrip from '@/components/local/ProofStrip.astro';
+import NumberedCards from '@/components/local/NumberedCards.astro';
+import TrustBand from '@/components/local/TrustBand.astro';
+import FaqSplit from '@/components/local/FaqSplit.astro';
+import { SITE } from '@/config/site';
+import { REVIEWS } from '@/data/reviews';
 import CtaBand from '@/components/CtaBand.astro';
 import { CARE_PLANS } from '@/data/plans';
 import { CARE_FAQS } from '@/data/faqs';
@@ -24,28 +27,44 @@ import { CARE_FAQS } from '@/data/faqs';
     </Fragment>
   </PageHero>
 
-  <Section id="plans" label="Plans">
-    <h2 class="visually-hidden">Care plans</h2>
-    <Grid min={300} class="plans">
-      {CARE_PLANS.map((plan) => <PricingCard plan={plan} showPerDay />)}
-    </Grid>
-  </Section>
+  <ProofStrip
+    items={[
+      { icon: 'calendar', value: 'Since 2010', label: 'Caring for WordPress sites' },
+      { icon: 'star', value: `${SITE.reviews.rating} rating`, label: `From ${SITE.reviews.count} Google reviews`, accent: true },
+      { icon: 'unlock', value: 'No contract', label: 'Month to month' },
+      { icon: 'wrench', value: 'Unlimited fixes', label: 'Quick tasks at no extra charge' },
+    ]}
+  />
 
-  <Section tone="subtle" compact label="Plan details">
-    <h2 class="visually-hidden">Plan details</h2>
-    <Grid min={240}>
-      <Feature title="No contract">Month to month. Cancel at the end of any term.</Feature>
-      <Feature title="Unlimited quick fixes">Any task that takes 30 minutes or less, at no extra charge.</Feature>
-      <Feature title="If an update breaks something">
-        I roll the site back to the last good version and tell you what happened.
-      </Feature>
-      <Feature title="WordPress only">A specialist, not a generalist. Other platforms can be converted to WordPress.</Feature>
-    </Grid>
-  </Section>
+  <section class="lp-band" id="plans" aria-label="Plans">
+    <div class="container">
+      <div class="lp-head">
+        <span class="eyebrow">Plans</span>
+        <h2 class="title-md">Pick the care your site needs</h2>
+      </div>
+      <Grid min={300} class="plans">
+        {CARE_PLANS.map((plan) => <PricingCard plan={plan} showPerDay />)}
+      </Grid>
+    </div>
+  </section>
 
-  <Section width="narrow">
-    <FaqList faqs={CARE_FAQS} />
-  </Section>
+  <NumberedCards
+    tone="subtle"
+    eyebrow="Plan details"
+    title="What every plan comes with"
+    numbered={false}
+    columns={4}
+    items={[
+      { icon: 'unlock', title: 'No contract', text: 'Month to month. Cancel at the end of any term.' },
+      { icon: 'wrench', title: 'Unlimited quick fixes', text: 'Any task that takes 30 minutes or less, at no extra charge.' },
+      { icon: 'undo', title: 'If an update breaks something', text: 'I roll the site back to the last good version and tell you what happened.' },
+      { icon: 'award', title: 'WordPress only', text: 'A specialist, not a generalist. Other platforms can be converted to WordPress.' },
+    ]}
+  />
+
+  <TrustBand eyebrow="Reviews" title="Sites that stay up and stay current" review={REVIEWS.perry} />
+
+  <FaqSplit title="Care plan questions" faqs={CARE_FAQS} flush />
 
   <CtaBand title="Not sure which plan fits? Let's look at your site together." />
 </BaseLayout>

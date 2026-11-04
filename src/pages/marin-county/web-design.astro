@@ -2,16 +2,16 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import heroPhoto from '@/assets/img/locations/marin-battery-spencer.jpg';
-import Section from '@/components/Section.astro';
-import SectionIntro from '@/components/SectionIntro.astro';
-import Split from '@/components/Split.astro';
-import Grid from '@/components/Grid.astro';
 import Button from '@/components/Button.astro';
 import Rating from '@/components/Rating.astro';
-import Feature from '@/components/Feature.astro';
-import NameStrip from '@/components/NameStrip.astro';
-import ReviewQuote from '@/components/ReviewQuote.astro';
-import FaqList from '@/components/FaqList.astro';
+import type { IconName } from '@/components/Icon.astro';
+import ProofStrip from '@/components/local/ProofStrip.astro';
+import NumberedCards from '@/components/local/NumberedCards.astro';
+import TrustBand from '@/components/local/TrustBand.astro';
+import ImageCards from '@/components/local/ImageCards.astro';
+import ArrowCards from '@/components/local/ArrowCards.astro';
+import FaqSplit from '@/components/local/FaqSplit.astro';
+import { SITE } from '@/config/site';
 import CtaBand from '@/components/CtaBand.astro';
 import Phone from '@/components/Phone.astro';
 import ServiceSchema from '@/components/ServiceSchema.astro';
@@ -23,39 +23,47 @@ import type { Faq } from '@/data/faqs';
 const description =
   'Custom WordPress website design for Marin County businesses from a Novato designer working since 2010. Fast, accessible sites with a fixed quote. Call (415) 390-6563.';
 
-const whoFor = [
+const whoFor: { icon: IconName; title: string; text: string }[] = [
   {
+    icon: 'briefcase',
     title: 'Professional firms',
     text: 'Attorneys, CPAs, financial advisors and consultants in San Rafael, Larkspur and Corte Madera who need a site that earns trust before the first call.',
   },
   {
+    icon: 'hammer',
     title: 'Contractors and home services',
     text: 'Builders, landscapers and trades working up and down the 101 corridor, where a clear list of services and towns brings in the right jobs.',
   },
   {
+    icon: 'heart',
     title: 'Health and wellness practices',
     text: 'Therapists, dentists, chiropractors and studios that need easy booking and a calm, welcoming first impression.',
   },
   {
+    icon: 'school',
     title: 'Nonprofits and schools',
     text: 'Marin organizations that rely on donors, volunteers and families finding clear, accessible information quickly.',
   },
 ];
 
-const expectations = [
+const expectations: { icon: IconName; title: string; text: string }[] = [
   {
+    icon: 'phone',
     title: 'Built for phones first',
     text: 'Most local searches happen on a phone. Click-to-call, directions and a short contact form sit within reach on every page.',
   },
   {
+    icon: 'pin',
     title: 'Clear about where you work',
     text: 'Your service area is spelled out town by town, so a customer in Tiburon knows you’ll come to them, and Google does too.',
   },
   {
+    icon: 'eye',
     title: 'Easy for every visitor',
     text: 'Marin has one of the oldest populations in the Bay Area. Readable type, strong contrast and keyboard-friendly navigation keep every customer in the conversation.',
   },
   {
+    icon: 'wifi',
     title: 'Fast on patchy signal',
     text: 'Cell coverage drops in West Marin and the hills. Lean pages load where heavy, page-builder sites stall.',
   },
@@ -112,64 +120,70 @@ const faqs: Faq[] = [
     <Rating slot="meta" />
   </PageHero>
 
-  <Section>
-    <SectionIntro eyebrow="Who I work with" title="Websites for the businesses that keep Marin running" />
-    <Grid min={250} gap="20px">
-      {whoFor.map((f) => <Feature title={f.title} boxed>{f.text}</Feature>)}
-    </Grid>
-  </Section>
+  <ProofStrip
+    items={[
+      { icon: 'calendar', value: 'Since 2010', label: 'Building Marin websites' },
+      { icon: 'star', value: `${SITE.reviews.rating} rating`, label: `From ${SITE.reviews.count} Google reviews`, accent: true },
+      { icon: 'fileText', value: 'Fixed quote', label: 'Before any work starts' },
+      { icon: 'video', value: 'Meet first', label: 'Free Google Meet call' },
+    ]}
+  />
 
-  <Section tone="subtle">
-    <SectionIntro title="What Marin customers expect from your website" />
-    <Grid min={260} gap="32px 28px">
-      {expectations.map((f) => <Feature title={f.title}>{f.text}</Feature>)}
-    </Grid>
-  </Section>
+  <NumberedCards eyebrow="Who I work with" title="Websites for the businesses that keep Marin running" items={whoFor} numbered={false} columns={4} />
 
-  <Section>
-    <Split align="center">
-      <SectionIntro slot="side" eyebrow="Local and hands-on" title="One designer, close by">
-        No account managers or offshore handoffs. I’m in Novato, and the person you talk to is the person who builds your
-        site.
-      </SectionIntro>
-      <div class="proof">
-        <NameStrip names={MARIN_CLIENTS} align="start" />
-        <ReviewQuote review={REVIEWS.gibbs} variant="tint" />
-      </div>
-    </Split>
-  </Section>
+  <NumberedCards tone="subtle" eyebrow="Built for Marin" title="What Marin customers expect from your website" items={expectations} numbered={false} columns={2} />
 
-  <Section compact>
-    <SectionIntro eyebrow="Websites by town" title="Towns I work in" />
-    <Grid min={320} gap="20px">
+  <TrustBand
+    eyebrow="Local and hands-on"
+    title="One designer, close by"
+    lead="No account managers or offshore handoffs. I’m in Novato, and the person you talk to is the person who builds your site."
+    names={MARIN_CLIENTS}
+    review={REVIEWS.gibbs}
+  />
+
+  <ImageCards
+    eyebrow="Websites by town"
+    title="Towns I work in"
+    tone="subtle"
+    items={TOWNS.map((t) => ({
+      image: t.hero,
+      imagePosition: t.heroPosition,
+      title: t.name,
+      text: t.teaser,
+      href: `/marin-county/${t.slug}/`,
+      more: `Web design and SEO in ${t.name}`,
+    }))}
+  />
+
+  <ArrowCards
+    eyebrow="Next steps"
+    title="The process, rankings and more"
+    items={[
       {
-        TOWNS.map((t) => (
-          <Feature title={`Web design and SEO in ${t.name}`} href={`/marin-county/${t.slug}/`} boxed>
-            {t.teaser}
-          </Feature>
-        ))
-      }
-    </Grid>
-  </Section>
+        icon: 'rocket',
+        title: 'How a project runs',
+        text: 'Discovery, plan, design, build and launch, with redirects that protect the rankings you already have.',
+        href: '/wordpress-web-design/',
+        more: 'See the full process',
+      },
+      {
+        icon: 'search',
+        title: 'Get found once you launch',
+        text: 'A great site still needs to rank. See how Marin SEO gets you into the map pack in the towns you serve.',
+        href: '/marin-county/seo/',
+        more: 'See Marin SEO',
+      },
+      {
+        icon: 'map',
+        title: 'Everything I do in Marin County',
+        text: 'Web design, WordPress care, local SEO and Google Ads for businesses from Novato to Sausalito.',
+        href: '/marin-county/',
+        more: 'See Marin County',
+      },
+    ]}
+  />
 
-  <Section tone="subtle">
-    <Grid min={280}>
-      <Feature title="How a project runs" href="/wordpress-web-design/" boxed>
-        Discovery, plan, design, build and launch, with redirects that protect the rankings you already have. See the full
-        process and what every site includes.
-      </Feature>
-      <Feature title="Get found once you launch" href="/marin-county/seo/" boxed>
-        A great site still needs to rank. See how Marin SEO gets you into the map pack in the towns you serve.
-      </Feature>
-      <Feature title="Everything I do in Marin County" href="/marin-county/" boxed>
-        Web design, WordPress care, local SEO and Google Ads for businesses from Novato to Sausalito.
-      </Feature>
-    </Grid>
-  </Section>
-
-  <Section width="narrow">
-    <FaqList faqs={faqs} title="Marin web design questions" />
-  </Section>
+  <FaqSplit title="Marin web design questions" faqs={faqs} flush />
 
   <CtaBand title="Let’s plan your new Marin website" button="Get a fixed quote">
     Prefer to talk first? Call <Phone office="marin" />.
@@ -180,11 +194,5 @@ const faqs: Faq[] = [
   .call {
     font-size: 18px;
     color: var(--text-strong);
-  }
-
-  .proof {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
   }
 </style>

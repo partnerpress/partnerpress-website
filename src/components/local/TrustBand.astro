@@ -1,0 +1,48 @@
+---
+// Client names, then a review panel beside the Google rating. Extra content (a case study) goes in the default slot.
+import NameStrip from '@/components/NameStrip.astro';
+import ReviewPanel from './ReviewPanel.astro';
+import type { Review } from '@/data/reviews';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lead?: string;
+  names?: string[];
+  review: Review;
+  scoreNote?: string;
+  tone?: 'white' | 'subtle';
+}
+
+const { eyebrow = 'Clients', title, lead, names, review, scoreNote, tone = 'white' } = Astro.props;
+---
+
+<section class:list={['lp-band', tone === 'subtle' && 'lp-band--subtle']}>
+  <div class="container stack">
+    <div class="lp-head head">
+      <span class="eyebrow">{eyebrow}</span>
+      <h2 class="title-md">{title}</h2>
+      {lead && <p class="lead-text">{lead}</p>}
+    </div>
+    {names && <NameStrip names={names} align="start" />}
+    <ReviewPanel review={review} scoreNote={scoreNote} />
+    <slot />
+  </div>
+</section>
+
+<style>
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .head {
+    margin-bottom: 0;
+  }
+
+  .lead-text {
+    font-size: 18px;
+    color: var(--muted);
+  }
+</style>

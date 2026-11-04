@@ -7,32 +7,38 @@ import SectionIntro from '@/components/SectionIntro.astro';
 import Split from '@/components/Split.astro';
 import Grid from '@/components/Grid.astro';
 import Button from '@/components/Button.astro';
-import Feature from '@/components/Feature.astro';
-import Steps from '@/components/Steps.astro';
 import CaseStudyCard from '@/components/CaseStudyCard.astro';
 import ReviewQuote from '@/components/ReviewQuote.astro';
-import FaqList from '@/components/FaqList.astro';
+import type { IconName } from '@/components/Icon.astro';
+import ProofStrip from '@/components/local/ProofStrip.astro';
+import NumberedCards from '@/components/local/NumberedCards.astro';
+import StepsBand from '@/components/local/StepsBand.astro';
+import ImageCards from '@/components/local/ImageCards.astro';
+import TrustBand from '@/components/local/TrustBand.astro';
+import FaqSplit from '@/components/local/FaqSplit.astro';
+import marinPhoto from '@/assets/img/locations/marin-mount-tam.jpg';
+import lasCrucesPhoto from '@/assets/img/locations/las-cruces-organ-mountains.jpg';
 import CtaBand from '@/components/CtaBand.astro';
 import Phone from '@/components/Phone.astro';
-import { OFFICES } from '@/config/site';
+import { OFFICES, SITE } from '@/config/site';
 import BrowserFrame from '@/components/mockups/BrowserFrame.astro';
 import { REVIEWS } from '@/data/reviews';
 import { WEB_DESIGN_FAQS } from '@/data/faqs';
 
-const included = [
-  { title: 'Fast on phones', text: 'Lean builds without slider and page-builder bloat, aimed at Google\'s "good" Core Web Vitals.' },
-  { title: 'Built to convert', text: 'Click-to-call on every page, short forms, clear next steps, and call and form tracking set up at launch.' },
-  { title: 'SEO-ready', text: 'Service and location pages, clean structure, schema markup and Search Console from day one.' },
-  { title: 'Accessible', text: 'Designed and tested so everyone can use it, with an accessibility statement and compliant policies.' },
-  { title: 'Easy to edit', text: 'Update text, photos and posts yourself in the WordPress editor, with a walkthrough at launch.' },
-  { title: 'Safe launch', text: "Redirects from every old URL so a redesign doesn't cost you the rankings you've already earned." },
+const included: { icon: IconName; title: string; text: string }[] = [
+  { icon: 'zap', title: 'Fast on phones', text: 'Lean builds without slider and page-builder bloat, aimed at Google\'s "good" Core Web Vitals.' },
+  { icon: 'target', title: 'Built to convert', text: 'Click-to-call on every page, short forms, clear next steps, and call and form tracking set up at launch.' },
+  { icon: 'search', title: 'SEO-ready', text: 'Service and location pages, clean structure, schema markup and Search Console from day one.' },
+  { icon: 'eye', title: 'Accessible', text: 'Designed and tested so everyone can use it, with an accessibility statement and compliant policies.' },
+  { icon: 'pencil', title: 'Easy to edit', text: 'Update text, photos and posts yourself in the WordPress editor, with a walkthrough at launch.' },
+  { icon: 'rocket', title: 'Safe launch', text: "Redirects from every old URL so a redesign doesn't cost you the rankings you've already earned." },
 ];
 
-const startingPoints = [
-  { title: 'No website yet', text: 'A complete first site with the pages, copy structure and setup a local business needs.' },
-  { title: 'An outdated site', text: "A redesign that keeps what works, fixes what doesn't, and protects your existing rankings." },
-  { title: 'Another platform', text: 'Moving from Wix, Squarespace, Joomla or Drupal to WordPress, with your content carried over.' },
-  { title: 'An inherited mess', text: 'Developer disappeared? I untangle the site, merge duplicates and get it stable again.' },
+const startingPoints: { icon: IconName; title: string; text: string }[] = [
+  { icon: 'filePlus', title: 'No website yet', text: 'A complete first site with the pages, copy structure and setup a local business needs.' },
+  { icon: 'refresh', title: 'An outdated site', text: "A redesign that keeps what works, fixes what doesn't, and protects your existing rankings." },
+  { icon: 'shuffle', title: 'Another platform', text: 'Moving from Wix, Squarespace, Joomla or Drupal to WordPress, with your content carried over.' },
+  { icon: 'wrench', title: 'An inherited mess', text: 'Developer disappeared? I untangle the site, merge duplicates and get it stable again.' },
 ];
 
 const steps = [
@@ -62,24 +68,20 @@ const steps = [
     <BrowserFrame slot="aside" />
   </PageHero>
 
-  <Section>
-    <SectionIntro eyebrow="Every site includes" title="Built right from the start" />
-    <Grid min={260} gap="32px 28px">
-      {included.map((f) => <Feature title={f.title}>{f.text}</Feature>)}
-    </Grid>
-  </Section>
+  <ProofStrip
+    items={[
+      { icon: 'calendar', value: 'Since 2010', label: 'Building WordPress sites' },
+      { icon: 'star', value: `${SITE.reviews.rating} rating`, label: `From ${SITE.reviews.count} Google reviews`, accent: true },
+      { icon: 'fileText', value: 'Fixed quote', label: 'Before any work starts' },
+      { icon: 'key', value: 'You own it', label: 'Site, domain and content' },
+    ]}
+  />
 
-  <Section tone="subtle">
-    <SectionIntro title="Where are you starting from?" />
-    <Grid min={250} gap="20px">
-      {startingPoints.map((f) => <Feature title={f.title} boxed>{f.text}</Feature>)}
-    </Grid>
-  </Section>
+  <NumberedCards eyebrow="Every site includes" title="Built right from the start" items={included} numbered={false} />
 
-  <Section>
-    <SectionIntro title="How a project runs" />
-    <Steps steps={steps} min={170} />
-  </Section>
+  <NumberedCards tone="subtle" eyebrow="Starting points" title="Where are you starting from?" items={startingPoints} numbered={false} columns={4} />
+
+  <StepsBand title="How a project runs" steps={steps} min={170} />
 
   <Section tone="subtle" id="work">
     <SectionIntro title="Recent websites" />
@@ -90,12 +92,9 @@ const steps = [
     </Grid>
   </Section>
 
-  <Section>
-    <Grid min={320}>
-      <ReviewQuote review={REVIEWS.perryRebrand} variant="tint" />
-      <ReviewQuote review={REVIEWS.wombacher} variant="tint" />
-    </Grid>
-  </Section>
+  <TrustBand eyebrow="Reviews" title="What clients say about working with me" review={REVIEWS.perryRebrand}>
+    <ReviewQuote review={REVIEWS.wombacher} variant="tint" />
+  </TrustBand>
 
   <Section tone="subtle">
     <Split align="center">
@@ -115,21 +114,29 @@ const steps = [
     </Split>
   </Section>
 
-  <Section>
-    <SectionIntro title="Web design where you are" size="sm" />
-    <Grid min={320}>
-      <Feature title="Web design in Marin County" href="/marin-county/web-design/" boxed>
-        Novato, San Rafael, Mill Valley, Sausalito and the rest of Marin. Based in Novato, {OFFICES.marin.phone}.
-      </Feature>
-      <Feature title="Web design in Las Cruces" href={OFFICES.nm.page} boxed>
-        Las Cruces, Mesilla, Doña Ana County and El Paso. Based in Las Cruces, {OFFICES.nm.phone}.
-      </Feature>
-    </Grid>
-  </Section>
+  <ImageCards
+    eyebrow="Where I work"
+    title="Web design where you are"
+    tone="white"
+    items={[
+      {
+        image: marinPhoto,
+        title: 'Web design in Marin County',
+        text: `Novato, San Rafael, Mill Valley, Sausalito and the rest of Marin. Based in Novato, ${OFFICES.marin.phone}.`,
+        href: '/marin-county/web-design/',
+        more: 'See Marin web design',
+      },
+      {
+        image: lasCrucesPhoto,
+        title: 'Web design in Las Cruces',
+        text: `Las Cruces, Mesilla, Doña Ana County and El Paso. Based in Las Cruces, ${OFFICES.nm.phone}.`,
+        href: OFFICES.nm.page,
+        more: 'See Las Cruces',
+      },
+    ]}
+  />
 
-  <Section width="narrow">
-    <FaqList faqs={WEB_DESIGN_FAQS} />
-  </Section>
+  <FaqSplit title="Web design questions" faqs={WEB_DESIGN_FAQS} flush />
 
   <CtaBand title="Ready for a site that works as hard as you do?" button="Start your project">
     Marin <Phone office="marin" /> · Las Cruces <Phone office="nm" />

@@ -5,25 +5,30 @@ import heroPhoto from '@/assets/img/services/local-seo-main-street.jpg';
 import Section from '@/components/Section.astro';
 import SectionIntro from '@/components/SectionIntro.astro';
 import Grid from '@/components/Grid.astro';
+import type { IconName } from '@/components/Icon.astro';
 import Button from '@/components/Button.astro';
-import Feature from '@/components/Feature.astro';
 import PricingCard from '@/components/PricingCard.astro';
-import ReviewQuote from '@/components/ReviewQuote.astro';
-import FaqList from '@/components/FaqList.astro';
+import ProofStrip from '@/components/local/ProofStrip.astro';
+import NumberedCards from '@/components/local/NumberedCards.astro';
+import ImageCards from '@/components/local/ImageCards.astro';
+import TrustBand from '@/components/local/TrustBand.astro';
+import FaqSplit from '@/components/local/FaqSplit.astro';
+import marinPhoto from '@/assets/img/locations/marin-mount-tam.jpg';
+import lasCrucesPhoto from '@/assets/img/locations/las-cruces-organ-mountains.jpg';
 import CtaBand from '@/components/CtaBand.astro';
 import MapPackMock from '@/components/mockups/MapPackMock.astro';
-import { OFFICES } from '@/config/site';
+import { OFFICES, SITE } from '@/config/site';
 import { SEO_PLANS } from '@/data/plans';
 import { SEO_FAQS } from '@/data/faqs';
 import { REVIEWS } from '@/data/reviews';
 
-const included = [
-  { title: 'Google Business Profile', text: 'Categories, services, photos and posts set up to win the map pack, plus Yelp and BBB listings kept consistent.' },
-  { title: 'Reviews', text: 'Review monitoring and a simple way to ask happy customers, so new reviews keep coming in.' },
-  { title: 'Local content', text: 'New service and city pages every month, written for the searches your customers actually type.' },
-  { title: 'Technical SEO', text: 'Weekly checks for broken links, slow pages, accessibility errors and Search Console warnings.' },
-  { title: 'Competitor tracking', text: 'I watch who outranks you and why, then adjust the plan to close the gap.' },
-  { title: 'Reports you can read', text: 'A plain-English report each month and a strategy meeting each quarter.' },
+const included: { icon: IconName; title: string; text: string }[] = [
+  { icon: 'pin', title: 'Google Business Profile', text: 'Categories, services, photos and posts set up to win the map pack, plus Yelp and BBB listings kept consistent.' },
+  { icon: 'star', title: 'Reviews', text: 'Review monitoring and a simple way to ask happy customers, so new reviews keep coming in.' },
+  { icon: 'fileText', title: 'Local content', text: 'New service and city pages every month, written for the searches your customers actually type.' },
+  { icon: 'wrench', title: 'Technical SEO', text: 'Weekly checks for broken links, slow pages, accessibility errors and Search Console warnings.' },
+  { icon: 'target', title: 'Competitor tracking', text: 'I watch who outranks you and why, then adjust the plan to close the gap.' },
+  { icon: 'chart', title: 'Reports you can read', text: 'A plain-English report each month and a strategy meeting each quarter.' },
 ];
 ---
 
@@ -44,12 +49,16 @@ const included = [
     <MapPackMock slot="aside" />
   </PageHero>
 
-  <Section>
-    <SectionIntro eyebrow="Every plan includes" title="The work that moves local rankings" />
-    <Grid min={260} gap="32px 28px">
-      {included.map((f) => <Feature title={f.title}>{f.text}</Feature>)}
-    </Grid>
-  </Section>
+  <ProofStrip
+    items={[
+      { icon: 'calendar', value: 'Since 2010', label: 'Helping local businesses' },
+      { icon: 'star', value: `${SITE.reviews.rating} rating`, label: `From ${SITE.reviews.count} Google reviews`, accent: true },
+      { icon: 'unlock', value: 'No contract', label: 'Month to month' },
+      { icon: 'shield', value: 'Care included', label: 'WordPress plan in every tier' },
+    ]}
+  />
+
+  <NumberedCards eyebrow="Every plan includes" title="The work that moves local rankings" items={included} numbered={false} />
 
   <Section tone="subtle" id="pricing">
     <SectionIntro eyebrow="Pricing" title="Plans by how far you want to reach">
@@ -60,25 +69,31 @@ const included = [
     </Grid>
   </Section>
 
-  <Section>
-    <SectionIntro title="Local SEO where you are" size="sm" />
-    <Grid min={320}>
-      <Feature title="SEO in Marin County" href="/marin-county/seo/" boxed>
-        Novato, San Rafael, Mill Valley, Sausalito and the rest of Marin. Based in Novato, {OFFICES.marin.phone}.
-      </Feature>
-      <Feature title="SEO in Las Cruces" href={OFFICES.nm.page} boxed>
-        Las Cruces, Mesilla, Doña Ana County and El Paso. Based in Las Cruces, {OFFICES.nm.phone}.
-      </Feature>
-    </Grid>
-  </Section>
+  <ImageCards
+    eyebrow="Where I work"
+    title="Local SEO where you are"
+    tone="white"
+    items={[
+      {
+        image: marinPhoto,
+        title: 'SEO in Marin County',
+        text: `Novato, San Rafael, Mill Valley, Sausalito and the rest of Marin. Based in Novato, ${OFFICES.marin.phone}.`,
+        href: '/marin-county/seo/',
+        more: 'See Marin SEO',
+      },
+      {
+        image: lasCrucesPhoto,
+        title: 'SEO in Las Cruces',
+        text: `Las Cruces, Mesilla, Doña Ana County and El Paso. Based in Las Cruces, ${OFFICES.nm.phone}.`,
+        href: OFFICES.nm.page,
+        more: 'See Las Cruces',
+      },
+    ]}
+  />
 
-  <Section tone="tint" compact>
-    <ReviewQuote review={REVIEWS.jae} variant="feature" />
-  </Section>
+  <TrustBand eyebrow="Reviews" title="What clients say about the work" review={REVIEWS.jae} tone="subtle" />
 
-  <Section width="narrow">
-    <FaqList faqs={SEO_FAQS} />
-  </Section>
+  <FaqSplit title="Local SEO questions" faqs={SEO_FAQS} />
 
   <CtaBand title="Find out where you rank today" button="Get a free local SEO review">
     On a free call I'll show you where you appear for your top searches and what's holding you back.

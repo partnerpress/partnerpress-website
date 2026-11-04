@@ -2,17 +2,16 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import heroPhoto from '@/assets/img/locations/marin-point-bonita-lighthouse.jpg';
-import Section from '@/components/Section.astro';
-import SectionIntro from '@/components/SectionIntro.astro';
-import Split from '@/components/Split.astro';
-import Grid from '@/components/Grid.astro';
 import Button from '@/components/Button.astro';
 import Rating from '@/components/Rating.astro';
-import Feature from '@/components/Feature.astro';
-import Steps from '@/components/Steps.astro';
-import NameStrip from '@/components/NameStrip.astro';
-import ReviewQuote from '@/components/ReviewQuote.astro';
-import FaqList from '@/components/FaqList.astro';
+import type { IconName } from '@/components/Icon.astro';
+import ProofStrip from '@/components/local/ProofStrip.astro';
+import NumberedCards from '@/components/local/NumberedCards.astro';
+import StepsBand from '@/components/local/StepsBand.astro';
+import TrustBand from '@/components/local/TrustBand.astro';
+import ImageCards from '@/components/local/ImageCards.astro';
+import ArrowCards from '@/components/local/ArrowCards.astro';
+import FaqSplit from '@/components/local/FaqSplit.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import Phone from '@/components/Phone.astro';
 import ServiceSchema from '@/components/ServiceSchema.astro';
@@ -25,20 +24,24 @@ import type { Faq } from '@/data/faqs';
 const description =
   'Local SEO for Marin County businesses from a Novato-based consultant. Map pack rankings, Google Business Profile, reviews and town pages from Novato to Sausalito.';
 
-const marinDifferences = [
+const marinDifferences: { icon: IconName; title: string; text: string }[] = [
   {
+    icon: 'map',
     title: 'A long, narrow county',
     text: 'Marin stretches about 30 miles along Highway 101, from Sausalito to Novato. Google weighs distance heavily in the map pack, so a business can rank first in its own town and be invisible two exits away. I plan for each town you want to reach, not one county-wide keyword.',
   },
   {
+    icon: 'pin',
     title: 'Neighborhood names matter',
     text: 'People search by the place they live: Greenbrae, Kentfield, Strawberry, Tam Valley, Marinwood. Many of these are not incorporated towns, so Google relies on your pages and your profile to connect you to them.',
   },
   {
+    icon: 'target',
     title: 'Small numbers, high value',
     text: 'A search like "marin seo" or "san rafael web design" happens a few dozen times a month. Every one of those is a nearby customer ready to hire, so a few extra calls make a real difference to a Marin business.',
   },
   {
+    icon: 'star',
     title: 'Reviews carry extra weight',
     text: 'In a county this size, many service categories have only a handful of strong Google profiles. A steady flow of genuine reviews is often what separates the top three in the map pack from everyone else.',
   },
@@ -115,64 +118,76 @@ const faqs: Faq[] = [
     <Rating slot="meta" />
   </PageHero>
 
-  <Section>
-    <SectionIntro eyebrow="Local knowledge" title="Why ranking in Marin is different">
-      Generic SEO advice is written for big cities. Marin’s geography and search habits call for a different plan.
-    </SectionIntro>
-    <Grid min={260} gap="32px 28px">
-      {marinDifferences.map((f) => <Feature title={f.title}>{f.text}</Feature>)}
-    </Grid>
-  </Section>
+  <ProofStrip
+    items={[
+      { icon: 'calendar', value: 'Since 2010', label: 'Helping Marin businesses' },
+      { icon: 'star', value: `${SITE.reviews.rating} rating`, label: `From ${SITE.reviews.count} Google reviews`, accent: true },
+      { icon: 'home', value: 'Based in Novato', label: 'Local to Marin' },
+      { icon: 'video', value: 'Meet first', label: 'Free Google Meet call' },
+    ]}
+  />
 
-  <Section tone="subtle">
-    <SectionIntro title="How I get Marin businesses found" />
-    <Steps steps={steps} min={190} />
-  </Section>
+  <NumberedCards
+    eyebrow="Local knowledge"
+    title="Why ranking in Marin is different"
+    lead="Generic SEO advice is written for big cities. Marin’s geography and search habits call for a different plan."
+    items={marinDifferences}
+    columns={2}
+  />
 
-  <Section>
-    <Split align="center">
-      <SectionIntro slot="side" eyebrow="Practice what I preach" title="Proof close to home">
-        PartnerPress holds a {SITE.reviews.rating} rating from {SITE.reviews.count} Google reviews, built with the same
-        process I use for clients.
-      </SectionIntro>
-      <div class="proof">
-        <NameStrip names={MARIN_CLIENTS} align="start" />
-        <ReviewQuote review={REVIEWS.jae} variant="tint" />
-      </div>
-    </Split>
-  </Section>
+  <StepsBand tone="subtle" title="How I get Marin businesses found" steps={steps} min={190} />
 
-  <Section compact>
-    <SectionIntro eyebrow="Ranking by town" title="Towns I work in" />
-    <Grid min={320} gap="20px">
+  <TrustBand
+    eyebrow="Practice what I preach"
+    title="Proof close to home"
+    lead="PartnerPress holds a 5.0 rating from 19 Google reviews, built with the same process I use for clients."
+    names={MARIN_CLIENTS}
+    review={REVIEWS.jae}
+  />
+
+  <ImageCards
+    eyebrow="Ranking by town"
+    title="Towns I work in"
+    tone="subtle"
+    items={TOWNS.map((t) => ({
+      image: t.hero,
+      imagePosition: t.heroPosition,
+      title: t.name,
+      text: t.teaser,
+      href: `/marin-county/${t.slug}/`,
+      more: `Web design and SEO in ${t.name}`,
+    }))}
+  />
+
+  <ArrowCards
+    eyebrow="Next steps"
+    title="Plans, websites and more"
+    items={[
       {
-        TOWNS.map((t) => (
-          <Feature title={`Web design and SEO in ${t.name}`} href={`/marin-county/${t.slug}/`} boxed>
-            {t.teaser}
-          </Feature>
-        ))
-      }
-    </Grid>
-  </Section>
+        icon: 'dollar',
+        title: 'Plans and pricing',
+        text: 'Marin SEO plans start at $1,495 a month, month to month, with a WordPress care plan included.',
+        href: '/local-seo/#pricing',
+        more: 'Compare plans',
+      },
+      {
+        icon: 'layout',
+        title: 'Is your website holding you back?',
+        text: 'Rankings bring visitors; the site turns them into calls. See how I design websites for Marin businesses.',
+        href: '/marin-county/web-design/',
+        more: 'See Marin web design',
+      },
+      {
+        icon: 'map',
+        title: 'Everything I do in Marin County',
+        text: 'Web design, WordPress care, local SEO and Google Ads for businesses from Novato to Sausalito.',
+        href: '/marin-county/',
+        more: 'See Marin County',
+      },
+    ]}
+  />
 
-  <Section tone="subtle">
-    <Grid min={280}>
-      <Feature title="Plans and pricing" href="/local-seo/#pricing" boxed>
-        Marin SEO plans start at $1,495 a month, month to month, with a WordPress care plan included. Compare every plan
-        on the Local SEO page.
-      </Feature>
-      <Feature title="Is your website holding you back?" href="/marin-county/web-design/" boxed>
-        Rankings bring visitors; the site turns them into calls. See how I design websites for Marin businesses.
-      </Feature>
-      <Feature title="Everything I do in Marin County" href="/marin-county/" boxed>
-        Web design, WordPress care, local SEO and Google Ads for businesses from Novato to Sausalito.
-      </Feature>
-    </Grid>
-  </Section>
-
-  <Section width="narrow">
-    <FaqList faqs={faqs} title="Marin SEO questions" />
-  </Section>
+  <FaqSplit title="Marin SEO questions" faqs={faqs} flush />
 
   <CtaBand title="See where you rank across Marin" button="Get a free Marin ranking check">
     Prefer to talk first? Call <Phone office="marin" />.
@@ -183,11 +198,5 @@ const faqs: Faq[] = [
   .call {
     font-size: 18px;
     color: var(--text-strong);
-  }
-
-  .proof {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
   }
 </style>
