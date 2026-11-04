@@ -7,7 +7,7 @@ export const SITE = {
   url: 'https://partnerpress.net',
   owner: 'Shane Barnes',
   founded: 2010,
-  tagline: 'WordPress, Local SEO and Google Ads for local service businesses across the U.S.',
+  tagline: 'Web design, WordPress care, Local SEO and Google Ads for local service businesses across the U.S.',
   hours: 'Monday to Friday, 9:00 am to 5:00 pm',
   hoursSchema: 'Mo-Fr 09:00-17:00',
   reviews: { rating: '5.0', count: 19 },
@@ -73,7 +73,7 @@ export const OFFICES: Record<OfficeKey, Office> = {
 export type NavKey = 'web-design' | 'care' | 'local-seo' | 'google-ads' | 'locations' | 'about' | 'contact' | 'blog';
 
 export const SERVICE_NAV: { key: NavKey; label: string; mobileLabel?: string; href: string }[] = [
-  { key: 'web-design', label: 'Web Design', href: '/wordpress-web-design/' },
+  { key: 'web-design', label: 'Web Design', href: '/web-design/' },
   { key: 'care', label: 'WordPress Care', mobileLabel: 'WordPress Care Plans', href: '/wordpress-care-plans/' },
   { key: 'local-seo', label: 'Local SEO', href: '/local-seo/' },
   { key: 'google-ads', label: 'Google Ads', href: '/google-ads/' },

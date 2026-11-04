@@ -13,6 +13,7 @@ import NumberedCards from '@/components/local/NumberedCards.astro';
 import ImageCards from '@/components/local/ImageCards.astro';
 import TrustBand from '@/components/local/TrustBand.astro';
 import FaqSplit from '@/components/local/FaqSplit.astro';
+import AstroMigration from '@/components/local/AstroMigration.astro';
 import marinPhoto from '@/assets/img/locations/marin-mount-tam.jpg';
 import lasCrucesPhoto from '@/assets/img/locations/las-cruces-organ-mountains.jpg';
 import CtaBand from '@/components/CtaBand.astro';
@@ -40,7 +41,7 @@ const included: { icon: IconName; title: string; text: string }[] = [
   <PageHero eyebrow="Local SEO · Marin County and Las Cruces" title="Show up when locals search for what you do" bg={heroPhoto}>
     <Fragment slot="lead">
       Most calls from Google start in the map pack and the first few results. I get your business into those spots and
-      keep it there, with a WordPress care plan included so the site underneath stays fast and healthy.
+      keep it there, with site care included so the website underneath stays fast and healthy.
     </Fragment>
     <Fragment slot="actions">
       <Button href="/contact/" size="lg">Get a free local SEO review</Button>
@@ -54,7 +55,7 @@ const included: { icon: IconName; title: string; text: string }[] = [
       { icon: 'calendar', value: 'Since 2010', label: 'Helping local businesses' },
       { icon: 'star', value: `${SITE.reviews.rating} rating`, label: `From ${SITE.reviews.count} Google reviews`, accent: true },
       { icon: 'unlock', value: 'No contract', label: 'Month to month' },
-      { icon: 'shield', value: 'Care included', label: 'WordPress plan in every tier' },
+      { icon: 'shield', value: 'Care included', label: 'Site care in every tier' },
     ]}
   />
 
@@ -62,12 +63,14 @@ const included: { icon: IconName; title: string; text: string }[] = [
 
   <Section tone="subtle" id="pricing">
     <SectionIntro eyebrow="Pricing" title="Plans by how far you want to reach">
-      Every plan includes a WordPress Success Plan for your site. Month to month, no contract.
+      Every plan includes ongoing care for your site, on WordPress or Astro. Month to month, no contract.
     </SectionIntro>
     <Grid min={300} class="plans">
       {SEO_PLANS.map((plan) => <PricingCard plan={plan} />)}
     </Grid>
   </Section>
+
+  <AstroMigration stakes="every hour of SEO work" tone="tint" />
 
   <ImageCards
     eyebrow="Where I work"

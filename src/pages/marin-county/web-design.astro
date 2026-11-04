@@ -21,7 +21,7 @@ import { TOWNS } from '@/data/towns';
 import type { Faq } from '@/data/faqs';
 
 const description =
-  'Custom WordPress website design for Marin County businesses from a Novato designer working since 2010. Fast, accessible sites with a fixed quote. Call (415) 390-6563.';
+  'Custom website design for Marin County businesses from a Novato designer working since 2010. Fast, secure, accessible sites with a fixed quote. Call (415) 390-6563.';
 
 const whoFor: { icon: IconName; title: string; text: string }[] = [
   {
@@ -65,7 +65,7 @@ const expectations: { icon: IconName; title: string; text: string }[] = [
   {
     icon: 'wifi',
     title: 'Fast on patchy signal',
-    text: 'Cell coverage drops in West Marin and the hills. Lean pages load where heavy, page-builder sites stall.',
+    text: 'Cell coverage drops in West Marin and the hills. Lean, pre-built pages load where heavy WordPress and page-builder sites stall.',
   },
 ];
 
@@ -79,18 +79,22 @@ const faqs: Faq[] = [
     a: 'It depends on the number of pages, how much writing you need and features like booking or online payments. After a free discovery call you get a fixed quote, so the full cost is clear before any work starts.',
   },
   {
-    q: 'Why WordPress?',
-    a: 'You own it outright, you can edit it yourself, and any developer can pick it up later. That means you’re never locked in to me or to a monthly website builder.',
+    q: 'What do you build with, and why?',
+    a: 'Astro, a modern framework that serves pre-built pages with no database or plugins. Sites load fast, there’s nothing to hack or patch, and you own the code outright, so you’re never locked in to me or to a monthly website builder.',
+  },
+  {
+    q: 'We already have a WordPress site. Do we need a new one?',
+    a: 'Not necessarily. A care plan keeps a healthy WordPress site fast and secure. If it’s slow, keeps breaking or is dragging down your rankings, I’ll recommend moving it to Astro with your content and URLs carried over.',
   },
   {
     q: 'Can you also look after the site and our Google rankings?',
-    a: 'Yes. Care plans from $249 a month cover updates, security and quick fixes, and Marin SEO plans build on the same site so it keeps bringing in calls.',
+    a: 'Yes. Ongoing support covers changes and quick fixes, WordPress care plans start at $249 a month, and Marin SEO plans build on the same site so it keeps bringing in calls.',
   },
 ];
 ---
 
 <BaseLayout
-  title="Marin Website Design & WordPress Development | PartnerPress"
+  title="Marin Website Design & Development | PartnerPress"
   description={description}
   nav="locations"
   office="marin"
@@ -101,7 +105,7 @@ const faqs: Faq[] = [
     slot="head"
     office="marin"
     name="Marin web design"
-    serviceType="Website design and WordPress development"
+    serviceType="Website design and development"
     description={description}
     path="/marin-county/web-design/"
     areas={MARIN_TOWNS}
@@ -110,7 +114,7 @@ const faqs: Faq[] = [
 
   <PageHero eyebrow="Marin web design · Based in Novato" title="Marin web design for businesses that want the phone to ring" bg={heroPhoto}>
     <Fragment slot="lead">
-      I’ve designed and built WordPress websites for Marin businesses since 2010. You work directly with me, from the
+      I’ve designed and built websites for Marin businesses since 2010. You work directly with me, from the
       first sketch to launch day and beyond.
     </Fragment>
     <Fragment slot="actions">
@@ -163,7 +167,7 @@ const faqs: Faq[] = [
         icon: 'rocket',
         title: 'How a project runs',
         text: 'Discovery, plan, design, build and launch, with redirects that protect the rankings you already have.',
-        href: '/wordpress-web-design/',
+        href: '/web-design/',
         more: 'See the full process',
       },
       {

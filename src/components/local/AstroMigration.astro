@@ -1,0 +1,45 @@
+---
+// "Is your WordPress site holding your campaign back?" band for the Local SEO and
+// Google Ads pages. Pitches moving a slow or fragile WordPress site to Astro.
+import Section from '@/components/Section.astro';
+import SectionIntro from '@/components/SectionIntro.astro';
+import Split from '@/components/Split.astro';
+import CheckList from '@/components/CheckList.astro';
+
+interface Props {
+  /** What the site is undermining, e.g. "your rankings" or "your ad spend". */
+  stakes: string;
+  tone?: 'white' | 'subtle' | 'tint';
+}
+
+const { stakes, tone = 'white' } = Astro.props;
+
+const points = [
+  'Pages load fast on phones, which Google rewards in rankings and ad Quality Score',
+  'No plugins to patch and no login page to attack, so no surprise hacks or blacklists',
+  'No update that breaks a form or a landing page in the middle of a campaign',
+  'Your content and URLs carried over, with redirects so you keep what you’ve earned',
+];
+---
+
+<Section tone={tone}>
+  <Split align="center">
+    <SectionIntro slot="side" eyebrow="Your website matters" title="Is your WordPress site holding your campaign back?">
+      A slow, plugin-heavy or hacked site quietly undercuts {stakes}. For most clients I recommend moving the site to
+      Astro, a modern framework that serves fast, pre-built pages with nothing to break.
+      <p class="more"><a href="/web-design/">How I build websites</a></p>
+    </SectionIntro>
+    <CheckList items={points} />
+  </Split>
+</Section>
+
+<style>
+  .more {
+    margin: 8px 0 0;
+  }
+
+  .more a {
+    font-family: var(--font-heading);
+    font-weight: 600;
+  }
+</style>

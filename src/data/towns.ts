@@ -37,7 +37,7 @@ export const TOWNS: Town[] = [
     name: 'San Rafael',
     title: 'San Rafael Web Design & Local SEO | PartnerPress',
     description:
-      'WordPress web design and local SEO for San Rafael businesses, from downtown Fourth Street to Terra Linda. Marin-based since 2010. Call (415) 390-6563.',
+      'Web design and local SEO for San Rafael businesses, from downtown Fourth Street to Terra Linda. Marin-based since 2010. Call (415) 390-6563.',
     eyebrow: 'San Rafael, CA · Just down 101 from Novato',
     h1: 'Web design and local SEO for San Rafael businesses',
     lead: 'San Rafael is Marin’s county seat and its busiest business hub. I help the firms, shops and service companies here win the local searches that matter, with websites that turn those visits into calls.',
@@ -97,7 +97,7 @@ export const TOWNS: Town[] = [
     name: 'Novato',
     title: 'Novato Web Design & Local SEO | PartnerPress',
     description:
-      'Novato-based WordPress web design and local SEO for Novato businesses, from Old Town to Hamilton and Bel Marin Keys. Local and hands-on. Call (415) 390-6563.',
+      'Novato-based web design and local SEO for Novato businesses, from Old Town to Hamilton and Bel Marin Keys. Local and hands-on. Call (415) 390-6563.',
     eyebrow: 'Novato, CA · My home base',
     h1: 'Novato web design and local SEO from a Novato neighbor',
     hero: novatoCityHall,
@@ -158,7 +158,7 @@ export const TOWNS: Town[] = [
     name: 'Mill Valley',
     title: 'Mill Valley Web Design & Local SEO | PartnerPress',
     description:
-      'WordPress web design and local SEO for Mill Valley businesses, from downtown Throckmorton to Tam Valley and Strawberry. Marin-based since 2010. Call (415) 390-6563.',
+      'Web design and local SEO for Mill Valley businesses, from downtown Throckmorton to Tam Valley and Strawberry. Marin-based since 2010. Call (415) 390-6563.',
     eyebrow: 'Mill Valley, CA · Southern Marin',
     h1: 'Web design and local SEO for Mill Valley businesses',
     lead: 'Mill Valley customers expect a lot from the businesses they choose, and they check online first. I build websites and local search plans that help Mill Valley firms, studios and shops look as good on Google as they do in person.',

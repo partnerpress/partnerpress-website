@@ -84,7 +84,7 @@ export const SEO_PLANS: Plan[] = [
       'Weekly technical SEO',
       'Review and backlink monitoring',
       'Monthly report, quarterly meeting',
-      'WordPress Success Plan included',
+      'Site care included (WordPress or Astro)',
     ],
   },
   {
