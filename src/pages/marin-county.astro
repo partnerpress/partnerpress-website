@@ -4,7 +4,6 @@ import PageHero from '@/components/PageHero.astro';
 import Button from '@/components/Button.astro';
 import Rating from '@/components/Rating.astro';
 import mountTam from '@/assets/img/locations/marin-mount-tam.jpg';
-import CaseStudyCard from '@/components/CaseStudyCard.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import Phone from '@/components/Phone.astro';
 import ProofStrip from '@/components/local/ProofStrip.astro';
@@ -159,9 +158,7 @@ const faqs: Faq[] = [
     Most work happens over Google Meet, and I can visit your office anywhere in Marin when it helps.
   </AreaBand>
 
-  <TrustBand title="Trusted by Marin organizations" names={MARIN_CLIENTS} review={REVIEWS.krivatsy} scoreNote="Building Marin websites since 2010">
-    <CaseStudyCard label="Marin client story" result="[Marin client] · [RESULT]" text="[Two sentences on the problem and what changed.]" image={false} />
-  </TrustBand>
+  <TrustBand title="Trusted by Marin organizations" names={MARIN_CLIENTS} review={REVIEWS.krivatsy} scoreNote="Building Marin websites since 2010" />
 
   <FaqSplit title="Marin County questions" faqs={faqs} flush />
 

@@ -25,4 +25,4 @@ export const LAS_CRUCES_AREAS = [
   'El Paso, TX',
 ];
 
-export const MARIN_CLIENTS = ['Marin School of the Arts', 'Ghilotti Bros.', 'Sutter Health', '[Marin client]'];
+export const MARIN_CLIENTS = ['Marin School of the Arts', 'Ghilotti Bros.', 'Sutter Health'];

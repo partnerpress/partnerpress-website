@@ -5,9 +5,7 @@ import heroPhoto from '@/assets/img/services/web-design-wireframe.jpg';
 import Section from '@/components/Section.astro';
 import SectionIntro from '@/components/SectionIntro.astro';
 import Split from '@/components/Split.astro';
-import Grid from '@/components/Grid.astro';
 import Button from '@/components/Button.astro';
-import CaseStudyCard from '@/components/CaseStudyCard.astro';
 import ReviewQuote from '@/components/ReviewQuote.astro';
 import type { IconName } from '@/components/Icon.astro';
 import ProofStrip from '@/components/local/ProofStrip.astro';
@@ -21,7 +19,6 @@ import lasCrucesPhoto from '@/assets/img/locations/las-cruces-organ-mountains.jp
 import CtaBand from '@/components/CtaBand.astro';
 import Phone from '@/components/Phone.astro';
 import { OFFICES, SITE } from '@/config/site';
-import BrowserFrame from '@/components/mockups/BrowserFrame.astro';
 import { REVIEWS } from '@/data/reviews';
 import { WEB_DESIGN_FAQS } from '@/data/faqs';
 
@@ -63,9 +60,8 @@ const steps = [
     </Fragment>
     <Fragment slot="actions">
       <Button href="/contact/" size="lg">Start your project</Button>
-      <Button href="#work" variant="secondary" size="lg">See recent work</Button>
+      <Button href="#pricing" variant="secondary" size="lg">See pricing</Button>
     </Fragment>
-    <BrowserFrame slot="aside" />
   </PageHero>
 
   <ProofStrip
@@ -83,29 +79,20 @@ const steps = [
 
   <StepsBand title="How a project runs" steps={steps} min={170} />
 
-  <Section tone="subtle" id="work">
-    <SectionIntro title="Recent websites" />
-    <Grid min={300}>
-      <CaseStudyCard label="[Industry · Town]" result="[Client name]" />
-      <CaseStudyCard label="[Industry · Town]" result="[Client name]" />
-      <CaseStudyCard label="[Industry · Town]" result="[Client name]" />
-    </Grid>
-  </Section>
-
   <TrustBand eyebrow="Reviews" title="What clients say about working with me" review={REVIEWS.perryRebrand}>
     <ReviewQuote review={REVIEWS.wombacher} variant="tint" />
   </TrustBand>
 
-  <Section tone="subtle">
+  <Section tone="subtle" id="pricing">
     <Split align="center">
       <SectionIntro slot="side" eyebrow="Pricing" title="A fixed quote before any work starts">
         Every project is quoted after the discovery call, so you know the full cost up front. No hourly surprises.
       </SectionIntro>
       <div class="price-card">
         <span class="price-card__label">Websites</span>
-        <span class="price-card__amount"><span>From </span>[PRICE]</span>
+        <span class="price-card__amount">Fixed quote</span>
         <ul>
-          <li>Typical timeline: [X to Y] weeks</li>
+          <li>Scope, price and timeline agreed in writing</li>
           <li>You own the site, the domain and all content</li>
           <li>Hosting set up in your name on Cloudflare</li>
         </ul>

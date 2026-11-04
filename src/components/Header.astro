@@ -2,7 +2,7 @@
 import logo from '@/assets/img/logo-color.svg';
 import Icon from './Icon.astro';
 import Button from './Button.astro';
-import { OFFICES, SERVICE_NAV, SECONDARY_NAV, type NavKey } from '@/config/site';
+import { OFFICES, SERVICE_NAV, SECONDARY_NAV, LOCATION_NAV, type NavKey } from '@/config/site';
 
 interface Props {
   current?: NavKey;
@@ -42,12 +42,10 @@ const aria = (key: NavKey) => (key === current ? 'page' : undefined);
         </summary>
         <div class="dropdown__panel">
           {
-            offices.map((o) => (
-              <a href={o.page}>
-                <strong>{o.name}</strong>
-                <span>
-                  {o.city} · {o.phone}
-                </span>
+            LOCATION_NAV.map((l) => (
+              <a href={l.href}>
+                <strong>{l.label}</strong>
+                <span>{l.note}</span>
               </a>
             ))
           }
@@ -69,9 +67,17 @@ const aria = (key: NavKey) => (key === current ? 'page' : undefined);
     {SERVICE_NAV.map((item) => <a href={item.href} aria-current={aria(item.key)}>{item.mobileLabel ?? item.label}</a>)}
     <span class="mobile-nav__label">Locations</span>
     {
+      LOCATION_NAV.map((l) => (
+        <a href={l.href}>
+          {l.label}
+        </a>
+      ))
+    }
+    <span class="mobile-nav__label">Call</span>
+    {
       offices.map((o) => (
-        <a href={o.page}>
-          {o.short === 'Marin' ? 'Marin County' : o.short} <span>{o.phone}</span>
+        <a href={`tel:${o.tel}`}>
+          {o.short} <span>{o.phone}</span>
         </a>
       ))
     }
@@ -353,6 +359,13 @@ const aria = (key: NavKey) => (key === current ? 'page' : undefined);
     }
 
     .topbar__since {
+      display: none;
+    }
+  }
+
+  /* Phones get the fixed call bar instead, so the top bar would only push the page down */
+  @media (max-width: 720px) {
+    .topbar {
       display: none;
     }
   }

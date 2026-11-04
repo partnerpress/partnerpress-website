@@ -545,10 +545,14 @@ const fit: Faq[] = [
       padding-top: 16px;
     }
 
+    /* Crop to head and shoulders so the headline and button reach the first screen */
     .hero :global(.hero__photo) {
       order: -1;
       width: 100%;
       max-width: none;
+      aspect-ratio: 16 / 11;
+      object-fit: cover;
+      object-position: 50% 0;
     }
 
     .hero__copy {
