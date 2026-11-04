@@ -1,0 +1,14 @@
+---
+// Termageddon cookie consent banner (Usercentrics). It must load before any other
+// script that sets cookies (Analytics), so it sits near the top of <head>.
+// uc-block.bundle.js loads without async on purpose: it blocks cookie-setting
+// scripts until the visitor consents.
+---
+
+<link rel="preconnect" href="//privacy-proxy.usercentrics.eu" />
+<link rel="preload" href="//privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js" as="script" />
+<script is:inline type="application/javascript" src="https://privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js"></script>
+<script is:inline id="usercentrics-cmp" src="https://app.usercentrics.eu/browser-ui/latest/loader.js" data-settings-id="km36odzfP65HHt" async></script>
+<script is:inline>
+  uc.setCustomTranslations('https://termageddon.ams3.cdn.digitaloceanspaces.com/translations/');
+</script>

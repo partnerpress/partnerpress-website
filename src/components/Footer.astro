@@ -46,6 +46,7 @@ const offices = Object.values(OFFICES);
       <span>© {year} {SITE.legalName}. All rights reserved.</span>
       <nav class="footer__legal" aria-label="Legal">
         {LEGAL_NAV.map((item) => <a href={item.href}>{item.label}</a>)}
+        <a href="javascript:UC_UI.showSecondLayer();" id="usercentrics-psl">Privacy Settings</a>
       </nav>
     </div>
   </div>
