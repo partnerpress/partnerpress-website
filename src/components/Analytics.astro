@@ -1,23 +1,43 @@
 ---
-// Google Analytics 4, loaded only when PUBLIC_GA4_ID is set. Also records
-// phone and email link clicks as GA4 events (phone_call_click, email_click).
+// Google Analytics 4, loaded only when PUBLIC_GA4_ID is set, and only after the
+// visitor accepts Google Analytics in the Usercentrics banner (gtag.js is not even
+// downloaded before that). Consent Mode defaults come from CookieConsent.astro.
+// Also records phone and email link clicks as GA4 events (phone_call_click, email_click).
 import { GA4_ID } from '@/config/site';
 ---
 
 {
   GA4_ID && (
-    <>
-      <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`} />
-      <script is:inline define:vars={{ id: GA4_ID }}>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {
-          dataLayer.push(arguments);
+    <script is:inline define:vars={{ id: GA4_ID }}>
+      (function () {
+        var loaded = false;
+        function hasConsent() {
+          var ui = window.UC_UI;
+          if (!ui || typeof ui.getServicesBaseInfo !== 'function') return false;
+          var services = ui.getServicesBaseInfo() || [];
+          return services.some(function (s) {
+            return s.name === 'Google Analytics' && s.consent && s.consent.status;
+          });
         }
-        window.gtag = gtag;
-        gtag('js', new Date());
-        gtag('config', id);
-      </script>
-    </>
+        function maybeLoad() {
+          if (loaded || !hasConsent()) return;
+          loaded = true;
+          window.gtag('consent', 'update', { analytics_storage: 'granted' });
+          window.gtag('js', new Date());
+          window.gtag('config', id);
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
+          document.head.appendChild(s);
+        }
+        window.addEventListener('UC_UI_INITIALIZED', maybeLoad);
+        window.addEventListener('UC_CONSENT', maybeLoad);
+        window.addEventListener('UC_UI_CMP_EVENT', function () {
+          setTimeout(maybeLoad, 0);
+        });
+        maybeLoad();
+      })();
+    </script>
   )
 }
 

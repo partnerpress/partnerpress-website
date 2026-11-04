@@ -1,14 +1,39 @@
 ---
-// Termageddon cookie consent banner (Usercentrics). It must load before any other
-// script that sets cookies (Analytics), so it sits near the top of <head>.
-// uc-block.bundle.js loads without async on purpose: it blocks cookie-setting
-// scripts until the visitor consents.
+// Termageddon cookie consent banner (Usercentrics), set up for speed.
+// 1. Google Consent Mode v2 defaults to "denied" before any other script runs.
+// 2. The Usercentrics loader is injected after the page has loaded, so the banner
+//    never delays the first paint or the hero image.
+// Usercentrics has Google Consent Mode turned on, so it sends the consent update.
+// Analytics.astro only downloads gtag.js after the visitor accepts Google Analytics.
+// The old uc-block.bundle.js (render blocking) is no longer used: GA4 is the only
+// cookie-setting script on the site and it is gated by Analytics.astro instead.
 ---
 
-<link rel="preconnect" href="//privacy-proxy.usercentrics.eu" />
-<link rel="preload" href="//privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js" as="script" />
-<script is:inline type="application/javascript" src="https://privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js"></script>
-<script is:inline id="usercentrics-cmp" src="https://app.usercentrics.eu/browser-ui/latest/loader.js" data-settings-id="km36odzfP65HHt" async></script>
+<link rel="preconnect" href="https://app.usercentrics.eu" />
 <script is:inline>
-  uc.setCustomTranslations('https://termageddon.ams3.cdn.digitaloceanspaces.com/translations/');
+  window.dataLayer = window.dataLayer || [];
+  window.gtag =
+    window.gtag ||
+    function gtag() {
+      window.dataLayer.push(arguments);
+    };
+  window.gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    wait_for_update: 500,
+  });
+  (function () {
+    function loadCmp() {
+      var s = document.createElement('script');
+      s.id = 'usercentrics-cmp';
+      s.src = 'https://app.usercentrics.eu/browser-ui/latest/loader.js';
+      s.setAttribute('data-settings-id', 'km36odzfP65HHt');
+      s.async = true;
+      document.head.appendChild(s);
+    }
+    if (document.readyState === 'complete') loadCmp();
+    else window.addEventListener('load', loadCmp, { once: true });
+  })();
 </script>
