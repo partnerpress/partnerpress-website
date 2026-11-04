@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
+import heroPhoto from '@/assets/img/services/care-hands-keyboard.jpg';
 import Section from '@/components/Section.astro';
 import Grid from '@/components/Grid.astro';
 import Feature from '@/components/Feature.astro';
@@ -16,7 +17,7 @@ import { CARE_FAQS } from '@/data/faqs';
   description="Weekly updates, daily security scans, backups, uptime monitoring and unlimited quick fixes. Month-to-month WordPress care plans from $249."
   nav="care"
 >
-  <PageHero eyebrow="WordPress care plans" title="Your WordPress site, handled. Every week." centered>
+  <PageHero eyebrow="WordPress care plans" title="Your WordPress site, handled. Every week." bg={heroPhoto} centered>
     <Fragment slot="lead">
       Updates, security, backups, monitoring and unlimited small fixes from a WordPress specialist who has been doing this
       since 2010. Month to month. Cancel any time.
