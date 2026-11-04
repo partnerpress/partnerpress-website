@@ -232,7 +232,7 @@ const CSS = `
 body{margin:0;font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);background:var(--surface)}
 a{color:var(--blue)}
 .wrap{max-width:1200px;margin:0 auto;padding:0 16px}
-.top{background:var(--white);border-bottom:3px solid var(--orange)}
+.top{background:var(--white);border-bottom:3px solid var(--blue)}
 .top-inner{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-top:12px;padding-bottom:12px}
 .brand{color:var(--ink);font-size:17px}.brand span{color:var(--muted);font-weight:500}
 .who{color:var(--muted);font-size:13px}
@@ -244,7 +244,7 @@ h1{margin:0;font-size:26px;color:var(--ink)}
 .search input{flex:1;min-width:0;padding:9px 12px;border:1px solid #c7ccd6;border-radius:8px;font:inherit;background:var(--white)}
 button,.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;font:inherit;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap}
 button{background:var(--ink);color:var(--white)}
-.btn{background:var(--orange);color:var(--ink)}
+.btn{background:var(--blue);color:var(--white)}
 .clear{font-size:14px}
 .table-wrap{background:var(--white);border:1px solid var(--line);border-radius:10px;overflow:hidden}
 table{width:100%;border-collapse:collapse}
