@@ -16,6 +16,8 @@ const blog = defineCollection({
       heroImage: image().optional(),
       /** Drafts build in local dev only and never appear on the live site. */
       draft: z.boolean().default(false),
+      /** Keeps the post out of search results and the sitemap (meta robots noindex). */
+      noindex: z.boolean().default(false),
     }),
 });
 

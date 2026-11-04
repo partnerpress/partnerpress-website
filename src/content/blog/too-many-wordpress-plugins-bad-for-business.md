@@ -1,4 +1,5 @@
 ---
+noindex: true
 heroImage: './images/too-many-wordpress-plugins-bad-for-business/featured.png'
 title: 'Why Too Many WordPress Plugins Can Be Bad for Your Business'
 description: 'Discover how too many WordPress plugins can slow your site and impact your business. Keep it efficient for better results.'

@@ -1,4 +1,5 @@
 ---
+noindex: true
 heroImage: './images/wordpress-management-strategies-for-marketers/featured.png'
 title: '6 Savvy WordPress Management Strategies for Busy Marketers'
 description: 'Discover efficient management strategies to boost your marketing efforts and streamline WordPress for your business.'

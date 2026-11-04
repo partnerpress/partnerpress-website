@@ -1,4 +1,5 @@
 ---
+noindex: true
 heroImage: './images/9-actionable-marketing-tips-for-local-businesses/featured.png'
 title: '9 Actionable Marketing Tips For Local Businesses'
 description: 'Check out my 9 actionable tips for marketing local businesses. Learn strategies to elevate your online presence and attract more customers.'

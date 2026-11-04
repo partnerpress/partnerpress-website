@@ -1,4 +1,5 @@
 ---
+noindex: true
 heroImage: './images/8-reasons-sliders-are-killing-your-conversion-rate/featured.png'
 title: '8 Reasons Sliders Are Killing Your Conversion Rate'
 description: 'Ever landed on a website and been hit with the digital equivalent of a Vegas marquee? Of course, you have!'

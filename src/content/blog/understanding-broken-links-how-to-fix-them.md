@@ -1,4 +1,5 @@
 ---
+noindex: true
 heroImage: './images/understanding-broken-links-how-to-fix-them/featured.png'
 title: 'Understanding Broken Links & How to Fix Them'
 description: 'Broken links point to pages that moved or no longer exist. Here''s why they hurt your site and SEO, and how to find and fix them.'

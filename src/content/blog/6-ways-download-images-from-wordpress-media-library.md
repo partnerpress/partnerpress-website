@@ -1,4 +1,5 @@
 ---
+noindex: true
 heroImage: './images/6-ways-download-images-from-wordpress-media-library/featured.png'
 title: '6 Ways to Download Images From The WordPress Media Library'
 description: 'Six ways to download images from the WordPress Media Library, from a quick right-click to plugins, FTP and bulk export tools.'
