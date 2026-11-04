@@ -1,4 +1,5 @@
 ---
+noindex: true
 heroImage: './images/why-your-wordpress-emails-are-flagged-as-spam-how-to-fix-it/featured.png'
 title: 'Why Your WordPress Emails Are Flagged as Spam & How to Fix It'
 description: 'Discover why your WordPress emails are flagged as spam and learn effective fixes to ensure they reach your customers'' inboxes.'

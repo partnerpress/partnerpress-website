@@ -1,11 +1,18 @@
 // @ts-check
 import { readFile, writeFile } from 'node:fs/promises';
+import { readdirSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import { isIndexable } from './src/lib/indexing.mjs';
 
 const indexable = isIndexable();
+
+// Blog posts marked `noindex: true` in their frontmatter stay out of the sitemap.
+const noindexPosts = readdirSync(new URL('./src/content/blog/', import.meta.url))
+  .filter((f) => f.endsWith('.md'))
+  .filter((f) => /^noindex:\s*true\s*$/m.test(readFileSync(new URL(`./src/content/blog/${f}`, import.meta.url), 'utf8')))
+  .map((f) => `/blog/${f.replace(/\.md$/, '')}/`);
 
 /**
  * Keeps non-live builds out of search results. Pages also get a robots meta tag
@@ -42,7 +49,8 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/thank-you/') && !page.includes('/404'),
+      filter: (page) =>
+        !page.includes('/thank-you/') && !page.includes('/404') && !noindexPosts.some((p) => page.endsWith(p)),
     }),
     searchVisibility(),
   ],

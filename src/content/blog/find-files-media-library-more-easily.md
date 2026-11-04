@@ -1,4 +1,5 @@
 ---
+noindex: true
 heroImage: './images/find-files-media-library-more-easily/featured.png'
 title: 'How to Find Files in Your Media Library More Easily'
 description: 'Default file names make a big WordPress Media Library hard to search. Here''s how to name and organize files so you can find them fast.'

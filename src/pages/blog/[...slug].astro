@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props as { post: Post };
 const { Content } = await render(post);
-const { title, description, pubDate, updatedDate, author, heroImage } = post.data;
+const { title, description, pubDate, updatedDate, author, heroImage, noindex } = post.data;
 // Google shows about 60 characters, so only add the brand when it fits.
 const pageTitle = title.length + ' | PartnerPress'.length <= 60 ? `${title} | PartnerPress` : title;
 const heroUrl = heroImage
@@ -40,7 +40,7 @@ const schema = JSON.stringify({
 });
 ---
 
-<BaseLayout title={pageTitle} description={description} nav="blog" ogType="article" image={heroImage}>
+<BaseLayout title={pageTitle} description={description} nav="blog" ogType="article" image={heroImage} noindex={noindex}>
   <script slot="head" type="application/ld+json" set:html={schema} />
 
   <Section width="narrow">
