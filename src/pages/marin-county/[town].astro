@@ -72,7 +72,7 @@ const others = TOWNS.filter((t) => t.slug !== town.slug);
     region="CA"
   />
 
-  <PageHero eyebrow={town.eyebrow} title={town.h1} bg={town.hero}>
+  <PageHero eyebrow={town.eyebrow} title={town.h1} bg={town.hero} bgPosition={town.heroPosition}>
     <Fragment slot="lead">{town.lead}</Fragment>
     <Fragment slot="actions">
       <Button href="/contact/" size="lg">Book a free call</Button>

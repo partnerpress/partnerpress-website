@@ -3,6 +3,7 @@
 import type { ImageMetadata } from 'astro';
 import type { Faq } from '@/data/faqs';
 import missionSanRafael from '@/assets/img/locations/marin-mission-san-rafael.jpg';
+import novatoCityHall from '@/assets/img/locations/novato-old-city-hall.jpg';
 
 export interface Town {
   slug: string;
@@ -13,6 +14,7 @@ export interface Town {
   h1: string;
   lead: string;
   hero?: ImageMetadata;
+  heroPosition?: string;
   /** Short paragraphs about doing business in this town. */
   intro: { title: string; text: string }[];
   neighborhoods: string[];
@@ -84,6 +86,8 @@ export const TOWNS: Town[] = [
       'Novato-based WordPress web design and local SEO for Novato businesses, from Old Town to Hamilton and Bel Marin Keys. In-person meetings. Call (415) 390-6563.',
     eyebrow: 'Novato, CA · My home base',
     h1: 'Novato web design and local SEO from a Novato neighbor',
+    hero: novatoCityHall,
+    heroPosition: '75% 72%',
     lead: 'PartnerPress is based in Novato. I help local businesses here get found on Google and turn those searches into calls, and we can meet in person whenever you like.',
     intro: [
       {

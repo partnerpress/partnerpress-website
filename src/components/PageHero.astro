@@ -13,9 +13,11 @@ interface Props {
   centered?: boolean;
   /** Grayscale background photo, shown behind a white wash. */
   bg?: ImageMetadata;
+  /** CSS object-position for the background photo, to keep its subject in view. */
+  bgPosition?: string;
 }
 
-const { eyebrow, title, tone = 'tint', size = 'lg', centered = false, bg } = Astro.props;
+const { eyebrow, title, tone = 'tint', size = 'lg', centered = false, bg, bgPosition } = Astro.props;
 const hasAside = Astro.slots.has('aside');
 ---
 
@@ -31,6 +33,7 @@ const hasAside = Astro.slots.has('aside');
         quality={45}
         loading="eager"
         fetchpriority="high"
+        style={bgPosition ? `object-position: ${bgPosition}` : undefined}
       />
     )
   }
