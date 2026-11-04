@@ -51,7 +51,7 @@ const hasAside = Astro.slots.has('aside');
 
 <style>
   .hero {
-    padding-block: clamp(56px, 7vw, 96px);
+    padding-block: var(--hero-pad-top) clamp(56px, 7vw, 96px);
   }
 
   .hero--tint {
@@ -63,7 +63,7 @@ const hasAside = Astro.slots.has('aside');
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    padding-block: clamp(72px, 9vw, 128px);
+    padding-block: var(--hero-pad-top) clamp(72px, 9vw, 128px);
   }
 
   .hero--photo :global(.hero__bg) {

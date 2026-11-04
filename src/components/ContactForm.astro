@@ -63,7 +63,7 @@ const areas = ['Marin County, CA', 'Las Cruces, NM', 'Somewhere else'];
     <textarea id="f-message" name="message" rows="4" placeholder="Goals, deadlines, what isn't working today"></textarea>
   </div>
 
-  {TURNSTILE_SITE_KEY && <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY}></div>}
+  {TURNSTILE_SITE_KEY && <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-size="flexible"></div>}
 
   <p class="form__error" role="alert" hidden data-form-error>
     Sorry, that didn't send. Please try again, or call <a href={`tel:${OFFICES.marin.tel}`}>{OFFICES.marin.phone}</a>.
