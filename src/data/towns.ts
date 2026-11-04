@@ -19,6 +19,12 @@ export interface Town {
   /** Short paragraphs about doing business in this town. */
   intro: { title: string; text: string }[];
   neighborhoods: string[];
+  /** Optional grouping of the neighborhoods by part of town, shown as labelled chip rows. */
+  neighborhoodGroups?: { label: string; areas: string[] }[];
+  /** How far the town is from the Novato office, for the proof strip under the hero. */
+  proximity: { value: string; label: string };
+  /** One icon per intro card, in order. */
+  introIcons: ('briefcase' | 'pin' | 'map' | 'store' | 'home' | 'trending')[];
   neighborhoodsNote: string;
   faqs: Faq[];
   /** Short teaser used on the Marin County hub. */
@@ -62,6 +68,13 @@ export const TOWNS: Town[] = [
       'Bret Harte',
       'Canal',
     ],
+    neighborhoodGroups: [
+      { label: 'North of the city', areas: ['Terra Linda', 'Lucas Valley', 'Marinwood'] },
+      { label: 'Central and east', areas: ['Downtown and Fourth Street', 'Dominican', 'Glenwood', 'Peacock Gap', 'Canal'] },
+      { label: 'South of downtown', areas: ['Gerstle Park', 'Bret Harte'] },
+    ],
+    proximity: { value: '15 minutes', label: 'Up 101 in Novato' },
+    introIcons: ['briefcase', 'pin', 'map'],
     neighborhoodsNote: 'We start on Google Meet, and I can visit your office later if that helps.',
     faqs: [
       {
@@ -115,6 +128,14 @@ export const TOWNS: Town[] = [
       'Pacheco Valley',
       'Rowland',
     ],
+    neighborhoodGroups: [
+      { label: 'Central Novato', areas: ['Old Town', 'Rowland'] },
+      { label: 'West', areas: ['San Marin', 'Indian Valley'] },
+      { label: 'East and the bay', areas: ['Bel Marin Keys', 'Black Point'] },
+      { label: 'South', areas: ['Hamilton', 'Ignacio', 'Pacheco Valley'] },
+    ],
+    proximity: { value: 'Based here', label: 'My office is in Novato' },
+    introIcons: ['map', 'store', 'trending'],
     neighborhoodsNote: 'We start on Google Meet, and I can visit your business later if that helps.',
     faqs: [
       {
@@ -169,6 +190,13 @@ export const TOWNS: Town[] = [
       'Sycamore Park',
       'Scott Valley',
     ],
+    neighborhoodGroups: [
+      { label: 'Downtown and the canyons', areas: ['Downtown and Lytton Square', 'Blithedale Canyon', 'Cascade'] },
+      { label: 'Along Shoreline Highway', areas: ['Tam Valley', 'Homestead Valley', 'Almonte'] },
+      { label: 'Near 101', areas: ['Strawberry', 'Alto', 'Sycamore Park', 'Scott Valley'] },
+    ],
+    proximity: { value: '20 minutes', label: 'South from Novato' },
+    introIcons: ['store', 'pin', 'home'],
     neighborhoodsNote: 'We start on Google Meet, and I can visit your office later if that helps.',
     faqs: [
       {
