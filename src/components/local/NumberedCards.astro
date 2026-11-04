@@ -1,5 +1,5 @@
 ---
-// Section of three numbered cards with icons and an orange top rule.
+// Section of icon cards with an orange top rule, numbered by default.
 import Icon, { type IconName } from '@/components/Icon.astro';
 
 interface Props {
@@ -8,12 +8,15 @@ interface Props {
   lead?: string;
   items: { icon: IconName; title: string; text: string }[];
   tone?: 'white' | 'subtle';
+  numbered?: boolean;
+  columns?: 2 | 3 | 4;
+  id?: string;
 }
 
-const { eyebrow, title, lead, items, tone = 'white' } = Astro.props;
+const { eyebrow, title, lead, items, tone = 'white', numbered = true, columns = 3, id } = Astro.props;
 ---
 
-<section class:list={['lp-band', tone === 'subtle' && 'lp-band--subtle']}>
+<section id={id} class:list={['lp-band', tone === 'subtle' && 'lp-band--subtle']}>
   <div class="container">
     <div class:list={['head', lead && 'head--split']}>
       <div class="head__titles">
@@ -22,7 +25,7 @@ const { eyebrow, title, lead, items, tone = 'white' } = Astro.props;
       </div>
       {lead && <p class="head__lead">{lead}</p>}
     </div>
-    <div class="cards">
+    <div class:list={['cards', `cards--${columns}`]}>
       {
         items.map((f, i) => (
           <article class="lp-card card">
@@ -30,9 +33,11 @@ const { eyebrow, title, lead, items, tone = 'white' } = Astro.props;
               <span class="lp-ic">
                 <Icon name={f.icon} />
               </span>
-              <span class="card__num" aria-hidden="true">
-                {String(i + 1).padStart(2, '0')}
-              </span>
+              {numbered && (
+                <span class="card__num" aria-hidden="true">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+              )}
             </div>
             <h3>{f.title}</h3>
             <p>{f.text}</p>
@@ -77,6 +82,18 @@ const { eyebrow, title, lead, items, tone = 'white' } = Astro.props;
     gap: 24px;
   }
 
+  .cards--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cards--4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .cards--4 .card {
+    padding: 28px;
+  }
+
   .card {
     padding: 32px;
     display: flex;
@@ -106,6 +123,12 @@ const { eyebrow, title, lead, items, tone = 'white' } = Astro.props;
 
   .card p {
     font-size: 15px;
+  }
+
+  @media (max-width: 1100px) {
+    .cards--4 {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   @media (max-width: 960px) {

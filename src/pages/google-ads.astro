@@ -5,12 +5,12 @@ import heroPhoto from '@/assets/img/services/google-ads-phone-search.jpg';
 import Section from '@/components/Section.astro';
 import SectionIntro from '@/components/SectionIntro.astro';
 import Split from '@/components/Split.astro';
-import Grid from '@/components/Grid.astro';
 import Button from '@/components/Button.astro';
-import Feature from '@/components/Feature.astro';
 import CheckList from '@/components/CheckList.astro';
-import Steps from '@/components/Steps.astro';
-import FaqList from '@/components/FaqList.astro';
+import ProofStrip from '@/components/local/ProofStrip.astro';
+import NumberedCards from '@/components/local/NumberedCards.astro';
+import StepsBand from '@/components/local/StepsBand.astro';
+import FaqSplit from '@/components/local/FaqSplit.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import Phone from '@/components/Phone.astro';
 import AdMock from '@/components/mockups/AdMock.astro';
@@ -56,25 +56,40 @@ const steps = [
     <AdMock slot="aside" />
   </PageHero>
 
-  <Section>
-    <Split>
-      <SectionIntro slot="side" eyebrow="Why Google Ads" title="Calls this month, not next year">
-        SEO builds over months. Ads put you in front of people searching right now, and the data shows which keywords are
-        worth ranking for.
-      </SectionIntro>
-      <Grid min={230} gap="32px">
-        <Feature title="Only local searchers">Ads show only inside your service area, at the hours you can answer the phone.</Feature>
-        <Feature title="Pay for clicks, not views">You pay Google only when someone clicks or calls, and you set the budget.</Feature>
-        <Feature title="Every call tracked">Call and form tracking show exactly which keywords and ads bring in customers.</Feature>
-        <Feature title="Wasted spend blocked">Negative keywords and click fraud protection keep your budget on real customers.</Feature>
-      </Grid>
-    </Split>
-  </Section>
+  <ProofStrip
+    items={[
+      { icon: 'award', value: 'Google Partner', label: 'Certified ads management' },
+      { icon: 'dollar', value: 'One flat fee', label: 'No percentage of spend' },
+      { icon: 'key', value: 'You own it', label: 'Your account and data' },
+      { icon: 'unlock', value: 'No contract', label: 'Month to month' },
+    ]}
+  />
 
-  <Section tone="subtle">
-    <SectionIntro eyebrow="What's included" title="Everything from setup to the monthly report" />
-    <CheckList items={included} columns />
-  </Section>
+  <NumberedCards
+    eyebrow="Why Google Ads"
+    title="Calls this month, not next year"
+    lead="SEO builds over months. Ads put you in front of people searching right now, and the data shows which keywords are worth ranking for."
+    numbered={false}
+    columns={4}
+    items={[
+      { icon: 'pin', title: 'Only local searchers', text: 'Ads show only inside your service area, at the hours you can answer the phone.' },
+      { icon: 'dollar', title: 'Pay for clicks, not views', text: 'You pay Google only when someone clicks or calls, and you set the budget.' },
+      { icon: 'phone', title: 'Every call tracked', text: 'Call and form tracking show exactly which keywords and ads bring in customers.' },
+      { icon: 'filter', title: 'Wasted spend blocked', text: 'Negative keywords and click fraud protection keep your budget on real customers.' },
+    ]}
+  />
+
+  <section class="lp-band lp-band--subtle">
+    <div class="container">
+      <div class="lp-head">
+        <span class="eyebrow">What's included</span>
+        <h2 class="title-md">Everything from setup to the monthly report</h2>
+      </div>
+      <div class="lp-card included">
+        <CheckList items={included} columns />
+      </div>
+    </div>
+  </section>
 
   <Section>
     <Split align="center">
@@ -113,14 +128,9 @@ const steps = [
     </div>
   </Section>
 
-  <Section>
-    <SectionIntro title="From first call to first lead" />
-    <Steps steps={steps} />
-  </Section>
+  <StepsBand title="From first call to first lead" steps={steps} />
 
-  <Section tone="subtle" width="narrow">
-    <FaqList faqs={ADS_FAQS} />
-  </Section>
+  <FaqSplit title="Google Ads questions" faqs={ADS_FAQS} flush />
 
   <CtaBand title="See what your clicks would cost" button="Get a free ads review">
     Free 30-minute call. Marin <Phone office="marin" /> · Las Cruces <Phone office="nm" />
@@ -131,6 +141,16 @@ const steps = [
   .hero-note {
     font-size: 16px;
     color: var(--muted);
+  }
+
+  .included {
+    padding: 40px;
+  }
+
+  @media (max-width: 520px) {
+    .included {
+      padding: 28px;
+    }
   }
 
   .price-card {
