@@ -1,0 +1,135 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import SectionIntro from '@/components/SectionIntro.astro';
+import Grid from '@/components/Grid.astro';
+import Button from '@/components/Button.astro';
+import Rating from '@/components/Rating.astro';
+import Feature from '@/components/Feature.astro';
+import AreaList from '@/components/AreaList.astro';
+import ReviewQuote from '@/components/ReviewQuote.astro';
+import FaqList from '@/components/FaqList.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import Phone from '@/components/Phone.astro';
+import ServiceSchema from '@/components/ServiceSchema.astro';
+import { TOWNS, type Town } from '@/data/towns';
+import { REVIEWS } from '@/data/reviews';
+
+export function getStaticPaths() {
+  return TOWNS.map((town) => ({ params: { town: town.slug }, props: { town } }));
+}
+
+interface Props {
+  town: Town;
+}
+
+const { town } = Astro.props;
+const path = `/marin-county/${town.slug}/`;
+const review = town.slug === 'novato' ? REVIEWS.maxson : REVIEWS.perry;
+
+const services = [
+  {
+    title: `Web design in ${town.name}`,
+    href: '/marin-county/web-design/',
+    text: 'Fast, accessible WordPress sites built to turn local visitors into calls, with a fixed quote up front.',
+  },
+  {
+    title: `Local SEO in ${town.name}`,
+    href: '/marin-county/seo/',
+    text: `Google Business Profile, reviews and pages that help you show up when people in ${town.name} search.`,
+  },
+  {
+    title: 'WordPress care plans',
+    href: '/wordpress-care-plans/',
+    text: 'Weekly updates, daily security scans and unlimited quick fixes. From $249 a month.',
+  },
+  {
+    title: 'Google Ads',
+    href: '/google-ads/',
+    text: `Ads targeted to ${town.name} and nearby towns while your organic rankings build.`,
+  },
+];
+const others = TOWNS.filter((t) => t.slug !== town.slug);
+---
+
+<BaseLayout
+  title={town.title}
+  description={town.description}
+  nav="locations"
+  office="marin"
+  schema={['marin']}
+  image={town.hero}
+>
+  <ServiceSchema
+    slot="head"
+    office="marin"
+    name={`Web design and local SEO in ${town.name}`}
+    serviceType="Website design and local search engine optimization"
+    description={town.description}
+    path={path}
+    areas={[town.name]}
+    region="CA"
+  />
+
+  <PageHero eyebrow={town.eyebrow} title={town.h1} bg={town.hero}>
+    <Fragment slot="lead">{town.lead}</Fragment>
+    <Fragment slot="actions">
+      <Button href="/contact/" size="lg">Book a free call</Button>
+      <span class="call">or call <Phone office="marin" strong /></span>
+    </Fragment>
+    <Rating slot="meta" />
+  </PageHero>
+
+  <Section>
+    <SectionIntro eyebrow={`Doing business in ${town.name}`} title={`What ${town.name} businesses need online`} />
+    <Grid min={280} gap="32px 28px">
+      {town.intro.map((f) => <Feature title={f.title}>{f.text}</Feature>)}
+    </Grid>
+  </Section>
+
+  <Section tone="subtle" compact>
+    <AreaList title={`${town.name} neighborhoods I serve`} areas={town.neighborhoods}>{town.neighborhoodsNote}</AreaList>
+  </Section>
+
+  <Section>
+    <SectionIntro title={`How I help ${town.name} businesses`} />
+    <Grid min={250} gap="20px">
+      {services.map((s) => <Feature title={s.title} href={s.href} boxed>{s.text}</Feature>)}
+    </Grid>
+  </Section>
+
+  <Section tone="subtle" compact>
+    <Grid min={280}>
+      <Feature title="Everything I do in Marin County" href="/marin-county/" boxed>
+        Web design, care plans, local SEO and Google Ads for businesses from Novato to Sausalito.
+      </Feature>
+      {
+        others.map((t) => (
+          <Feature title={`Web design and SEO in ${t.name}`} href={`/marin-county/${t.slug}/`} boxed>
+            {t.teaser}
+          </Feature>
+        ))
+      }
+    </Grid>
+  </Section>
+
+  <Section tone="tint" compact>
+    <ReviewQuote review={review} variant="feature" />
+  </Section>
+
+  <Section width="narrow">
+    <FaqList faqs={town.faqs} title={`${town.name} questions`} />
+  </Section>
+
+  <CtaBand title={`Let’s talk about your ${town.name} business`}>
+    Prefer to talk first? Call <Phone office="marin" />.
+  </CtaBand>
+</BaseLayout>
+
+<style>
+  .call {
+    font-size: 18px;
+    color: var(--text-strong);
+  }
+</style>

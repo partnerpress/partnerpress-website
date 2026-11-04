@@ -24,10 +24,10 @@
 /services/marin-web-design/                      /marin-county/web-design/    301
 /services/marin-wordpress                        /marin-county/               301
 /services/marin-wordpress/                       /marin-county/               301
-/services/novato-wordpress                       /marin-county/               301
-/services/novato-wordpress/                      /marin-county/               301
-/services/san-rafael-wordpress-agency            /marin-county/               301
-/services/san-rafael-wordpress-agency/           /marin-county/               301
+/services/novato-wordpress                       /marin-county/novato/        301
+/services/novato-wordpress/                      /marin-county/novato/        301
+/services/san-rafael-wordpress-agency            /marin-county/san-rafael/    301
+/services/san-rafael-wordpress-agency/           /marin-county/san-rafael/    301
 /services/mill-valley-wordpress-agency           /marin-county/               301
 /services/mill-valley-wordpress-agency/          /marin-county/               301
 /services/sausalito-wordpress-agency             /marin-county/               301

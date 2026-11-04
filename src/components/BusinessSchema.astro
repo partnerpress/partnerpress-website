@@ -2,6 +2,12 @@
 // LocalBusiness structured data for one or both offices, each tied to the
 // nationwide PartnerPress organization. The home page also outputs the organization itself.
 import { SITE, OFFICES, type OfficeKey } from '@/config/site';
+import { MARIN_TOWNS, LAS_CRUCES_AREAS } from '@/data/locations';
+
+const TOWNS: Record<OfficeKey, { list: string[]; region: string }> = {
+  marin: { list: MARIN_TOWNS, region: 'CA' },
+  nm: { list: LAS_CRUCES_AREAS, region: 'NM' },
+};
 
 interface Props {
   offices: OfficeKey[];
@@ -40,7 +46,14 @@ const graph: object[] = offices.map((key) => {
       postalCode: o.postalCode,
       addressCountry: 'US',
     },
-    areaServed: o.areaServed,
+    areaServed: [
+      { '@type': 'AdministrativeArea', name: o.areaServed },
+      ...TOWNS[key].list.map((t) => ({ '@type': 'City', name: t.includes(',') ? t : `${t}, ${TOWNS[key].region}` })),
+    ],
+    ...(o.geo && { geo: { '@type': 'GeoCoordinates', latitude: o.geo.lat, longitude: o.geo.lng } }),
+    ...(o.mapUrl && { hasMap: o.mapUrl }),
+    image: `${SITE.url}/assets/img/logo-color.svg`,
+    priceRange: '$$',
     description: SITE.tagline,
     founder: { '@type': 'Person', name: SITE.owner },
     foundingDate: String(SITE.founded),

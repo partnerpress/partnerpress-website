@@ -27,6 +27,10 @@ export interface Office {
   tel: string;
   page: string;
   areaServed: string;
+  /** Map pin from the Google Business Profile, for LocalBusiness schema. */
+  geo?: { lat: number; lng: number };
+  /** Google Maps link to the Business Profile. */
+  mapUrl?: string;
   /** Local service pages listed under this office in the footer. */
   links?: { label: string; href: string }[];
 }
@@ -44,6 +48,8 @@ export const OFFICES: Record<OfficeKey, Office> = {
     tel: '+14153906563',
     page: '/marin-county/',
     areaServed: 'Marin County, CA',
+    geo: { lat: 38.127063, lng: -122.566977 },
+    mapUrl: 'https://www.google.com/maps/place/?q=place_id:ChIJr5sXvB-lhYARY6mBSCp7h4M',
     links: [
       { label: 'Marin web design', href: '/marin-county/web-design/' },
       { label: 'Marin SEO', href: '/marin-county/seo/' },
