@@ -1,7 +1,7 @@
 ---
 // Large review quote beside the Google rating. Without a review, the default slot fills the wide column.
 import { Image } from 'astro:assets';
-import { SITE } from '@/config/site';
+import { SITE, OFFICES } from '@/config/site';
 import type { Review } from '@/data/reviews';
 
 interface Props {
@@ -51,6 +51,13 @@ const initials = review?.name
     <span class="score__stars" aria-hidden="true">★★★★★</span>
     <p>Average from {SITE.reviews.count} Google reviews</p>
     {scoreNote && <p class="score__note">{scoreNote}</p>}
+    {
+      OFFICES.marin.mapUrl && (
+        <a class="lp-more score__link" href={OFFICES.marin.mapUrl} target="_blank" rel="noopener">
+          Read the reviews on Google
+        </a>
+      )
+    }
   </div>
 </div>
 

@@ -12,7 +12,7 @@ const blog = defineCollection({
       updatedDate: z.coerce.date().optional(),
       author: z.string().default('Shane Barnes'),
       tags: z.array(z.string()).default([]),
-      /** Featured image, shown full width at the top of the post's card on /blog/. */
+      /** Featured image, used only for social sharing (og:image) and schema. */
       heroImage: image().optional(),
       /** Drafts build in local dev only and never appear on the live site. */
       draft: z.boolean().default(false),

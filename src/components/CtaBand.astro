@@ -1,6 +1,7 @@
 ---
 // Blue call-to-action band that closes most pages.
 import Button from './Button.astro';
+import Rating from './Rating.astro';
 
 interface Props {
   title: string;
@@ -19,7 +20,10 @@ const { title, button = 'Book a free call', href = '/contact/' } = Astro.props;
     </div>
     <div class="cta__action">
       <Button href={href} variant="inverse" size="lg">{button}</Button>
-      {Astro.slots.has('after') && <div class="cta__after"><slot name="after" /></div>}
+      <div class="cta__after">
+        <Rating />
+        {Astro.slots.has('after') && <slot name="after" />}
+      </div>
     </div>
   </div>
 </section>
@@ -61,7 +65,14 @@ const { title, button = 'Book a free call', href = '/contact/' } = Astro.props;
   }
 
   .cta__after {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
     font-size: 15px;
+  }
+
+  .cta__after :global(.rating__stars) {
+    color: var(--orange-300);
   }
 
   .cta__action {
