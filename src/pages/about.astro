@@ -13,6 +13,7 @@ import Phone from '@/components/Phone.astro';
 import { SITE } from '@/config/site';
 import { REVIEWS } from '@/data/reviews';
 import shane from '@/assets/img/about/shane-headshot.jpg';
+import deskPhoto from '@/assets/img/about/desk-laptop-notebook.jpg';
 
 const values: { icon: ValueIconName; title: string; text: string }[] = [
   { icon: 'empathy', title: 'Empathy', text: "I start by understanding what you're dealing with, then solve the problem that matters most." },
@@ -36,13 +37,23 @@ const facts = [
   nav="about"
 >
   <section class="about-hero">
+    <Image
+      class="about-hero__bg"
+      src={deskPhoto}
+      alt=""
+      widths={[640, 1024, 1280]}
+      sizes="100vw"
+      quality={45}
+      loading="eager"
+      fetchpriority="high"
+    />
     <div class="container about-hero__inner">
       <div class="about-hero__photo">
         <Image
           src={shane}
           alt="Shane Barnes, founder of PartnerPress"
           widths={[364, 480, 683]}
-          sizes="(max-width: 860px) 90vw, 440px"
+          sizes="(max-width: 860px) 260px, 380px"
           quality={75}
           loading="eager"
         />
@@ -128,24 +139,46 @@ const facts = [
 
 <style>
   .about-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     padding-block: clamp(56px, 7vw, 96px);
     background: var(--surface);
+  }
+
+  .about-hero :global(.about-hero__bg) {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* White wash like the other photo heroes, strongest behind the copy on the right */
+  .about-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(270deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.84) 50%, rgba(255, 255, 255, 0.55) 100%);
   }
 
   .about-hero__inner {
     display: flex;
     flex-wrap: wrap;
-    gap: 40px 56px;
+    gap: 40px 64px;
     align-items: center;
   }
 
-  /* Black and white portrait, cropped 4:5 */
+  /* Black and white portrait, circular crop */
   .about-hero__photo {
-    flex: 1 1 300px;
-    max-width: 440px;
-    aspect-ratio: 4 / 5;
+    flex: 0 1 380px;
+    max-width: 380px;
+    aspect-ratio: 1;
     overflow: hidden;
-    border-radius: var(--radius-lg);
+    border-radius: 50%;
+    border: 6px solid var(--white);
     box-shadow: var(--shadow-md);
   }
 
@@ -154,6 +187,19 @@ const facts = [
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: 50% 30%;
+  }
+
+  @media (max-width: 860px) {
+    .about-hero::before {
+      background: rgba(255, 255, 255, 0.86);
+    }
+
+    .about-hero__photo {
+      flex-basis: 260px;
+      max-width: 260px;
+      margin-inline: auto;
+    }
   }
 
   .about-hero__copy {
