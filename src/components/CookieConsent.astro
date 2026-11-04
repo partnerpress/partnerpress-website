@@ -1,8 +1,8 @@
 ---
 // Termageddon cookie consent banner (Usercentrics), set up for speed.
 // 1. Google Consent Mode v2 defaults to "denied" before any other script runs.
-// 2. The Usercentrics loader is injected after the page has loaded, so the banner
-//    never delays the first paint or the hero image.
+// 2. The Usercentrics loader is injected after the page has loaded and painted, so
+//    the banner never delays the first paint or the hero image.
 // Usercentrics has Google Consent Mode turned on, so it sends the consent update.
 // Analytics.astro only downloads gtag.js after the visitor accepts Google Analytics.
 // The old uc-block.bundle.js (render blocking) is no longer used: GA4 is the only
@@ -33,7 +33,28 @@
       s.async = true;
       document.head.appendChild(s);
     }
-    if (document.readyState === 'complete') loadCmp();
-    else window.addEventListener('load', loadCmp, { once: true });
+    // Wait for the page's first paint as well as the load event: on fast loads the
+    // load event can fire before anything is painted, and the banner's script would
+    // then delay the first paint. The 4 second fallback makes sure the banner shows.
+    var started = false;
+    function start() {
+      if (started) return;
+      started = true;
+      setTimeout(loadCmp, 0);
+    }
+    function afterPaint() {
+      if (performance.getEntriesByName('first-contentful-paint').length) return start();
+      try {
+        new PerformanceObserver(function (list, observer) {
+          observer.disconnect();
+          start();
+        }).observe({ type: 'paint', buffered: true });
+      } catch (e) {
+        start();
+      }
+      setTimeout(start, 4000);
+    }
+    if (document.readyState === 'complete') afterPaint();
+    else window.addEventListener('load', afterPaint, { once: true });
   })();
 </script>
