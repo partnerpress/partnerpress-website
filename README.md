@@ -72,6 +72,20 @@ Set these on the Worker (Settings > Variables and secrets, Production):
 
 partnerpress.net mail runs on Google Workspace. Email Sending only adds records on `cf-bounce.partnerpress.net`, so it leaves the Google MX records alone. Do not onboard the domain to Email Routing (that needs Cloudflare MX on the apex), and keep the existing `_dmarc` record rather than adding a second one.
 
+## Form submissions
+
+Every contact form submission is also saved to Cloudflare D1 (database `partnerpress-forms`, binding `DB`), so a lead is kept even if the email fails. The visitor sees the thank-you page if the lead was saved or emailed. The Worker creates the table on first use; `migrations/0001_submissions.sql` has the same schema.
+
+View them at `/admin/submissions` (search across every field, page through results, Export CSV). The page is served by the Worker (`worker/admin.js`), never by the static build.
+
+One-time setup in the Cloudflare dashboard:
+
+1. **Database.** Nothing to do: the next `wrangler deploy` creates `partnerpress-forms` and binds it. If the build log says it could not create it, create a D1 database with that name (Storage & Databases > D1) and redeploy.
+2. **Access app.** Zero Trust > Access > Applications > Add an application > Self-hosted. Add a public hostname for `partnerpress.partnerpress-llc.workers.dev` with path `admin*` (and later the same for `partnerpress.net`). Policy: Allow, Include Emails `shane@partnerpress.net`. Under Login methods, turn on Google (add Google under Settings > Authentication first if it is not listed).
+3. **Worker variables** (Settings > Variables and secrets): `ACCESS_TEAM_DOMAIN` = your team domain, for example `partnerpress.cloudflareaccess.com` (Zero Trust > Settings > Custom Pages), and `ACCESS_AUD` = the app's Application Audience (AUD) Tag (on the Access app's Overview). The Worker checks the Access token itself and refuses every admin request until both are set.
+
+Optional: `ADMIN_TIMEZONE` (default `America/Los_Angeles`) sets the time zone on the dashboard. The CSV uses UTC.
+
 ## Search engine visibility
 
 Builds are noindex unless `SITE_INDEXABLE=true` and the branch is `main`. Every other build (preview branches, local builds) gets a `noindex` robots tag on every page and an `X-Robots-Tag: noindex, nofollow` header. The build log says which mode it used. The workers.dev address always sends `X-Robots-Tag: noindex` (see `public/_headers`).

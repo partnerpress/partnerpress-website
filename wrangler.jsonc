@@ -1,6 +1,6 @@
 // Cloudflare Workers config. Workers Builds runs `npm run build`, then
 // `npx wrangler deploy`. dist/ is served as static assets; only /api/* runs the
-// Worker in worker/index.js (the contact form). public/_headers and
+// Worker in worker/index.js (the contact form and the /admin dashboard). public/_headers and
 // public/_redirects are copied into dist/ and applied by Cloudflare.
 {
   "$schema": "node_modules/wrangler/config-schema.json",
@@ -12,11 +12,15 @@
     "binding": "ASSETS",
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "404-page",
-    "run_worker_first": ["/api/*"]
+    "run_worker_first": ["/api/*", "/admin", "/admin/*"]
   },
   // Sends the contact form through Cloudflare Email Service (Email Sending). The
   // recipient is the MAIL_TO secret, which must be a verified destination address.
   "send_email": [{ "name": "CONTACT_EMAIL" }],
+  // Contact form submissions (worker/submissions.js). With no database_id,
+  // `wrangler deploy` creates the "partnerpress-forms" database on the first deploy
+  // and reuses it after that. The Worker creates the table itself.
+  "d1_databases": [{ "binding": "DB", "database_name": "partnerpress-forms", "migrations_dir": "migrations" }],
   "observability": { "enabled": true },
   // Lets Workers Builds run `wrangler preview` for pull request branches.
   "previews": {}
