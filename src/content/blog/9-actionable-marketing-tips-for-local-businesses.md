@@ -3,7 +3,7 @@ heroImage: './images/9-actionable-marketing-tips-for-local-businesses/featured.p
 title: '9 Actionable Marketing Tips For Local Businesses'
 description: 'Check out my 9 actionable tips for marketing local businesses. Learn strategies to elevate your online presence and attract more customers.'
 pubDate: 2024-12-24
-tags: ['WordPress']
+tags: ['Marketing']
 ---
 
 Spreading the word about your small business can feel like trying to be heard in a noisy room.

@@ -4,7 +4,7 @@ title: '8 Reasons Sliders Are Killing Your Conversion Rate'
 description: 'Ever landed on a website and been hit with the digital equivalent of a Vegas marquee? Of course, you have!'
 pubDate: 2024-12-21
 updatedDate: 2024-12-24
-tags: ['WordPress']
+tags: ['Web Design']
 ---
 
 Ever landed on a website and been hit with the digital equivalent of a Vegas marquee? Of course, you have!

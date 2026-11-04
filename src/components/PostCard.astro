@@ -8,7 +8,7 @@ interface Props {
 const { post } = Astro.props;
 ---
 
-<article class="post-card">
+<article class="post-card" data-tags={post.data.tags.join("|")}>
   <!-- Text-only cards: the old featured graphics have their titles baked in and clash with the black and white site. -->
   <p class="post-card__meta">
     {post.data.tags[0] && <span class="eyebrow">{post.data.tags[0]}</span>}
