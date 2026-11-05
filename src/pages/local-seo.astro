@@ -23,13 +23,20 @@ import { SEO_PLANS } from '@/data/plans';
 import { SEO_FAQS } from '@/data/faqs';
 import { REVIEWS } from '@/data/reviews';
 
-const included: { icon: IconName; title: string; text: string }[] = [
-  { icon: 'pin', title: 'Google Business Profile', text: 'Categories, services, photos and posts set up to win the map pack, plus Yelp and BBB listings kept consistent.' },
-  { icon: 'star', title: 'Reviews', text: 'Review monitoring and a simple way to ask happy customers, so new reviews keep coming in.' },
-  { icon: 'fileText', title: 'Local content', text: 'New service and city pages every month, written for the searches your customers actually type.' },
-  { icon: 'wrench', title: 'Technical SEO', text: 'Weekly checks for broken links, slow pages, accessibility errors and Search Console warnings.' },
-  { icon: 'target', title: 'Competitor tracking', text: 'I watch who outranks you and why, then adjust the plan to close the gap.' },
-  { icon: 'chart', title: 'Reports you can read', text: 'A plain-English report each month and a strategy meeting each quarter.' },
+// Bright icon tiles, one unique color each; neighbors come from different color families (same palette as Care Plans).
+const included: { icon: IconName; title: string; text: string; color: string }[] = [
+  { icon: 'trending', title: 'Website optimization', color: '#059669', text: 'I optimize the pages that target your most valuable keywords, then review and refine them as rankings move.' },
+  { icon: 'target', title: 'Competitive analysis', color: '#f59e0b', text: 'I track what your competitors are doing and adjust your strategy to stay a step ahead.' },
+  { icon: 'pencil', title: 'Content creation', color: '#9333ea', text: 'New service and city pages every month, written for the searches your customers actually type.' },
+  { icon: 'pin', title: 'Listings management', color: '#22c55e', text: 'Your Google Business Profile, Yelp and BBB listings set up and kept consistent to win the map pack.' },
+  { icon: 'star', title: 'Reputation management', color: '#0ea5e9', text: 'I monitor your reviews, help you respond, and find ways to bring in more good ones.' },
+  { icon: 'search', title: 'Search Console management', color: '#ec4899', text: 'I watch Google Search Console for errors and warnings and fix them, so your site stays healthy in Google.' },
+  { icon: 'wrench', title: 'Technical SEO', color: '#65a30d', text: 'Weekly checks for broken links, slow pages, accessibility errors and privacy issues, fixed as they come up.' },
+  { icon: 'fileText', title: 'Monthly report', color: '#2051c5', text: 'A plain-English report each month on what I did, what moved, and what comes next.' },
+  { icon: 'chart', title: 'Traffic analytics', color: '#e11d48', text: 'As visibility grows, traffic grows. I review your analytics for the changes that should shape the strategy.' },
+  { icon: 'shield', title: 'Site care included', color: '#06b6d4', text: 'SEO fails on a neglected site. Every plan includes ongoing care for your site, on WordPress or Astro.' },
+  { icon: 'shuffle', title: 'Link monitoring', color: '#8b5cf6', text: 'A healthy backlink profile matters. I watch for bad backlinks and ask Google to ignore them.' },
+  { icon: 'video', title: 'Strategy meeting', color: '#f97316', text: 'Each quarter we meet over Google Meet to review results and agree on the next steps.' },
 ];
 ---
 
@@ -59,7 +66,7 @@ const included: { icon: IconName; title: string; text: string }[] = [
     ]}
   />
 
-  <NumberedCards eyebrow="Every plan includes" title="The work that moves local rankings" items={included} numbered={false} />
+  <NumberedCards eyebrow="Every plan includes" title="The work that moves local rankings" items={included} numbered={false} columns={4} />
 
   <Section tone="subtle" id="pricing">
     <SectionIntro eyebrow="Pricing" title="Plans by how far you want to reach">
