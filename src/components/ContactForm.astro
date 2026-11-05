@@ -81,9 +81,9 @@ const areas = ['Marin County, CA', 'Las Cruces, NM', 'Somewhere else'];
     Survive: 'WordPress care plan',
     Strive: 'WordPress care plan',
     Arrive: 'WordPress care plan',
-    County: 'Local SEO',
-    Region: 'Local SEO',
-    State: 'Local SEO',
+    'First location': 'Local SEO',
+    'Added location': 'Local SEO',
+    'Added city': 'Local SEO',
   };
 
   const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
@@ -92,7 +92,7 @@ const areas = ['Marin County, CA', 'Las Cruces, NM', 'Somewhere else'];
     const service = form.querySelector<HTMLSelectElement>('#f-service');
     const message = form.querySelector<HTMLTextAreaElement>('#f-message');
     if (service) service.value = PLAN_SERVICE[plan];
-    if (message && !message.value) message.value = `I'm interested in the ${plan} plan.`;
+    if (message && !message.value) message.value = PLAN_SERVICE[plan] === 'Local SEO' ? `I'm interested in Local SEO (${plan.toLowerCase()}).` : `I'm interested in the ${plan} plan.`;
   }
 
   // Send in the background so a failure keeps what the visitor typed. Without

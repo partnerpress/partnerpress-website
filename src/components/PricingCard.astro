@@ -20,6 +20,7 @@ const { plan, showPerDay = false } = Astro.props;
   <div class="plan__price">
     <span class="plan__amount">{formatPrice(plan.price)}<span>/month</span></span>
     {showPerDay && <span class="plan__day">About {perDay(plan.price)} a day</span>}
+    {plan.setup && <span class="plan__day">{plan.setup}</span>}
   </div>
   <div class="plan__tagline">
     <strong>{plan.tagline}</strong>
@@ -47,8 +48,8 @@ const { plan, showPerDay = false } = Astro.props;
     }
   </ul>
   <div class="plan__cta">
-    <Button href={`/contact/?plan=${plan.name}`} variant={plan.featured ? 'primary' : 'secondary'} block>
-      Choose {plan.name}
+    <Button href={`/contact/?plan=${encodeURIComponent(plan.name)}`} variant={plan.featured ? 'primary' : 'secondary'} block>
+      {plan.cta ?? `Choose ${plan.name}`}
     </Button>
   </div>
 </article>

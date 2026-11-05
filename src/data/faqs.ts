@@ -21,7 +21,22 @@ export const SEO_FAQS: Faq[] = [
     q: 'How long until I see results?',
     a: 'Google Business Profile fixes can show up within weeks. New pages and rankings usually take 3 to 6 months. If you need calls sooner, pair SEO with Google Ads.',
   },
-  { q: 'Do I need a contract?', a: 'No. Plans are month to month and you can change or cancel at the end of any term.' },
+  {
+    q: 'Is there a contract?',
+    a: "Every plan starts with a 3-month first term, then runs month to month. To cancel, give 30 days' written notice.",
+  },
+  {
+    q: 'Are there setup fees or other costs?',
+    a: 'There is a one-time setup fee: $995 for your first location and $295 for each added location. It covers the audit, listing cleanup, baseline rank and AI scans, and tracking setup. Larger jobs like a full citation cleanup or reporting spam listings are quoted separately as project work.',
+  },
+  {
+    q: 'Do you guarantee rankings or AI mentions?',
+    a: "No. Nobody controls Google or AI answers, so anyone who guarantees a ranking is guessing. What I can promise is the work: every month you'll see exactly what I did and what moved.",
+  },
+  {
+    q: 'Some services offer more pages for less. Why choose you?',
+    a: 'Content is only one part of ranking. You also get a strategy built for your market, care for your website, a monthly AI Insight Brief and direct access to me, the person doing the work.',
+  },
   {
     q: 'Why is website maintenance included?',
     a: 'A slow, broken or hacked site undoes SEO work. Including site care keeps the foundation solid.',
