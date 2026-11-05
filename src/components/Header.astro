@@ -11,6 +11,7 @@ interface Props {
 const { current } = Astro.props;
 const offices = Object.values(OFFICES);
 const aria = (key: NavKey) => (key === current ? 'page' : undefined);
+const onService = SERVICE_NAV.some((item) => item.key === current);
 ---
 
 <aside class="topbar" aria-label="Office phone numbers">
@@ -35,7 +36,21 @@ const aria = (key: NavKey) => (key === current ? 'page' : undefined);
     </a>
 
     <nav class="nav" aria-label="Main">
-      {SERVICE_NAV.map((item) => <a href={item.href} aria-current={aria(item.key)}>{item.label}</a>)}
+      <details class="dropdown" data-dropdown>
+        <summary class:list={[onService && 'is-current']}>
+          Services <Icon name="chevron" size={14} strokeWidth={2.5} />
+        </summary>
+        <div class="dropdown__panel">
+          {
+            SERVICE_NAV.map((item) => (
+              <a href={item.href} aria-current={aria(item.key)}>
+                <strong>{item.mobileLabel ?? item.label}</strong>
+                <span>{item.blurb}</span>
+              </a>
+            ))
+          }
+        </div>
+      </details>
       <details class="dropdown" data-dropdown>
         <summary class:list={[current === 'locations' && 'is-current']}>
           Locations <Icon name="chevron" size={14} strokeWidth={2.5} />
@@ -92,19 +107,26 @@ const aria = (key: NavKey) => (key === current ? 'page' : undefined);
     menu.hidden = open;
   });
 
-  // Close the Locations dropdown on an outside click or Escape.
-  const dropdown = document.querySelector<HTMLDetailsElement>('[data-dropdown]');
-  if (dropdown) {
-    document.addEventListener('click', (event) => {
+  // Keep one dropdown open at a time; close on an outside click or Escape.
+  const dropdowns = [...document.querySelectorAll<HTMLDetailsElement>('[data-dropdown]')];
+  dropdowns.forEach((dropdown) => {
+    dropdown.addEventListener('toggle', () => {
+      if (dropdown.open) dropdowns.forEach((other) => other !== dropdown && (other.open = false));
+    });
+  });
+  document.addEventListener('click', (event) => {
+    dropdowns.forEach((dropdown) => {
       if (dropdown.open && !dropdown.contains(event.target as Node)) dropdown.open = false;
     });
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && dropdown.open) {
-        dropdown.open = false;
-        dropdown.querySelector('summary')?.focus();
-      }
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    dropdowns.forEach((dropdown) => {
+      if (!dropdown.open) return;
+      dropdown.open = false;
+      dropdown.querySelector('summary')?.focus();
     });
-  }
+  });
 </script>
 
 <style>
@@ -215,7 +237,7 @@ const aria = (key: NavKey) => (key === current ? 'page' : undefined);
     top: calc(100% + 10px);
     left: -14px;
     z-index: 60;
-    min-width: 250px;
+    min-width: 290px;
     display: flex;
     flex-direction: column;
     padding: 6px;
@@ -235,8 +257,13 @@ const aria = (key: NavKey) => (key === current ? 'page' : undefined);
     text-decoration: none;
   }
 
-  .dropdown__panel a:hover {
+  .dropdown__panel a:hover,
+  .dropdown__panel a[aria-current='page'] {
     background: var(--blue-50);
+  }
+
+  .dropdown__panel a[aria-current='page'] strong {
+    color: var(--blue);
   }
 
   .dropdown__panel span {

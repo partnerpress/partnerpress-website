@@ -68,11 +68,11 @@ export const OFFICES: Record<OfficeKey, Office> = {
 
 export type NavKey = 'web-design' | 'care' | 'local-seo' | 'google-ads' | 'locations' | 'about' | 'contact' | 'blog';
 
-export const SERVICE_NAV: { key: NavKey; label: string; mobileLabel?: string; href: string }[] = [
-  { key: 'web-design', label: 'Web Design', href: '/web-design/' },
-  { key: 'care', label: 'WordPress Care', mobileLabel: 'WordPress Care Plans', href: '/wordpress-care-plans/' },
-  { key: 'local-seo', label: 'Local SEO', href: '/local-seo/' },
-  { key: 'google-ads', label: 'Google Ads', href: '/google-ads/' },
+export const SERVICE_NAV: { key: NavKey; label: string; mobileLabel?: string; blurb: string; href: string }[] = [
+  { key: 'web-design', label: 'Web Design', blurb: 'Fast sites built to bring in calls', href: '/web-design/' },
+  { key: 'care', label: 'WordPress Care', mobileLabel: 'WordPress Care Plans', blurb: 'Updates, security, backups and fixes', href: '/wordpress-care-plans/' },
+  { key: 'local-seo', label: 'Local SEO', blurb: 'Rank higher in Google Maps', href: '/local-seo/' },
+  { key: 'google-ads', label: 'Google Ads', blurb: 'Paid search that brings in leads', href: '/google-ads/' },
 ];
 
 export const SECONDARY_NAV: { key: NavKey; label: string; href: string }[] = [
