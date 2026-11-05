@@ -13,6 +13,10 @@ export interface Plan {
   bestFor: string;
   featured?: boolean;
   badge?: string;
+  /** One-time setup fee shown under the price, e.g. "+ $995 one-time setup". */
+  setup?: string;
+  /** Button label; defaults to "Choose {name}". */
+  cta?: string;
   /** Full comparison list. Every plan in a group lists the same rows in the same order. */
   rows: PlanRow[];
 }
@@ -88,39 +92,63 @@ export const CARE_PLANS: Plan[] = [
   },
 ];
 
-const SEO_TABLE: [string, ...Cell[]][] = [
-  ['Locations', '1 location', '2 locations', '3 locations'],
-  ['New content', '1 new page of content each month', '2 new pages of content each month', '3 new pages of content each month'],
-  ['SEO roadmap and keyword optimization', true, true, true],
-  ['Google Business Profile management', true, true, true],
-  ['Weekly technical SEO', true, true, true],
-  ['Review and backlink monitoring', true, true, true],
-  ['Monthly report, quarterly meeting', true, true, true],
-  ['Site care included (WordPress or Astro)', true, true, true],
-];
+// Local SEO is priced per location (pricing refresh, 2026-11-05): a full first location, then cheaper
+// add-ons, because strategy, reporting and site care barely change as locations are added.
+const included = (labels: string[]): PlanRow[] => labels.map((label) => ({ label, included: true }));
+
+export const SEO_FIRST_LOCATION = 1495;
+export const SEO_ADDED_LOCATION = 995;
 
 export const SEO_PLANS: Plan[] = [
   {
-    name: 'County',
-    price: 1495,
-    tagline: 'Improve Local Visibility',
-    bestFor: 'One location competing in its own town and county.',
+    name: 'First location',
+    price: SEO_FIRST_LOCATION,
+    tagline: 'Everything to rank one location',
+    bestFor: 'Strategy, content, AI tracking and site care for your main location.',
     featured: true,
-    badge: 'Most local businesses',
-    rows: buildRows(SEO_TABLE, 0),
+    badge: 'Start here',
+    setup: '+ $995 one-time setup',
+    cta: 'Get started',
+    rows: included([
+      '1 location',
+      '1 new page of content each month',
+      'SEO roadmap and keyword optimization',
+      'Google Business Profile management',
+      'AI search tracking (ChatGPT, Google AI Overviews, AI Mode, Gemini)',
+      'Monthly AI Insight Brief',
+      'Weekly technical SEO',
+      'Review and backlink monitoring',
+      'Quarterly strategy meeting',
+      'Site care included (WordPress or Astro)',
+      'Direct access to me, not an account manager',
+    ]),
   },
   {
-    name: 'Region',
-    price: 3995,
-    tagline: 'Boost Countywide Visibility',
-    bestFor: 'Two locations, or one business serving several towns.',
-    rows: buildRows(SEO_TABLE, 1),
+    name: 'Added location',
+    price: SEO_ADDED_LOCATION,
+    tagline: 'Each extra location',
+    bestFor: 'A second office, shop or branch with its own Google Business Profile.',
+    setup: '+ $295 one-time setup',
+    cta: 'Add locations',
+    rows: included([
+      'Google Business Profile and listing management',
+      'Its own location page',
+      'Map rank and AI search tracking',
+      'Review monitoring for that location',
+      'Its own monthly AI Insight Brief',
+    ]),
   },
   {
-    name: 'State',
-    price: 4995,
-    tagline: 'Maximize Service Area Visibility',
-    bestFor: 'Three locations, or a wide service area across the state.',
-    rows: buildRows(SEO_TABLE, 2),
+    name: 'Added city',
+    price: 495,
+    tagline: 'Each extra target city',
+    bestFor: 'One location that wants to reach a nearby city where it has no office.',
+    cta: 'Add a city',
+    rows: included(['Rank tracking for that city', 'One new service area page each month']),
   },
 ];
+
+/** Monthly total for a number of locations: the first at full price, the rest as added locations. */
+export function seoTotal(locations: number): number {
+  return SEO_FIRST_LOCATION + SEO_ADDED_LOCATION * (locations - 1);
+}

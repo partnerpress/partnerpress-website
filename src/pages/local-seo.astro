@@ -19,7 +19,7 @@ import lasCrucesPhoto from '@/assets/img/locations/las-cruces-organ-mountains.jp
 import CtaBand from '@/components/CtaBand.astro';
 import MapPackMock from '@/components/mockups/MapPackMock.astro';
 import { OFFICES, SITE } from '@/config/site';
-import { SEO_PLANS } from '@/data/plans';
+import { SEO_PLANS, seoTotal, formatPrice } from '@/data/plans';
 import { SEO_FAQS } from '@/data/faqs';
 import { REVIEWS } from '@/data/reviews';
 
@@ -32,12 +32,21 @@ const included: { icon: IconName; title: string; text: string; color: string }[]
   { icon: 'star', title: 'Reputation management', color: '#0ea5e9', text: 'I monitor your reviews, help you respond, and find ways to bring in more good ones.' },
   { icon: 'search', title: 'Search Console management', color: '#ec4899', text: 'I watch Google Search Console for errors and warnings and fix them, so your site stays healthy in Google.' },
   { icon: 'wrench', title: 'Technical SEO', color: '#65a30d', text: 'Weekly checks for broken links, slow pages, accessibility errors and privacy issues, fixed as they come up.' },
-  { icon: 'fileText', title: 'Monthly report', color: '#2051c5', text: 'A plain-English report each month on what I did, what moved, and what comes next.' },
+  { icon: 'fileText', title: 'Monthly AI Insight Brief', color: '#2051c5', text: 'A one-page brief for each location: map rankings, AI visibility, reviews and the three actions for next month.' },
   { icon: 'chart', title: 'Traffic analytics', color: '#e11d48', text: 'As visibility grows, traffic grows. I review your analytics for the changes that should shape the strategy.' },
   { icon: 'shield', title: 'Site care included', color: '#06b6d4', text: 'SEO fails on a neglected site. Every plan includes ongoing care for your site, on WordPress or Astro.' },
   { icon: 'shuffle', title: 'Link monitoring', color: '#8b5cf6', text: 'A healthy backlink profile matters. I watch for bad backlinks and ask Google to ignore them.' },
   { icon: 'video', title: 'Strategy meeting', color: '#f97316', text: 'Each quarter we meet over Google Meet to review results and agree on the next steps.' },
 ];
+
+// AI search band: colors continue the page palette without repeating any service icon color.
+const aiSearch: { icon: IconName; title: string; text: string; color: string }[] = [
+  { icon: 'eye', title: 'AI visibility tracking', color: '#14b8a6', text: 'I track how often ChatGPT, Google AI Overviews, AI Mode and Gemini recommend you, across your whole service area.' },
+  { icon: 'users', title: 'Who AI recommends instead', color: '#d946ef', text: 'See which competitors AI favors and which websites it pulls its answers from, so we know what to fix.' },
+  { icon: 'rocket', title: 'An early-mover edge', color: '#4f46e5', text: 'ChatGPT recommends only about 1.2% of local business locations (SOCi, 2026). Most of your competitors are invisible there too.' },
+];
+
+const examples = [1, 2, 3, 4, 6, 10];
 ---
 
 <BaseLayout
@@ -61,21 +70,57 @@ const included: { icon: IconName; title: string; text: string; color: string }[]
     items={[
       { icon: 'calendar', value: 'Since 2010', label: 'Helping local businesses' },
       { icon: 'star', value: `${SITE.reviews.rating} rating`, label: `From ${SITE.reviews.count} Google reviews`, accent: true },
-      { icon: 'unlock', value: 'No contract', label: 'Month to month' },
+      { icon: 'unlock', value: '3-month start', label: 'Then month to month' },
       { icon: 'shield', value: 'Care included', label: 'Site care in every tier' },
     ]}
   />
 
   <NumberedCards eyebrow="Every plan includes" title="The work that moves local rankings" items={included} numbered={false} columns={4} />
 
-  <Section tone="subtle" id="pricing">
-    <SectionIntro eyebrow="Pricing" title="Plans by how far you want to reach">
-      Every plan includes ongoing care for your site, on WordPress or Astro. Month to month, no contract.
+  <NumberedCards
+    tone="subtle"
+    eyebrow="AI search"
+    title="Show up when customers ask AI"
+    lead="45% of U.S. consumers now use AI tools like ChatGPT to find local businesses, up from 6% a year earlier (BrightLocal, 2026). Every plan tracks where you appear in AI answers, not just on Google."
+    items={aiSearch}
+    numbered={false}
+  />
+
+  <Section id="pricing">
+    <SectionIntro eyebrow="Pricing" title="Priced by location, so growing costs less">
+      Start with your first location, then add locations or nearby cities as you grow. Every plan begins with a 3-month
+      first term, then runs month to month. Cancel any time with 30 days' written notice.
     </SectionIntro>
     <Grid min={300} class="plans">
       {SEO_PLANS.map((plan) => <PricingCard plan={plan} />)}
     </Grid>
-    <p class="plans-help">Not sure which plan fits? <a href="/contact/">Book a free call</a> and I'll recommend one.</p>
+    <div class="totals">
+      <h3 class="totals__title">What it costs by number of locations</h3>
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Locations</th>
+            <th scope="col">Per month</th>
+            <th scope="col">Per location</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            examples.map((n) => (
+              <tr>
+                <td>{n}</td>
+                <td>{formatPrice(seoTotal(n))}</td>
+                <td>{formatPrice(Math.round(seoTotal(n) / n))}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="plans-help">
+      No one can honestly guarantee rankings or AI mentions, and I don't. What I promise is the work, shown to you every
+      month. Not sure what fits? <a href="/contact/">Book a free call</a> and I'll recommend a setup.
+    </p>
   </Section>
 
   <AstroMigration stakes="every hour of SEO work" tone="tint" />
@@ -114,5 +159,50 @@ const included: { icon: IconName; title: string; text: string; color: string }[]
 <style>
   :global(.plans) {
     align-items: stretch;
+  }
+
+  .totals {
+    max-width: 560px;
+    margin: 48px auto 0;
+  }
+
+  .totals__title {
+    margin-bottom: 16px;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    font-variant-numeric: tabular-nums;
+  }
+
+  th,
+  td {
+    padding: 12px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+  }
+
+  th {
+    background: var(--blue);
+    color: var(--white);
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  tbody tr:nth-child(even) {
+    background: var(--surface);
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 0;
   }
 </style>
