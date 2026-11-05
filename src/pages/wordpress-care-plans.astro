@@ -15,32 +15,33 @@ import { CARE_PLANS } from '@/data/plans';
 import { CARE_FAQS } from '@/data/faqs';
 import type { IconName } from '@/components/Icon.astro';
 
-// Icon colors follow the old Success Plans page, darkened where needed for 3:1 contrast on the tint.
+// Every icon color is unique on the page, and neighbors (across, and down in 2 and 4 column layouts)
+// come from different color families. Each glyph has 3:1 or better contrast on its tint.
 type Item = { icon: IconName; title: string; text: string; color: string; tint: string };
 
 const allPlans: Item[] = [
-  { icon: 'refresh', title: 'WordPress updates', color: '#189932', tint: '#dcf0e0', text: 'Core, theme and plugin updates keep your site stable and secure, and give you the new features in each release.' },
-  { icon: 'undo', title: 'Remote backups', color: '#7c5900', tint: '#ebe6d9', text: 'Off-site backups mean a recent copy of your site is always ready to restore if your server goes down.' },
-  { icon: 'shield', title: 'Security scanning', color: '#e80000', tint: '#fcd9d9', text: 'I scan your site every day for new vulnerabilities and fix what turns up, so Google never blacklists it.' },
-  { icon: 'zap', title: 'Load time optimization', color: '#c77000', tint: '#f7e9d9', text: 'Slow sites send visitors elsewhere. I monitor your load time and tune the site so it loads fast.' },
-  { icon: 'eye', title: 'Uptime monitoring', color: '#9420c5', tint: '#efdef6', text: 'Every site goes down at some point. I know the moment yours does, so I can get it back up quickly.' },
-  { icon: 'search', title: 'Keyword tracking', color: '#008cd0', tint: '#d9eef8', text: 'I track the keywords that matter to your business so you know exactly where you rank in Google.' },
-  { icon: 'wrench', title: 'Broken link monitoring', color: '#f30081', tint: '#fdd9ec', text: 'Broken links frustrate visitors and hurt SEO. I find them and fix them so you don\'t have to.' },
-  { icon: 'check', title: 'Quality testing', color: '#18967f', tint: '#dcefec', text: 'I take screenshots and test forms, carts and other key features to make sure everything still works.' },
-  { icon: 'filter', title: 'Spam filtering', color: '#e300e7', tint: '#fbd9fb', text: 'A strong spam filter stops almost all form spam, so only real inquiries reach your inbox.' },
-  { icon: 'award', title: 'Premium plugin library', color: '#009c30', tint: '#d9f0e0', text: 'Use my licensed premium plugins and save over $1,000 a year on forms, landing pages, pop-ups and more.' },
-  { icon: 'hammer', title: 'Unlimited quick fixes', color: '#9e8700', tint: '#f0edd9', text: 'Need a page tweaked, a form updated or a buggy plugin sorted? If it takes 30 minutes or less, it\'s included.' },
-  { icon: 'chart', title: 'Monthly reporting', color: '#0e00e7', tint: '#dbd9fb', text: 'You shouldn\'t have to take my word for it. Each month you get a report showing the work done on your site.' },
+  { icon: 'refresh', title: 'WordPress updates', color: '#d35400', tint: '#f8e5d9', text: 'Core, theme and plugin updates keep your site stable and secure, and give you the new features in each release.' },
+  { icon: 'undo', title: 'Remote backups', color: '#1e8a2e', tint: '#ddede0', text: 'Off-site backups mean a recent copy of your site is always ready to restore if your server goes down.' },
+  { icon: 'shield', title: 'Security scanning', color: '#26307a', tint: '#dee0eb', text: 'I scan your site every day for new vulnerabilities and fix what turns up, so Google never blacklists it.' },
+  { icon: 'zap', title: 'Load time optimization', color: '#7a4519', tint: '#ebe3dc', text: 'Slow sites send visitors elsewhere. I monitor your load time and tune the site so it loads fast.' },
+  { icon: 'eye', title: 'Uptime monitoring', color: '#d6005f', tint: '#f9d9e7', text: 'Every site goes down at some point. I know the moment yours does, so I can get it back up quickly.' },
+  { icon: 'search', title: 'Keyword tracking', color: '#1a6fd6', tint: '#dde9f9', text: 'I track the keywords that matter to your business so you know exactly where you rank in Google.' },
+  { icon: 'wrench', title: 'Broken link monitoring', color: '#2c5a1a', tint: '#dfe6dd', text: 'Broken links frustrate visitors and hurt SEO. I find them and fix them so you don\'t have to.' },
+  { icon: 'check', title: 'Quality testing', color: '#c0008f', tint: '#f6d9ee', text: 'I take screenshots and test forms, carts and other key features to make sure everything still works.' },
+  { icon: 'filter', title: 'Spam filtering', color: '#0000d9', tint: '#d9d9f9', text: 'A strong spam filter stops almost all form spam, so only real inquiries reach your inbox.' },
+  { icon: 'award', title: 'Premium plugin library', color: '#5f7300', tint: '#e7ead9', text: 'Use my licensed premium plugins and save over $1,000 a year on forms, landing pages, pop-ups and more.' },
+  { icon: 'hammer', title: 'Unlimited quick fixes', color: '#d10f0f', tint: '#f8dbdb', text: 'Need a page tweaked, a form updated or a buggy plugin sorted? If it takes 30 minutes or less, it\'s included.' },
+  { icon: 'chart', title: 'Monthly reporting', color: '#4f5d6b', tint: '#e5e7e9', text: 'You shouldn\'t have to take my word for it. Each month you get a report showing the work done on your site.' },
 ];
 
 const premium: Item[] = [
-  { icon: 'key', title: 'Website firewall', color: '#ff0000', tint: '#ffd9d9', text: 'Scanning finds vulnerabilities. A firewall goes further and blocks attackers before they can exploit them.' },
-  { icon: 'home', title: 'Hosting and domain admin', color: '#0e00e7', tint: '#dbd9fb', text: 'Sites go down when a renewal is missed or a card expires. I handle the renewals and billing details for you.' },
-  { icon: 'briefcase', title: 'Legal policy monitoring', color: '#8a4a00', tint: '#ede4d9', text: 'Privacy laws change often. I monitor and update your site policies so you stay compliant.' },
-  { icon: 'users', title: 'Accessibility monitoring', color: '#ac8211', tint: '#f3ecdb', text: 'I watch for and fix issues that keep visitors with disabilities from using and understanding your site.' },
-  { icon: 'store', title: 'Advanced maintenance', color: '#019914', tint: '#d9f0dc', text: 'Stores, courses, memberships and third-party integrations get the extra care and testing they need.' },
-  { icon: 'target', title: 'SEO readiness', color: '#e400e3', tint: '#fbd9fb', text: 'Each month I fix fundamental SEO issues as they come up, so your site is ready for your next SEO campaign.' },
-  { icon: 'rocket', title: 'Priority support', color: '#0e00e7', tint: '#dbd9fb', text: 'Urgent issue? You jump to the front of the queue, so you can focus on your customers instead of your website.' },
+  { icon: 'key', title: 'Website firewall', color: '#8c4681', tint: '#eee3ec', text: 'Scanning finds vulnerabilities. A firewall goes further and blocks attackers before they can exploit them.' },
+  { icon: 'home', title: 'Hosting and domain admin', color: '#00806f', tint: '#d9ece9', text: 'Sites go down when a renewal is missed or a card expires. I handle the renewals and billing details for you.' },
+  { icon: 'briefcase', title: 'Legal policy monitoring', color: '#9a7400', tint: '#f0ead9', text: 'Privacy laws change often. I monitor and update your site policies so you stay compliant.' },
+  { icon: 'users', title: 'Accessibility monitoring', color: '#6a3fd1', tint: '#e9e2f8', text: 'I watch for and fix issues that keep visitors with disabilities from using and understanding your site.' },
+  { icon: 'store', title: 'Advanced maintenance', color: '#007f99', tint: '#d9ecf0', text: 'Stores, courses, memberships and third-party integrations get the extra care and testing they need.' },
+  { icon: 'target', title: 'SEO readiness', color: '#7d1233', tint: '#ecdbe0', text: 'Each month I fix fundamental SEO issues as they come up, so your site is ready for your next SEO campaign.' },
+  { icon: 'rocket', title: 'Priority support', color: '#8e24aa', tint: '#eedef2', text: 'Urgent issue? You jump to the front of the queue, so you can focus on your customers instead of your website.' },
 ];
 ---
 
