@@ -76,7 +76,7 @@ partnerpress.net mail runs on Google Workspace. Email Sending only adds records 
 
 Every contact form submission is also saved to Cloudflare D1 (database `partnerpress-forms`, binding `DB`), so a lead is kept even if the email fails. The visitor sees the thank-you page if the lead was saved or emailed. The Worker creates the table on first use; `migrations/0001_submissions.sql` has the same schema.
 
-View them at `/admin/submissions` (search across every field, page through results, Export CSV). The page is served by the Worker (`worker/admin.js`), never by the static build.
+View them at `/admin/submissions` (search across every field, page through results, Export CSV). Delete one from its "Message and details" panel, or tick several (or the select-all box for the page) and use Delete selected. Deletes ask for confirmation and cannot be undone, so export a CSV first if you want a copy. The page is served by the Worker (`worker/admin.js`), never by the static build.
 
 One-time setup in the Cloudflare dashboard:
 
