@@ -86,3 +86,16 @@ export async function allSubmissions(db, query = '') {
     .all();
   return results;
 }
+
+/** Deletes submissions by id. Returns how many rows were removed. */
+export async function deleteSubmissions(db, ids) {
+  await ensureTable(db);
+  // D1 allows 100 bound parameters per statement, so delete in chunks.
+  const statements = [];
+  for (let i = 0; i < ids.length; i += 100) {
+    const chunk = ids.slice(i, i + 100);
+    statements.push(db.prepare(`DELETE FROM submissions WHERE id IN (${chunk.map(() => '?').join(', ')})`).bind(...chunk));
+  }
+  const results = await db.batch(statements);
+  return results.reduce((sum, r) => sum + (r.meta?.changes ?? 0), 0);
+}

@@ -2,35 +2,49 @@
 //
 //   GET /admin/submissions             list with search and paging
 //   GET /admin/submissions/export.csv  CSV of every submission matching ?q=
+//   POST /admin/submissions/delete     deletes the posted ids (one or many)
 //
 // Cloudflare Access protects /admin*, and every request is re-checked here
 // (worker/access.js), so the pages fail closed if Access is not set up.
 
 import { accessUser } from './access.js';
-import { allSubmissions, listSubmissions } from './submissions.js';
+import { allSubmissions, deleteSubmissions, listSubmissions } from './submissions.js';
 
 const PAGE_SIZE = 50;
+/** Most ids one delete request may carry (a page is 50). */
+const MAX_DELETE = 500;
 
 const BASE_HEADERS = {
   'Cache-Control': 'no-store, private',
   'X-Robots-Tag': 'noindex, nofollow',
   'X-Content-Type-Options': 'nosniff',
   'X-Frame-Options': 'DENY',
-  'Referrer-Policy': 'no-referrer',
-  'Content-Security-Policy':
-    "default-src 'none'; style-src 'unsafe-inline'; img-src 'self' data:; form-action 'self'; base-uri 'none'; frame-ancestors 'none'",
+  // same-origin, not no-referrer: with no-referrer browsers send "Origin: null" on
+  // form posts, which the delete check below would refuse.
+  'Referrer-Policy': 'same-origin',
 };
+
+/** CSP with a per-response nonce, so only the page's own inline script runs. */
+const csp = (nonce) =>
+  `default-src 'none'; style-src 'unsafe-inline'; script-src 'nonce-${nonce}'; img-src 'self' data:; form-action 'self'; base-uri 'none'; frame-ancestors 'none'`;
+const STRICT_CSP = csp('none');
 
 export async function handleAdmin(request, env) {
   const url = new URL(request.url);
-  if (request.method !== 'GET' && request.method !== 'HEAD') {
-    return new Response('Method not allowed', { status: 405, headers: { ...BASE_HEADERS, Allow: 'GET' } });
+  const path = url.pathname.replace(/\/+$/, '');
+  const isDelete = path === '/admin/submissions/delete';
+  const allowed = isDelete ? ['POST'] : ['GET', 'HEAD'];
+  if (!allowed.includes(request.method)) {
+    return new Response('Method not allowed', {
+      status: 405,
+      headers: { ...BASE_HEADERS, 'Content-Security-Policy': STRICT_CSP, Allow: allowed.join(', ') },
+    });
   }
 
   const user = await accessUser(request, env);
   if (!user) return text('Not authorized. Sign in through Cloudflare Access.', 403);
 
-  const path = url.pathname.replace(/\/+$/, '');
+  if (isDelete) return deletePosted(request, url, env, user);
   if (path === '/admin' || path === '/admin/submissions') {
     if (url.pathname !== '/admin/submissions') {
       return Response.redirect(new URL(`/admin/submissions${url.search}`, url), 302);
@@ -45,9 +59,17 @@ async function listPage(url, env, user) {
   if (!env.DB) return text('The DB (D1) binding is missing on this Worker. See README "Form submissions".', 500);
 
   const query = (url.searchParams.get('q') ?? '').slice(0, 200);
-  const page = Math.max(1, Number.parseInt(url.searchParams.get('page') ?? '1', 10) || 1);
-  const { rows, total } = await listSubmissions(env.DB, { query, limit: PAGE_SIZE, offset: (page - 1) * PAGE_SIZE });
+  const requested = Math.max(1, Number.parseInt(url.searchParams.get('page') ?? '1', 10) || 1);
+  let page = requested;
+  let { rows, total } = await listSubmissions(env.DB, { query, limit: PAGE_SIZE, offset: (page - 1) * PAGE_SIZE });
   const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  // After deleting the last rows of the last page, show the new last page.
+  if (!rows.length && page > pages) {
+    page = pages;
+    ({ rows, total } = await listSubmissions(env.DB, { query, limit: PAGE_SIZE, offset: (page - 1) * PAGE_SIZE }));
+  }
+  const deleted = Number.parseInt(url.searchParams.get('deleted') ?? '', 10);
+  const nonce = crypto.randomUUID().replace(/-/g, '');
   const tz = env.ADMIN_TIMEZONE || 'America/Los_Angeles';
 
   const link = (params) => {
@@ -61,7 +83,9 @@ async function listPage(url, env, user) {
 
   const body = rows.length
     ? rows.map((row) => rowHtml(row, tz)).join('')
-    : `<tr><td colspan="6" class="empty">${query ? 'No submissions match that search.' : 'No submissions yet.'}</td></tr>`;
+    : `<tr><td colspan="7" class="empty">${query ? 'No submissions match that search.' : 'No submissions yet.'}</td></tr>`;
+  // Where to land after a delete: this same search and page.
+  const back = `/admin/submissions${link({ page: page > 1 ? page : '' }).replace(/^\?$/, '')}`;
 
   const html = `<!doctype html>
 <html lang="en">
@@ -80,6 +104,11 @@ async function listPage(url, env, user) {
   </div>
 </header>
 <main class="wrap">
+  ${
+    Number.isFinite(deleted) && deleted >= 0
+      ? `<p class="notice" role="status">Deleted ${deleted} submission${deleted === 1 ? '' : 's'}.</p>`
+      : ''
+  }
   <div class="head">
     <h1>Form submissions</h1>
     <p class="count">${total.toLocaleString('en-US')} ${query ? 'matching' : 'total'}</p>
@@ -91,11 +120,20 @@ async function listPage(url, env, user) {
       <button type="submit">Search</button>
       ${query ? '<a class="clear" href="/admin/submissions">Clear</a>' : ''}
     </form>
-    <a class="btn" href="${esc(exportHref)}">Export CSV</a>
+    <div class="actions">
+      <button type="submit" form="bulk" class="danger" data-bulk-delete${rows.length ? '' : ' disabled'}>Delete selected</button>
+      <a class="btn" href="${esc(exportHref)}">Export CSV</a>
+    </div>
   </div>
+  <form id="bulk" method="post" action="/admin/submissions/delete" data-confirm="bulk">
+    <input type="hidden" name="back" value="${esc(back)}">
+  </form>
+  <form id="one" method="post" action="/admin/submissions/delete" data-confirm="one">
+    <input type="hidden" name="back" value="${esc(back)}">
+  </form>
   <div class="table-wrap">
     <table>
-      <thead><tr><th>Received</th><th>Name</th><th>Business</th><th>Contact</th><th>Needs help with</th><th>Location</th></tr></thead>
+      <thead><tr><th class="pick"><input type="checkbox" data-select-all aria-label="Select all on this page"${rows.length ? '' : ' disabled'}></th><th>Received</th><th>Name</th><th>Business</th><th>Contact</th><th>Needs help with</th><th>Location</th></tr></thead>
       <tbody>${body}</tbody>
     </table>
   </div>
@@ -109,9 +147,12 @@ async function listPage(url, env, user) {
       : ''
   }
 </main>
+<script nonce="${nonce}">${SCRIPT}</script>
 </body>
 </html>`;
-  return new Response(html, { headers: { ...BASE_HEADERS, 'Content-Type': 'text/html; charset=utf-8' } });
+  return new Response(html, {
+    headers: { ...BASE_HEADERS, 'Content-Security-Policy': csp(nonce), 'Content-Type': 'text/html; charset=utf-8' },
+  });
 }
 
 function rowHtml(row, tz) {
@@ -127,9 +168,11 @@ function rowHtml(row, tz) {
       ${row.country ? `<dt>Country</dt><dd>${esc(row.country)}</dd>` : ''}
       <dt>Email alert</dt><dd>${row.email_sent ? 'Sent' : '<span class="warn">Not sent</span>'}</dd>
       <dt>ID</dt><dd>#${row.id}</dd>
-    </dl>`,
+    </dl>
+    <button type="submit" form="one" name="id" value="${row.id}" class="danger small" data-name="${esc(row.name)}">Delete this submission</button>`,
   ].join('');
   return `<tr class="row">
+    <td class="pick"><input type="checkbox" form="bulk" name="id" value="${row.id}" data-pick aria-label="Select ${esc(row.name)}"></td>
     <td data-label="Received">${esc(when)}</td>
     <td data-label="Name"><strong>${esc(row.name)}</strong></td>
     <td data-label="Business">${esc(row.business ?? '')}</td>
@@ -137,7 +180,34 @@ function rowHtml(row, tz) {
     <td data-label="Needs help with">${esc(row.service ?? '')}</td>
     <td data-label="Location">${esc(row.area ?? '')}</td>
   </tr>
-  <tr class="detail"><td colspan="6"><details><summary>Message and details</summary>${details}</details></td></tr>`;
+  <tr class="detail"><td></td><td colspan="6"><details><summary>Message and details</summary>${details}</details></td></tr>`;
+}
+
+async function deletePosted(request, url, env, user) {
+  // Forms on this page only: a cross-site post never carries this site's Origin.
+  const sameSite =
+    request.headers.get('Origin') === url.origin || request.headers.get('Sec-Fetch-Site') === 'same-origin';
+  if (!sameSite) return text('Forbidden', 403);
+  if (!env.DB) return text('The DB (D1) binding is missing on this Worker.', 500);
+
+  let form;
+  try {
+    form = await request.formData();
+  } catch {
+    return text('Bad request', 400);
+  }
+  const ids = [...new Set(form.getAll('id').map((v) => Number(v)))].filter((n) => Number.isSafeInteger(n) && n > 0);
+  if (ids.length > MAX_DELETE) return text(`Too many at once (max ${MAX_DELETE}).`, 400);
+
+  const count = ids.length ? await deleteSubmissions(env.DB, ids) : 0;
+  console.log(`Admin ${user} deleted ${count} submission(s): ${ids.join(', ')}`);
+
+  // Only return to an admin list URL on this site.
+  const backRaw = String(form.get('back') ?? '');
+  const back = backRaw.startsWith('/admin/submissions') && !backRaw.startsWith('//') ? backRaw : '/admin/submissions';
+  const dest = new URL(back, url);
+  dest.searchParams.set('deleted', String(count));
+  return new Response(null, { status: 303, headers: { ...BASE_HEADERS, Location: dest.pathname + dest.search } });
 }
 
 async function exportCsv(url, env) {
@@ -174,6 +244,7 @@ async function exportCsv(url, env) {
       ...BASE_HEADERS,
       'Content-Type': 'text/csv; charset=utf-8',
       'Content-Disposition': `attachment; filename="partnerpress-submissions-${date}.csv"`,
+      'Content-Security-Policy': STRICT_CSP,
     },
   });
 }
@@ -223,7 +294,10 @@ function esc(value) {
 }
 
 function text(message, status) {
-  return new Response(message, { status, headers: { ...BASE_HEADERS, 'Content-Type': 'text/plain; charset=utf-8' } });
+  return new Response(message, {
+    status,
+    headers: { ...BASE_HEADERS, 'Content-Security-Policy': STRICT_CSP, 'Content-Type': 'text/plain; charset=utf-8' },
+  });
 }
 
 const CSS = `
@@ -245,6 +319,14 @@ h1{margin:0;font-size:26px;color:var(--ink)}
 button,.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;font:inherit;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap}
 button{background:var(--ink);color:var(--white)}
 .btn{background:var(--blue);color:var(--white)}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+button.danger{background:var(--white);color:var(--warn);border:1px solid var(--warn)}
+button.danger:hover:not(:disabled){background:var(--warn);color:var(--white)}
+button:disabled{opacity:.45;cursor:not-allowed}
+button.small{padding:5px 10px;font-size:13px;margin-top:6px}
+.notice{margin:16px 0 0;padding:10px 14px;border-radius:8px;background:#e8f5ee;color:#14532d;font-weight:600}
+th.pick,td.pick{width:36px;padding-right:0}
+.pick input{width:16px;height:16px;cursor:pointer}
 .clear{font-size:14px}
 .table-wrap{background:var(--white);border:1px solid var(--line);border-radius:10px;overflow:hidden}
 table{width:100%;border-collapse:collapse}
@@ -268,7 +350,46 @@ dt{color:var(--muted)}dd{margin:0;word-break:break-word}
   tr.row:first-child{border-top:0}
   tr.row td{border:0;padding:3px 12px}
   tr.row td:empty{display:none}
+  tr.row td.pick{float:right;width:auto;padding-top:6px}
+  tr.row td.pick::before{content:none}
+  tr.detail td:first-child{display:none}
   tr.row td::before{content:attr(data-label);display:block;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
   tr.detail td{padding:6px 12px 12px}
 }
+`;
+
+// Select all, live count on "Delete selected", and a confirm before deleting.
+const SCRIPT = `
+(() => {
+  const picks = () => [...document.querySelectorAll('[data-pick]')];
+  const all = document.querySelector('[data-select-all]');
+  const bulk = document.querySelector('[data-bulk-delete]');
+  const sync = () => {
+    const n = picks().filter((p) => p.checked).length;
+    bulk.disabled = n === 0;
+    bulk.textContent = n ? 'Delete selected (' + n + ')' : 'Delete selected';
+    if (all) {
+      all.checked = n > 0 && n === picks().length;
+      all.indeterminate = n > 0 && n < picks().length;
+    }
+  };
+  all?.addEventListener('change', () => { picks().forEach((p) => { p.checked = all.checked; }); sync(); });
+  document.addEventListener('change', (e) => { if (e.target.matches('[data-pick]')) sync(); });
+  sync();
+
+  let who = '';
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('button[form="one"]');
+    if (b) who = b.dataset.name || 'this submission';
+  });
+  document.querySelectorAll('form[data-confirm]').forEach((form) => {
+    form.addEventListener('submit', (e) => {
+      const n = picks().filter((p) => p.checked).length;
+      const msg = form.dataset.confirm === 'bulk'
+        ? 'Delete ' + n + ' submission' + (n === 1 ? '' : 's') + '? This cannot be undone.'
+        : 'Delete the submission from ' + who + '? This cannot be undone.';
+      if (!confirm(msg)) e.preventDefault();
+    });
+  });
+})();
 `;
