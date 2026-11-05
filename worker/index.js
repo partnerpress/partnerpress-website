@@ -69,7 +69,8 @@ async function handleContact(request, env) {
 
   const name = get('name');
   const email = get('email');
-  if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return done(false);
+  const phoneDigits = get('phone').replace(/\D/g, '');
+  if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || phoneDigits.length < 10) return done(false);
 
   if (env.TURNSTILE_SECRET) {
     const passed = await verifyTurnstile(env.TURNSTILE_SECRET, get('cf-turnstile-response'), request);
