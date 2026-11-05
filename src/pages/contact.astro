@@ -4,7 +4,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import CheckList from '@/components/CheckList.astro';
 import ContactForm from '@/components/ContactForm.astro';
 import { OFFICES } from '@/config/site';
-import deskPhone from '@/assets/img/contact-desk-phone.jpg';
+import heroPhoto from '@/assets/img/contact-video-call.jpg';
 ---
 
 <BaseLayout
@@ -15,7 +15,7 @@ import deskPhone from '@/assets/img/contact-desk-phone.jpg';
   <section class="contact">
     <Image
       class="contact__bg"
-      src={deskPhone}
+      src={heroPhoto}
       alt=""
       widths={[640, 1024, 1600, 2048]}
       sizes="100vw"
