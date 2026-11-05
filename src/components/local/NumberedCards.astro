@@ -6,8 +6,8 @@ interface Props {
   eyebrow?: string;
   title: string;
   lead?: string;
-  /** Optional per-card icon color and tint (keep 3:1 contrast between them). */
-  items: { icon: IconName; title: string; text: string; color?: string; tint?: string }[];
+  /** Optional per-card icon tile color: a solid tile with a white glyph. */
+  items: { icon: IconName; title: string; text: string; color?: string }[];
   tone?: 'white' | 'subtle';
   numbered?: boolean;
   columns?: 2 | 3 | 4;
@@ -31,7 +31,7 @@ const { eyebrow, title, lead, items, tone = 'white', numbered = true, columns = 
         items.map((f, i) => (
           <article class="lp-card card">
             <div class="card__top">
-              <span class="lp-ic" style={f.color ? `color: ${f.color}; background: ${f.tint};` : undefined}>
+              <span class="lp-ic" style={f.color ? `background: ${f.color}; color: #fff;` : undefined}>
                 <Icon name={f.icon} />
               </span>
               {numbered && (
