@@ -17,7 +17,7 @@ const areas = ['Marin County, CA', 'Las Cruces, NM', 'Somewhere else'];
 
   <div class="form__row">
     <div class="field">
-      <label for="f-name">Your name</label>
+      <label for="f-name">Your name <span class="req" aria-hidden="true">*</span></label>
       <input id="f-name" name="name" autocomplete="name" placeholder="Jane Smith" required />
     </div>
     <div class="field">
@@ -28,12 +28,12 @@ const areas = ['Marin County, CA', 'Las Cruces, NM', 'Somewhere else'];
 
   <div class="form__row">
     <div class="field">
-      <label for="f-email">Email</label>
+      <label for="f-email">Email <span class="req" aria-hidden="true">*</span></label>
       <input id="f-email" name="email" type="email" autocomplete="email" placeholder="jane@smithplumbing.com" required />
     </div>
     <div class="field">
-      <label for="f-phone">Phone</label>
-      <input id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder="(415) 555-0100" />
+      <label for="f-phone">Phone <span class="req" aria-hidden="true">*</span></label>
+      <input id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder="(415) 555-0100" required pattern="[^0-9]*([0-9][^0-9]*){10,}" title="Please enter a phone number with at least 10 digits" />
     </div>
   </div>
 
@@ -70,7 +70,7 @@ const areas = ['Marin County, CA', 'Las Cruces, NM', 'Somewhere else'];
   </p>
   <Button type="submit" size="lg" block>Request my free call</Button>
   <p class="form__note">
-    I'll never share your details. Prefer to talk now? Call <a href={`tel:${OFFICES.marin.tel}`}>{OFFICES.marin.phone}</a>.
+    <span class="req" aria-hidden="true">*</span> Required. I'll never share your details. Prefer to talk now? Call <a href={`tel:${OFFICES.marin.tel}`}>{OFFICES.marin.phone}</a>.
   </p>
 </form>
 
@@ -185,6 +185,11 @@ const areas = ['Marin County, CA', 'Las Cruces, NM', 'Somewhere else'];
     font-size: 14px;
     color: var(--text-strong);
     text-align: center;
+  }
+
+  .req {
+    color: var(--blue);
+    font-weight: 700;
   }
 
   .form__note {

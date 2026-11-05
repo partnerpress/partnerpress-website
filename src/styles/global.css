@@ -4,6 +4,8 @@
 :root {
   /* Top padding for every page hero (Huddlekit #42): tight on phones, roomier on desktop */
   --hero-pad-top: clamp(24px, 4vw, 56px);
+  /* Bottom padding for page heroes (Huddlekit #53): 56px on desktop, 40px on phones */
+  --hero-pad-bottom: clamp(40px, 4vw, 56px);
 
   /* Brand (PartnerPress Design System) */
   --blue: #2051c5;
