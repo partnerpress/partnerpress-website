@@ -53,6 +53,7 @@ const CARE_TABLE: [string, ...Cell[]][] = [
   ['Premium plugin library', true, true, true],
   ['Unlimited quick fixes', true, true, true],
   ['Monthly maintenance report', true, true, true],
+  ['Website firewall', false, true, true],
   ['Hosting and domain administration', false, true, true],
   ['Privacy policy compliance monitoring', false, true, true],
   ['Accessibility monitoring', false, true, true],
