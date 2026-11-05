@@ -13,6 +13,34 @@ import { REVIEWS } from '@/data/reviews';
 import CtaBand from '@/components/CtaBand.astro';
 import { CARE_PLANS } from '@/data/plans';
 import { CARE_FAQS } from '@/data/faqs';
+import type { IconName } from '@/components/Icon.astro';
+
+type Item = { icon: IconName; title: string; text: string };
+
+const allPlans: Item[] = [
+  { icon: 'refresh', title: 'WordPress updates', text: 'Core, theme and plugin updates keep your site stable and secure, and give you the new features in each release.' },
+  { icon: 'undo', title: 'Remote backups', text: 'Off-site backups mean a recent copy of your site is always ready to restore if your server goes down.' },
+  { icon: 'shield', title: 'Security scanning', text: 'I scan your site every day for new vulnerabilities and fix what turns up, so Google never blacklists it.' },
+  { icon: 'zap', title: 'Load time optimization', text: 'Slow sites send visitors elsewhere. I monitor your load time and tune the site so it loads fast.' },
+  { icon: 'eye', title: 'Uptime monitoring', text: 'Every site goes down at some point. I know the moment yours does, so I can get it back up quickly.' },
+  { icon: 'search', title: 'Keyword tracking', text: 'I track the keywords that matter to your business so you know exactly where you rank in Google.' },
+  { icon: 'wrench', title: 'Broken link monitoring', text: 'Broken links frustrate visitors and hurt SEO. I find them and fix them so you don\'t have to.' },
+  { icon: 'check', title: 'Quality testing', text: 'I take screenshots and test forms, carts and other key features to make sure everything still works.' },
+  { icon: 'filter', title: 'Spam filtering', text: 'A strong spam filter stops almost all form spam, so only real inquiries reach your inbox.' },
+  { icon: 'award', title: 'Premium plugin library', text: 'Use my licensed premium plugins and save over $1,000 a year on forms, landing pages, pop-ups and more.' },
+  { icon: 'hammer', title: 'Unlimited quick fixes', text: 'Need a page tweaked, a form updated or a buggy plugin sorted? If it takes 30 minutes or less, it\'s included.' },
+  { icon: 'chart', title: 'Monthly reporting', text: 'You shouldn\'t have to take my word for it. Each month you get a report showing the work done on your site.' },
+];
+
+const premium: Item[] = [
+  { icon: 'key', title: 'Website firewall', text: 'Scanning finds vulnerabilities. A firewall goes further and blocks attackers before they can exploit them.' },
+  { icon: 'home', title: 'Hosting and domain admin', text: 'Sites go down when a renewal is missed or a card expires. I handle the renewals and billing details for you.' },
+  { icon: 'briefcase', title: 'Legal policy monitoring', text: 'Privacy laws change often. I monitor and update your site policies so you stay compliant.' },
+  { icon: 'users', title: 'Accessibility monitoring', text: 'I watch for and fix issues that keep visitors with disabilities from using and understanding your site.' },
+  { icon: 'store', title: 'Advanced maintenance', text: 'Stores, courses, memberships and third-party integrations get the extra care and testing they need.' },
+  { icon: 'target', title: 'SEO readiness', text: 'Each month I fix fundamental SEO issues as they come up, so your site is ready for your next SEO campaign.' },
+  { icon: 'rocket', title: 'Priority support', text: 'Urgent issue? You jump to the front of the queue, so you can focus on your customers instead of your website.' },
+];
 ---
 
 <BaseLayout
@@ -52,15 +80,33 @@ import { CARE_FAQS } from '@/data/faqs';
   <NumberedCards
     tone="subtle"
     eyebrow="Plan details"
-    title="What every plan comes with"
+    title="How the plans work"
     numbered={false}
-    columns={4}
+    columns={3}
     items={[
       { icon: 'unlock', title: 'No contract', text: 'Month to month. Cancel at the end of any term.' },
-      { icon: 'wrench', title: 'Unlimited quick fixes', text: 'Any task that takes 30 minutes or less, at no extra charge.' },
       { icon: 'undo', title: 'If an update breaks something', text: 'I roll the site back to the last good version and tell you what happened.' },
       { icon: 'award', title: 'WordPress specialists', text: 'Care plans are for WordPress sites. Running Local SEO or Google Ads? Ask about moving to Astro.' },
     ]}
+  />
+
+  <NumberedCards
+    id="included"
+    eyebrow="Included in every plan"
+    title="Everything your WordPress site needs to stay healthy"
+    numbered={false}
+    columns={4}
+    items={allPlans}
+  />
+
+  <NumberedCards
+    tone="subtle"
+    eyebrow="Strive and Arrive plans"
+    title="Premium plans go further"
+    lead="Strive adds hosting and domain admin, legal policy monitoring and accessibility monitoring. Arrive adds advanced maintenance, SEO readiness and priority support."
+    numbered={false}
+    columns={4}
+    items={premium}
   />
 
   <TrustBand eyebrow="Reviews" title="Sites that stay up and stay current" review={REVIEWS.perry} />
