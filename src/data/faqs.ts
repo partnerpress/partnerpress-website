@@ -82,6 +82,10 @@ export const ADS_FAQS: Faq[] = [
   },
   { q: 'Is there a contract?', a: 'No. Management is month to month.' },
   {
+    q: "Does Google's AI change how ads work?",
+    a: "Yes. Google now shows ads inside AI Overviews and AI Mode, and keeps adding automation like AI Max and automated bidding. I use those tools where they lower your cost per lead, and I still review your search terms, negative keywords and budget by hand every week, so the AI doesn't spend your money on the wrong searches.",
+  },
+  {
     q: 'Do you also run Local Services Ads?',
     a: '[Yes / No. If yes: For eligible trades I can set up Google Local Services Ads, the "Google Guaranteed" listings above the regular ads.]',
   },
