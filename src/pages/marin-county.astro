@@ -5,6 +5,7 @@ import Button from '@/components/Button.astro';
 import Rating from '@/components/Rating.astro';
 import mountTam from '@/assets/img/locations/marin-mount-tam.jpg';
 import CaseStudyCard from '@/components/CaseStudyCard.astro';
+import msaShot from '@/assets/img/work/marin-school-of-the-arts.jpg';
 import CtaBand from '@/components/CtaBand.astro';
 import Phone from '@/components/Phone.astro';
 import ProofStrip from '@/components/local/ProofStrip.astro';
@@ -160,7 +161,15 @@ const faqs: Faq[] = [
   </AreaBand>
 
   <TrustBand title="Trusted by Marin organizations" names={MARIN_CLIENTS} review={REVIEWS.krivatsy} scoreNote="Building Marin websites since 2010">
-    <CaseStudyCard label="Marin client story" result="[Marin client] · [RESULT]" text="[Two sentences on the problem and what changed.]" image={false} />
+    <div class="story">
+    <CaseStudyCard
+      label="Marin client story · Novato"
+      result="Marin School of the Arts"
+      text="I rebuilt the school's website just as Covid hit, with online giving through GiveWP built in. Since launch, the site has raised hundreds of thousands of dollars in donations."
+      shot={msaShot}
+      alt="Marin School of the Arts home page"
+    />
+    </div>
   </TrustBand>
 
   <FaqSplit title="Marin County questions" faqs={faqs} flush />
@@ -174,6 +183,22 @@ const faqs: Faq[] = [
 </BaseLayout>
 
 <style>
+  /* Case study sits side by side on wide screens so the screenshot stays sharp */
+  @media (min-width: 860px) {
+    .story :global(.case) {
+      flex-direction: row;
+    }
+    .story :global(.case__shot) {
+      width: 50%;
+      border-bottom: 0;
+      border-right: 1px solid var(--line);
+    }
+    .story :global(.case__body) {
+      justify-content: center;
+      padding: 40px;
+    }
+  }
+
   .call {
     font-size: 18px;
     color: var(--text-strong);
