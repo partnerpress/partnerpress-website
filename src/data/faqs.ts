@@ -24,7 +24,7 @@ export const CARE_FAQS: Faq[] = [
   },
   {
     q: 'Do you use AI on my website?',
-    a: 'Yes, behind the scenes, to work faster and catch problems sooner. A person reviews every change before it goes live, and your data is never used to train AI models.',
+    a: 'Yes, behind the scenes, to work faster and catch problems sooner. I review every change myself before it goes live, and your data is never used to train AI models.',
   },
   {
     q: 'What if I want to move to Wix, Lovable or another builder?',
