@@ -3,7 +3,7 @@ title: Accessibility Statement
 description: Accessibility Statement for partnerpress.net, the website of PartnerPress, LLC.
 ---
 
-PartnerPress, LLC is committed to ensuring digital accessibility for people with disabilities. We are continually improving the user experience for everyone, and applying the relevant accessibility standards.
+PartnerPress, LLC is committed to ensuring digital accessibility for people with disabilities. I am continually improving the user experience for everyone, and applying the relevant accessibility standards.
 
 ## Compliance status
 
@@ -11,9 +11,9 @@ The Web Content Accessibility Guidelines (WCAG) define requirements for designer
 
 ## Feedback
 
-We welcome your feedback on the accessibility of the PartnerPress website. Please let us know if you encounter accessibility barriers during your visit:
+I welcome your feedback on the accessibility of the PartnerPress website. Please let me know if you encounter accessibility barriers during your visit:
 
 - Phone: [(415) 390-6563](tel:+14153906563)
 - Email: [accessibility@partnerpress.net](mailto:accessibility@partnerpress.net)
 
-We try to respond to feedback within 5 business days.
+I try to respond to feedback within 5 business days.
