@@ -13,14 +13,41 @@ interface Props {
   shot?: ImageMetadata;
   /** Alt text for the screenshot. */
   alt?: string;
+  /** Optional "before" screenshot; turns the card into a before/after comparison. */
+  before?: ImageMetadata;
+  beforeAlt?: string;
+  beforeCaption?: string;
+  afterCaption?: string;
 }
 
-const { label, result, text, image = 'Site screenshot', shot, alt = '' } = Astro.props;
+const {
+  label,
+  result,
+  text,
+  image = 'Site screenshot',
+  shot,
+  alt = '',
+  before,
+  beforeAlt = '',
+  beforeCaption = 'Before',
+  afterCaption = 'After',
+} = Astro.props;
 ---
 
-<article class="case">
+<article class:list={['case', { 'case--compare': before && shot }]}>
   {
-    shot ? (
+    before && shot ? (
+      <div class="case__compare">
+        <figure class="case__fig">
+          <Image class="case__shot" src={before} alt={beforeAlt} loading="lazy" widths={[400, 640, 960]} sizes="(min-width: 860px) 560px, 100vw" />
+          <figcaption class="case__tag">{beforeCaption}</figcaption>
+        </figure>
+        <figure class="case__fig">
+          <Image class="case__shot" src={shot} alt={alt} loading="lazy" widths={[400, 640, 960]} sizes="(min-width: 860px) 560px, 100vw" />
+          <figcaption class="case__tag case__tag--after">{afterCaption}</figcaption>
+        </figure>
+      </div>
+    ) : shot ? (
       <Image class="case__shot" src={shot} alt={alt} loading="eager" widths={[400, 640, 960]} sizes="(min-width: 1000px) 400px, 100vw" />
     ) : (
       image && <Placeholder label={image} ratio="16 / 10" tone="plain" />
@@ -51,6 +78,54 @@ const { label, result, text, image = 'Site screenshot', shot, alt = '' } = Astro
     object-fit: cover;
     object-position: top;
     border-bottom: 1px solid var(--line);
+  }
+
+  .case__compare {
+    display: grid;
+    grid-template-columns: 1fr;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .case__fig + .case__fig {
+    border-top: 1px solid var(--line);
+  }
+
+  @media (min-width: 640px) {
+    .case__compare {
+      grid-template-columns: 1fr 1fr;
+    }
+    .case__fig + .case__fig {
+      border-top: 0;
+      border-left: 1px solid var(--line);
+    }
+  }
+
+  .case__fig {
+    position: relative;
+    margin: 0;
+  }
+
+  .case__fig .case__shot {
+    border-bottom: 0;
+  }
+
+  .case__tag {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-family: var(--font-heading);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--white);
+    background: var(--ink);
+  }
+
+  .case__tag--after {
+    background: var(--blue);
   }
 
   .case__body {

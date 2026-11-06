@@ -6,6 +6,7 @@ import Rating from '@/components/Rating.astro';
 import mountTam from '@/assets/img/locations/marin-mount-tam.jpg';
 import CaseStudyCard from '@/components/CaseStudyCard.astro';
 import msaShot from '@/assets/img/work/marin-school-of-the-arts.jpg';
+import msaBefore from '@/assets/img/work/marin-school-of-the-arts-2019.jpg';
 import CtaBand from '@/components/CtaBand.astro';
 import Phone from '@/components/Phone.astro';
 import ProofStrip from '@/components/local/ProofStrip.astro';
@@ -167,7 +168,11 @@ const faqs: Faq[] = [
       result="Marin School of the Arts"
       text="I rebuilt the school's website just as Covid hit, with online giving through GiveWP built in. Since launch, the site has raised hundreds of thousands of dollars in donations."
       shot={msaShot}
-      alt="Marin School of the Arts home page"
+      alt="Marin School of the Arts home page today"
+      before={msaBefore}
+      beforeAlt="Marin School of the Arts home page in December 2019, from the Wayback Machine"
+      beforeCaption="Before: 2019"
+      afterCaption="After: today"
     />
     </div>
   </TrustBand>
@@ -183,19 +188,17 @@ const faqs: Faq[] = [
 </BaseLayout>
 
 <style>
-  /* Case study sits side by side on wide screens so the screenshot stays sharp */
+  /* Before/after: screenshots on top, story centered below */
+  .story :global(.case__body) {
+    text-align: center;
+    align-items: center;
+  }
+  .story :global(.case__body p) {
+    max-width: 640px;
+  }
   @media (min-width: 860px) {
-    .story :global(.case) {
-      flex-direction: row;
-    }
-    .story :global(.case__shot) {
-      width: 50%;
-      border-bottom: 0;
-      border-right: 1px solid var(--line);
-    }
     .story :global(.case__body) {
-      justify-content: center;
-      padding: 40px;
+      padding: 32px 40px 40px;
     }
   }
 
