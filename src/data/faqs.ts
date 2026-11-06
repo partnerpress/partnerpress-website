@@ -38,6 +38,10 @@ export const SEO_FAQS: Faq[] = [
     a: 'Content is only one part of ranking. You also get a strategy built for your market, care for your website, a monthly AI Insight Brief and direct access to me, the person doing the work.',
   },
   {
+    q: 'My care plan already includes an AI visibility report. How is this different?',
+    a: 'A care plan keeps your site readable to AI and reports where you stand. Local SEO does the work that earns the recommendation: more good reviews, accurate listings on the directories AI reads, and new pages it can quote. Local SEO includes site care, so you would not pay for both.',
+  },
+  {
     q: 'Why is website maintenance included?',
     a: 'A slow, broken or hacked site undoes SEO work. Including site care keeps the foundation solid.',
   },

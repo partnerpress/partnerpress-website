@@ -42,7 +42,8 @@ const included: { icon: IconName; title: string; text: string; color: string }[]
 // AI search band: colors continue the page palette without repeating any service icon color.
 const aiSearch: { icon: IconName; title: string; text: string; color: string }[] = [
   { icon: 'eye', title: 'AI visibility tracking', color: '#14b8a6', text: 'I track how often ChatGPT, Google AI Overviews, AI Mode and Gemini recommend you, across your whole service area.' },
-  { icon: 'users', title: 'Who AI recommends instead', color: '#d946ef', text: 'See which competitors AI favors and which websites it pulls its answers from, so we know what to fix.' },
+  { icon: 'users', title: 'Who AI recommends instead', color: '#d946ef', text: 'See which competitors AI favors and which websites it pulls its answers from, so I know what to fix.' },
+  { icon: 'award', title: 'Earning the recommendation', color: '#ea580c', text: 'AI favors businesses with strong reviews and accurate listings on the sites it reads. I build both, plus pages AI can quote.' },
   { icon: 'rocket', title: 'An early-mover edge', color: '#4f46e5', text: 'ChatGPT recommends only about 1.2% of local business locations (SOCi, 2026). Most of your competitors are invisible there too.' },
 ];
 
@@ -51,13 +52,14 @@ const examples = [1, 2, 3, 4, 6, 10];
 
 <BaseLayout
   title="Local SEO Services in Marin County & Las Cruces | PartnerPress"
-  description="Get into the Google map pack. Google Business Profile, reviews, local content and technical SEO for Marin County and Las Cruces businesses."
+  description="Get found in the Google map pack and in AI answers like ChatGPT. Google Business Profile, reviews, local content and AI visibility tracking for Marin County and Las Cruces businesses."
   nav="local-seo"
 >
-  <PageHero eyebrow="Local SEO · Marin County and Las Cruces" title="Show up when locals search for what you do" bg={heroPhoto}>
+  <PageHero eyebrow="Local SEO · Marin County and Las Cruces" title="Get found on Google and in AI answers" bg={heroPhoto}>
     <Fragment slot="lead">
-      Most calls from Google start in the map pack and the first few results. I get your business into those spots and
-      keep it there, with site care included so the website underneath stays fast and healthy.
+      Most calls from Google start in the map pack and the first few results, and more customers now ask ChatGPT or
+      Google's AI who to call. I get your business into both and keep it there, with site care included so the website
+      underneath stays fast and healthy.
     </Fragment>
     <Fragment slot="actions">
       <Button href="/contact/" size="lg">Book a free call</Button>
@@ -84,6 +86,7 @@ const examples = [1, 2, 3, 4, 6, 10];
     lead="45% of U.S. consumers now use AI tools like ChatGPT to find local businesses, up from 6% a year earlier (BrightLocal, 2026). Every plan tracks where you appear in AI answers, not just on Google."
     items={aiSearch}
     numbered={false}
+    columns={4}
   />
 
   <Section id="pricing">
@@ -151,8 +154,9 @@ const examples = [1, 2, 3, 4, 6, 10];
 
   <FaqSplit title="Local SEO questions" faqs={SEO_FAQS} />
 
-  <CtaBand title="Find out where you rank today">
-    On a free call I'll show you where you appear for your top searches and what's holding you back.
+  <CtaBand title="Find out where you rank on Google and in AI">
+    On a free call I'll show you where you appear for your top searches, whether AI tools recommend you, and what's
+    holding you back.
   </CtaBand>
 </BaseLayout>
 
