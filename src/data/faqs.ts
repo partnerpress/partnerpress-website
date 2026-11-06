@@ -14,6 +14,22 @@ export const CARE_FAQS: Faq[] = [
     q: "What isn't a quick fix?",
     a: "Redesigns and new features such as eCommerce, memberships or a learning platform. I'll send an estimate for those first.",
   },
+  {
+    q: 'What is AI visibility?',
+    a: "It's whether AI tools like ChatGPT, Gemini and Google's AI answers mention your business when someone asks for a service you offer. It works differently from a regular Google ranking. A business can rank well on Google and still be left out of AI answers.",
+  },
+  {
+    q: "Why can't I just turn on automatic updates?",
+    a: 'In April 2026, attackers hid malicious code in 31 WordPress plugins and reached more than 20,000 sites through routine updates. WordPress now holds plugin updates for 24 hours before they go out. I go a step further: updates are tested before they reach your site, and if anything breaks, your site is rolled back to the last good version.',
+  },
+  {
+    q: 'Do you use AI on my website?',
+    a: 'Yes, behind the scenes, to work faster and catch problems sooner. A person reviews every change before it goes live, and your data is never used to train AI models.',
+  },
+  {
+    q: 'What if I want to move to Wix, Lovable or another builder?',
+    a: "Talk to me first. Moving can cost you years of Google rankings if it isn't done carefully. I'll tell you honestly what you'd gain and lose, and I can review your new site before it launches.",
+  },
 ];
 
 export const SEO_FAQS: Faq[] = [
