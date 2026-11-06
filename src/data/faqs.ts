@@ -94,7 +94,7 @@ export const WEB_DESIGN_FAQS: Faq[] = [
   },
   {
     q: 'Do you write the content?',
-    a: '[Yes, copywriting is included / available as an add-on / You provide content and I edit it for the web.]',
+    a: 'Yes. Copywriting is included with my Local SEO and Google Ads work, and available as an add-on for a website project.',
   },
   {
     q: 'What do you build sites with?',
