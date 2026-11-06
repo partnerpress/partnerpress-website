@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
+import Button from '@/components/Button.astro';
 import heroPhoto from '@/assets/img/services/care-laptop-hands.jpg';
 import Grid from '@/components/Grid.astro';
 import PricingCard from '@/components/PricingCard.astro';
@@ -23,18 +24,19 @@ const allPlans: Item[] = [
   { icon: 'refresh', title: 'WordPress updates', color: '#059669', text: 'Core, theme and plugin updates keep your site stable and secure, and give you the new features in each release.' },
   { icon: 'undo', title: 'Remote backups', color: '#f59e0b', text: 'Off-site backups mean a recent copy of your site is always ready to restore if your server goes down.' },
   { icon: 'shield', title: 'Security scanning', color: '#9333ea', text: 'I scan your site every day for new vulnerabilities and fix what turns up, so Google never blacklists it.' },
-  { icon: 'zap', title: 'Load time optimization', color: '#22c55e', text: 'Slow sites send visitors elsewhere. I monitor your load time and tune the site so it loads fast.' },
-  { icon: 'eye', title: 'Uptime monitoring', color: '#0ea5e9', text: 'Every site goes down at some point. I know the moment yours does, so I can get it back up quickly.' },
+  { icon: 'eye', title: 'Uptime and speed', color: '#0ea5e9', text: 'I know the moment your site goes down, so I can get it back up quickly, and I tune it so it loads fast.' },
   { icon: 'search', title: 'Keyword tracking', color: '#ec4899', text: 'I track the keywords that matter to your business so you know exactly where you rank in Google.' },
-  { icon: 'wrench', title: 'Broken link monitoring', color: '#65a30d', text: 'Broken links frustrate visitors and hurt SEO. I find them and fix them so you don\'t have to.' },
-  { icon: 'check', title: 'Quality testing', color: '#2051c5', text: 'I take screenshots and test forms, carts and other key features to make sure everything still works.' },
-  { icon: 'filter', title: 'Spam filtering', color: '#e11d48', text: 'A strong spam filter stops almost all form spam, so only real inquiries reach your inbox.' },
+  { icon: 'wrench', title: 'Broken links and spam', color: '#65a30d', text: 'I find and fix broken links, and a strong spam filter makes sure only real inquiries reach your inbox.' },
+  { icon: 'check', title: 'Form testing', color: '#2051c5', text: 'I test your contact forms and key pages. If a form ever fails, you hear from me the same day, with the fix underway.' },
   { icon: 'award', title: 'Premium plugin library', color: '#06b6d4', text: 'Use my licensed premium plugins and save over $1,000 a year on forms, landing pages, pop-ups and more.' },
   { icon: 'hammer', title: 'Unlimited quick fixes', color: '#8b5cf6', text: 'Need a page tweaked, a form updated or a buggy plugin sorted? If it takes 30 minutes or less, it\'s included.' },
+  { icon: 'pin', title: 'Google Business Profile check', color: '#22c55e', text: 'Each month I check your Google listing, so customers and AI tools never see wrong hours or old details.' },
+  { icon: 'layout', title: 'AI search ready', color: '#e11d48', text: 'Your services, hours and service area are set up on your site in a way AI tools like ChatGPT can read.' },
   { icon: 'chart', title: 'Monthly reporting', color: '#f97316', text: 'You shouldn\'t have to take my word for it. Each month you get a report showing the work done on your site.' },
 ];
 
 const premium: Item[] = [
+  { icon: 'trending', title: 'AI visibility reports', color: '#0f766e', text: 'Do ChatGPT, Gemini and Google AI recommend you? Strive gets a quarterly report. Arrive gets monthly tracking and fixes.' },
   { icon: 'key', title: 'Website firewall', color: '#ef4444', text: 'Scanning finds vulnerabilities. A firewall goes further and blocks attackers before they can exploit them.' },
   { icon: 'home', title: 'Hosting and domain admin', color: '#d946ef', text: 'Sites go down when a renewal is missed or a card expires. I handle the renewals and billing details for you.' },
   { icon: 'briefcase', title: 'Legal policy monitoring', color: '#14b8a6', text: 'Privacy laws change often. I monitor and update your site policies so you stay compliant.' },
@@ -47,13 +49,17 @@ const premium: Item[] = [
 
 <BaseLayout
   title="WordPress Maintenance Plans from $249/mo | PartnerPress"
-  description="Weekly updates, daily security scans, backups, uptime monitoring and unlimited quick fixes. Month-to-month WordPress care plans from $249."
+  description="WordPress care that keeps your site safe, your forms working and your business visible in Google and AI search. Month-to-month plans from $249."
   nav="care"
 >
-  <PageHero eyebrow="WordPress care plans" title="Your WordPress site, handled. Every week." bg={heroPhoto} centered>
+  <PageHero eyebrow="WordPress Success Plans" title="Your website, protected and found." bg={heroPhoto} centered>
     <Fragment slot="lead">
-      Updates, security, backups, monitoring and unlimited small fixes from a WordPress specialist who has been doing this
-      since 2010. Month to month. Cancel any time.
+      Your site is how customers find you, on Google, in Maps, and now in AI answers from ChatGPT and Google. Since 2010,
+      I've kept small business WordPress sites safe, fast and bringing in leads. Month to month, cancel any time.
+    </Fragment>
+    <Fragment slot="actions">
+      <Button href="/contact/" size="lg">Get a free AI visibility check</Button>
+      <Button href="#plans" variant="secondary" size="lg">Compare plans</Button>
     </Fragment>
   </PageHero>
 
@@ -79,10 +85,24 @@ const premium: Item[] = [
     tone="subtle"
     eyebrow="Strive and Arrive plans"
     title="Premium plans go further"
-    lead="Strive adds a website firewall, hosting and domain admin, legal policy monitoring and accessibility monitoring. Arrive adds advanced maintenance, SEO readiness and priority support."
+    lead="Strive adds AI visibility reports, a website firewall, hosting and domain admin, legal policy monitoring and accessibility monitoring. Arrive adds monthly AI visibility fixes, advanced maintenance, SEO readiness and priority support."
     numbered={false}
     columns={4}
     items={premium}
+  />
+
+  <NumberedCards
+    id="ai-visibility"
+    eyebrow="AI visibility"
+    title="When customers ask AI, does it name you?"
+    lead="Nearly half of consumers now use AI tools like ChatGPT and Google's AI answers to find local services, and those tools usually name one to three businesses, not ten. They decide from your website, your Google listing and your reviews. Every plan keeps those details accurate and readable. Strive and Arrive go further: I check whether AI tools recommend you for your top services, show you the results, and fix what's holding you back."
+    numbered={false}
+    columns={3}
+    items={[
+      { icon: 'search', title: 'Readable', text: 'Your services, hours and service area set up so AI tools can understand them.' },
+      { icon: 'pin', title: 'Accurate', text: 'Your Google listing checked monthly, so AI never gives customers wrong hours or old details.' },
+      { icon: 'chart', title: 'Measured', text: 'A report showing which AI tools mention you, and for which searches.' },
+    ]}
   />
 
   <section class="lp-band" id="plans" aria-label="Plans">
@@ -94,7 +114,7 @@ const premium: Item[] = [
       <Grid min={300} class="plans">
         {CARE_PLANS.map((plan) => <PricingCard plan={plan} showPerDay />)}
       </Grid>
-      <p class="plans-help">Not sure which plan fits? <a href="/contact/">Book a free call</a> and I'll recommend one.</p>
+      <p class="plans-help">Not sure which plan fits? <a href="/contact/">Get a free AI visibility check</a> and I'll recommend one.</p>
     </div>
   </section>
 
@@ -115,7 +135,10 @@ const premium: Item[] = [
 
   <FaqSplit title="Care plan questions" faqs={CARE_FAQS} flush />
 
-  <CtaBand title="Not sure which plan fits? Let's look at your site together." />
+  <CtaBand title="Find out if AI recommends your business." button="Book my free check">
+    Book a free 20 minute AI visibility check. I'll show you whether ChatGPT and Google's AI mention you for your top
+    services, what your site and Google listing are telling them, and which plan fits. No pressure, no contract.
+  </CtaBand>
 </BaseLayout>
 
 <style>
